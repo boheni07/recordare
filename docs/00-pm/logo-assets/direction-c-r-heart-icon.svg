@@ -1,0 +1,30 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction C: R 이니셜 + 심장 (아이콘)</title>
+
+  <!-- App icon background -->
+  <rect width="200" height="200" rx="44" ry="44" fill="#2D6A4F"/>
+
+  <!-- R: Left vertical stroke (cream) -->
+  <rect x="30" y="30" width="22" height="140" rx="8" fill="#F5F0E8"/>
+
+  <!-- R: Bowl (upper arc, cream) -->
+  <path d="M52,30 L100,30 Q138,30 138,60 Q138,92 100,92 L52,92"
+        fill="none" stroke="#F5F0E8" stroke-width="22" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Bowl cutout (green = background) -->
+  <path d="M58,50 L98,50 Q114,50 114,60 Q114,72 98,72 L58,72"
+        fill="none" stroke="#2D6A4F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- R: Leg (diagonal, cream) -->
+  <line x1="100" y1="92" x2="155" y2="170" stroke="#F5F0E8" stroke-width="22" stroke-linecap="round"/>
+
+  <!-- Heart at junction (coral) -->
+  <!-- Heart centered at (110, 100) -->
+  <path d="M110,124
+           C110,124 88,110 88,94
+           C88,84 94,78 101,78
+           C105,78 108,80 110,83
+           C112,80 115,78 119,78
+           C126,78 132,84 132,94
+           C132,110 110,124 110,124 Z"
+        fill="#E07A5F"/>
+</svg>

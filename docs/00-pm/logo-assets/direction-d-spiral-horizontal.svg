@@ -1,0 +1,44 @@
+<svg width="420" height="130" viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction D: 나선형 타임라인 (가로형)</title>
+
+  <!-- Symbol: Open spiral -->
+  <g transform="translate(8, 10)">
+
+    <!-- Spiral path (Archimedean, clockwise, 1.5 turns outward) -->
+    <!-- Start at center (55, 55), spiral outward -->
+    <path d="M55,55
+             C55,46 61,42 68,46
+             C75,50 76,60 68,67
+             C60,74 46,74 38,65
+             C30,56 31,40 42,32
+             C53,24 70,25 80,36
+             C90,47 89,66 78,76
+             C67,86 48,88 36,80"
+          fill="none"
+          stroke="#2D6A4F"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <!-- Arrow head at open end -->
+    <path d="M36,80 L26,76 M36,80 L33,91"
+          fill="none" stroke="#2D6A4F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Start dot (영유아기) — coral -->
+    <circle cx="55" cy="55" r="5" fill="#E07A5F"/>
+
+    <!-- "계속됩니다" label -->
+    <text x="14" y="105" font-family="Arial, sans-serif" font-size="8" fill="#888" text-anchor="middle" font-style="italic">계속됩니다 →</text>
+  </g>
+
+  <!-- Thin divider -->
+  <line x1="116" y1="18" x2="116" y2="112" stroke="#D8D8D8" stroke-width="1"/>
+
+  <!-- Wordmark -->
+  <text x="132" y="62" font-family="Georgia, 'Times New Roman', serif"
+        font-size="34" font-weight="bold" fill="#2D2D2D" letter-spacing="-0.5">Recordare</text>
+  <text x="133" y="84" font-family="Georgia, 'Times New Roman', serif"
+        font-size="13" fill="#2D6A4F" letter-spacing="5">레 코 다 레</text>
+  <text x="133" y="104" font-family="Georgia, 'Times New Roman', serif"
+        font-size="9.5" fill="#888888" font-style="italic" letter-spacing="0.5">당신의 삶, 단 하나의 기억으로</text>
+</svg>
