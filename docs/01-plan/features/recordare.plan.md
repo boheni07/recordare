@@ -6,13 +6,13 @@
 | 항목 | 값 |
 |------|-----|
 | 제품명 | Recordare (레코다레) |
-| Plan 버전 | v1.1 (MVP Beta + 자가진단 통합) |
-| 작성일 | 2026-05-25 (v1.0) / 2026-05-25 (v1.1 갱신) |
+| Plan 버전 | **v1.2 (CTO팀 검토 반영본)** |
+| 작성일 | 2026-05-25 (v1.0~v1.2) |
 | 작성자 | PM Lead (PDCA plan phase) |
 | 범위 | MVP Beta (M3-M6, 4개월) |
-| 입력 문서 | `recordare.prd.md` v1.0 · `recordare-prd-v2.md` **v2.2** · `recordare-workflows.md` v1.1 · `recordare-ux-structure.md` |
-| 상태 | Draft v1.1 (PRD v2.2 자가진단 §20 통합 반영) |
-| v1.1 변경 | MVP 범위 21 → **25 FR** (FR-62,63,67,68 P0 추가) + Risk #10,#11 + Sprint 4·5 갱신 |
+| 입력 문서 | `recordare.prd.md` v1.0 · `recordare-prd-v2.md` **v2.3** · `recordare-workflows.md` v1.2 · `recordare-ux-structure.md` v1.1 |
+| 상태 | Draft v1.2 (PRD v2.3 동기화 + CTO팀 검토 14건 반영) |
+| v1.2 변경 | Sprint 0 → 0a+0b 분할 / Audit 3-Tier / 외부 의존성 SLA / LLM 가드레일 자동 / 상태관리·면책 컴포넌트·E2E회귀 / Audit 해시체인 / 침투 일정 / 개인정보 분리 동의 시퀀스 |
 | 다음 단계 | `/pdca design recordare` |
 
 ---
@@ -324,7 +324,9 @@ Sprint 5 (M6 W3-W4): 접근성 + 알림 + 인계서 PDF + 시범 오픈
 | `migration` | 카톡 zip 일괄 + AI 자동 분류 | FR-26 |
 | `offline` | Service Worker + IndexedDB + 동기화 | FR-30, FR-32 |
 | `notifications` | 권한 만료 3단 알림 + 다채널 | FR-35 |
-| `audit` | 모든 데이터 액션 로그 + 보호자 알림 | FR-13, FR-14, FR-15 |
+| `audit` | 모든 데이터 액션 로그 + 보호자 알림 + **해시 체인 무결성** | FR-13, FR-14, FR-15, FR-47 |
+| `screening` | 자가진단 6종 응답·결과 + AI 추이 + 의료법 면책 | FR-62~68 |
+| `disclaimer` | DisclaimerBanner 단일 컴포넌트 (FR-68 자동 노출) + LLM 가드레일 (정규식+임베딩) | FR-68 |
 
 ### 6.3 데이터 모델 개요 (상세는 Design §5)
 
@@ -354,6 +356,37 @@ JournalEntry        Handover                    ├ status: enum
                     ├ status: enum
                     └ aacConsentId → AacConsent
 ```
+
+### 6.4 v1.2 신규 — Audit Log 3-Tier 아키텍처
+
+> CTO팀 Tech Architect 권고 — NFR-07 5년 보존 + Security 권고 해시 체인 통합
+
+| Tier | 기간 | 저장소 | 검색 | 비용 효율 |
+|------|:----:|--------|:----:|:--------:|
+| **Hot** | 0~30일 | PostgreSQL partition (월 단위) | 즉시 (< 100ms) | 높음 |
+| **Warm** | 30일~1년 | PostgreSQL archive partition | 1~5초 | 중간 |
+| **Cold** | 1년~5년 | NCP Object Storage (Glacier 호환) | 분 단위 (요청 후 복원) | 매우 낮음 |
+
+**무결성 보장**:
+- 각 로그 레코드는 이전 레코드의 SHA-256 해시 포함 → **해시 체인 형성**
+- 일 1회 외부 타임스탬프 서비스 (KISA 공인전자서명) 통합 → 일별 root hash 보관
+- 내부 직원이 로그 조작 시 해시 체인 깨짐 → 자동 감지
+
+### 6.5 v1.2 신규 — 외부 의존성 SLA·Fallback 매트릭스
+
+> CTO팀 Tech Architect Important #5 대응 — SPOF 사전 식별 + Graceful Degradation
+
+| 의존성 | SLA 요구 | Fallback | 영향 |
+|--------|:-------:|---------|------|
+| **PASS 본인인증** | 99.5% | 카카오 OAuth 단독 모드 | 신규 가입만 영향 |
+| **NCP HyperCLOVA X (LLM)** | 99.0% | OpenAI GPT-4 Mini 백업 (사진 익명화 후) | AI 추이 인사이트 임시 비활성 |
+| **Whisper STT (자체 호스팅)** | 99.5% | 사용자 직접 텍스트 입력 + 음성 첨부만 저장 | STT 누락, 일지 작성 가능 |
+| **Clova OCR** | 99.0% | 종이 노트 마이그레이션 일시 중단 + 보호자 안내 | 마이그레이션 지연 (FR-27 사용자 영향 적음) |
+| **Toss Payments** | 99.9% | NHN KCP 백업 PG | 결제 임시 중단 → 데이터 30일 보존 (FR-55) |
+| **국세청 e-Tax** | 95% | 수동 발행 백업 (월말 일괄) | 세금계산서 발행 지연 |
+| **대법원 가족관계등록** | 95% | 기본값 = 일반 보호자 권한 (FR-59 Risk #9 대응) | 후견 권한 미활성 |
+| **FCM 푸시** | 99.5% | 이메일·SMS 폴백 (FR-36) | 알림 도달 지연 |
+| **SMS Gateway (NHN Toast)** | 99.0% | 카카오 알림톡 백업 | 만료 D-1 알림 채널 변경 |
 
 ---
 
@@ -385,16 +418,19 @@ JournalEntry        Handover                    ├ status: enum
 
 ## 8. Milestones (M3-M6, 16주)
 
-### 8.1 Sprint별 산출물
+### 8.1 Sprint별 산출물 (v1.2 갱신 — Sprint 0 분할)
 
 | Sprint | 기간 | 목표 | 주요 FR | 검증 |
 |--------|------|------|--------|------|
-| **Sprint 0** | M3 W0 (1주) | 인프라 셋업 | — | 로컬 환경 + CI + Sentry |
-| **Sprint 1** | M3 W1-W2 (2주) | 인증 + 기본 RBAC | FR-01, FR-02 (기본) | 3종 가입 + 본인인증 흐름 |
+| **Sprint 0a (PoC)** | M3 W-1~W0 (2주) | **외부 의존성 4종 PoC** | STT (Whisper vs Clova) + Vision + OCR + LLM 가드레일 | PoC 결과 보고서 + 의사결정 |
+| **Sprint 0b (코어)** | M3 W1 (1주) | 인프라 셋업 + DisclaimerBanner + 상태관리 | — | 로컬 환경 + CI + axe-core + TanStack Query + Zustand |
+| **Sprint 1** | M3 W2-W3 (2주) | 인증 + 기본 RBAC + 개인정보 분리 동의 | FR-01, FR-02 (기본), FR-15 | 3종 가입 + 분리 동의 시퀀스 + E2E 회귀 5개 |
 | **Sprint 2** | M3 W3-M4 W2 (4주) | 기록 코어 (음성·사진·타임라인) | FR-05, FR-06, FR-08 | E2E: 음성→일지→타임라인 |
 | **Sprint 3** | M4 W3-M5 W2 (4주) | 권한 매트릭스 + AAC 동의 + 인계서 | FR-02 완성, FR-09, FR-11, FR-17, FR-18, FR-19 | 90셀 RBAC 자동 테스트 |
 | **Sprint 4** | M5 W3-M6 W2 (4주) | 온보딩 + 마이그레이션 + 오프라인 + **자가진단 코어** | FR-25, FR-26, FR-30, FR-32, **FR-62, FR-68** | First Value 1h funnel + K-DST 응답 |
-| **Sprint 5** | M6 W3 (1주) | 접근성 + 알림 + PDF + **AI 추이·M-CHAT-R** | FR-35, FR-40, FR-43, FR-13~16, **FR-63, FR-67** | KWCAG 자체 평가 + LLM 가드레일 회귀 |
+| **Sprint 5** | M6 W3 (1주) | 접근성 + 알림 + PDF + **AI 추이·M-CHAT-R + LLM 자동 가드** | FR-35, FR-40, FR-43, FR-13~16, **FR-63, FR-67** | KWCAG 자체 평가 + LLM 가드레일 회귀 (정규식+임베딩 자동) + Bundle Analyzer |
+| **M5 W4** | M5 W4 (4일) | **1차 침투 테스트** (외부 KISA 위촉) | — | OWASP Top 10 + 권한 100셀 + 의료법 면책 우회 시도 |
+| **M6 W4** | M6 W4 (1주) | **MVP Beta Open + 2차 침투 테스트** | — | 8곳 시범 + 운영 환경 재테스트 + 모바일 실기 (5종 기기) |
 | **Beta Open** | M6 W4 (1주) | 시범 오픈 (특수학교 5곳 + 그룹홈 3곳) | — | 100명 가족 + 50명 활동지원사 초대 |
 
 ### 8.2 Critical Milestones
