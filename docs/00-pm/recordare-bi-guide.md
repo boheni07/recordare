@@ -8,7 +8,7 @@
 | 문서 버전 | v1.0 |
 | 작성일 | 2026-05-24 |
 | 상태 | 확정 |
-| 참조 문서 | `withrecord-bi-proposal.md`, `withrecord-prd-v2.md` |
+| 참조 문서 | `recordare-bi-proposal.md`, `recordare-prd-v2.md` |
 
 ---
 
@@ -406,6 +406,6 @@ Recordare가 기억합니다
 
 ```
 다음 개발 단계:
-/pdca plan withrecord
+/pdca plan Recordare
 → 이 BI 가이드가 Plan 문서 및 디자인 시스템에 자동 반영됩니다.
 ```
