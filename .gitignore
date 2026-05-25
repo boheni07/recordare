@@ -15,6 +15,11 @@ prototype/node_modules/
 prototype/.next/
 prototype/out/
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
 # Node
 node_modules/
 npm-debug.log*
