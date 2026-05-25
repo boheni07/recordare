@@ -1,7 +1,7 @@
 // Recordare Prototype — Mock Data
 // 실제 API 호출 없이 화면 전환만으로 워크플로우를 검증하기 위한 데이터.
 
-export type Role = "parent" | "worker" | "self" | "case" | "facility";
+export type Role = "parent" | "worker" | "self" | "case" | "facility" | "general-teacher";
 export type Category = "meal" | "med" | "behavior" | "emotion" | "study";
 export type LifeStage = "infant" | "school" | "transition" | "adult" | "senior";
 
@@ -11,7 +11,44 @@ export const ROLES: Record<Role, { label: string; path: string; lifeColor: LifeS
   self: { label: "당사자 (AAC)", path: "/self", lifeColor: "adult" },
   case: { label: "사회복지사 · 교사", path: "/case", lifeColor: "transition" },
   facility: { label: "시설장", path: "/facility", lifeColor: "senior" },
+  "general-teacher": { label: "일반교사 (통합학급)", path: "/general-teacher", lifeColor: "school" },
 };
+
+// ─────────── v2.4 신규: 빠른 선택 옵션 (FR-69a) ───────────
+export const QUICK_OPTIONS: Record<Category, string[]> = {
+  meal: ["잘 드심", "다 드심", "일부만 드심", "거부함", "사레 들림"],
+  med: ["복용 완료", "거부", "토함", "다음 시간"],
+  behavior: ["차분함", "활동적", "위축", "공격적", "도전 행동"],
+  emotion: ["기쁨", "차분", "불안", "분노", "슬픔"],
+  study: ["집중", "참여", "산만", "거부", "탁월"],
+};
+
+// ─────────── v2.4 신규: 일과 슬롯 (FR-69b 체크리스트) ───────────
+export const DAILY_SLOTS = [
+  { time: "09:00-12:00", title: "오전 활동", items: ["아침 인사", "화장실 자립", "옷 갈아입기", "머리 빗기", "양치질", "자유 활동"] },
+  { time: "12:00-13:00", title: "점심", items: ["식사", "양치질"] },
+  { time: "13:00-16:00", title: "오후 활동", items: ["산책", "학습", "휴식", "프로그램 참여"] },
+  { time: "16:00-18:00", title: "저녁 준비", items: ["손 씻기", "저녁 식사", "여가 활동"] },
+];
+
+// ─────────── v2.4 신규: U6 일반교사 + 통합 학생 + 짧은 메모 ───────────
+export const U6_TEACHER = {
+  id: "u-teacher-006",
+  name: "윤교사",
+  role: "general-teacher" as Role,
+  school: "한빛초등학교 4학년 3반",
+  email: "yun@hanbit.example.com",
+};
+
+export const INTEGRATED_STUDENTS = [
+  { id: "ig-001", name: "김민호", age: 10, disability: "발달장애 3급", aac: true, aacUsage: "부분 사용" },
+];
+
+export const TEACHER_MEMOS = [
+  { id: "tm-001", studentId: "ig-001", category: "behavior" as Category, context: ["또래 영향 긍정", "수업 참여 적극"], text: "오늘 친구와 점심 함께 함", createdAt: "2026-05-25", sharedWith: ["특수교사 한교사", "보호자"] },
+  { id: "tm-002", studentId: "ig-001", category: "behavior" as Category, context: ["자리 이탈"], text: "수업 중 자리 옮김 5회", createdAt: "2026-05-22", sharedWith: ["특수교사 한교사"] },
+  { id: "tm-003", studentId: "ig-001", category: "behavior" as Category, context: ["수업 참여 적극"], text: "체육 시간 적극 참여", createdAt: "2026-05-20", sharedWith: ["특수교사 한교사", "보호자"] },
+];
 
 export const CATEGORIES: Record<Category, { label: string; emoji: string; color: string }> = {
   meal: { label: "식사", emoji: "🍚", color: "#E96B4A" },
