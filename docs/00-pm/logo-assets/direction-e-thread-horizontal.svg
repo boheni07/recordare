@@ -1,0 +1,46 @@
+<svg width="420" height="130" viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction E: 기억의 실 (가로형)</title>
+
+  <!-- Symbol: Thread of Memory — X pattern with center person dot -->
+  <g transform="translate(10, 10)">
+
+    <!-- Outer stakeholder dots (4 corners) -->
+    <!-- Top-left (보호자) -->
+    <circle cx="12" cy="12" r="9" fill="#2D6A4F"/>
+    <text x="12" y="30" font-family="Arial, sans-serif" font-size="7" fill="#888" text-anchor="middle">보호자</text>
+    <!-- Top-right (교사) -->
+    <circle cx="96" cy="12" r="9" fill="#2D6A4F"/>
+    <text x="96" y="30" font-family="Arial, sans-serif" font-size="7" fill="#888" text-anchor="middle">교사</text>
+    <!-- Bottom-left (지원사) -->
+    <circle cx="12" cy="96" r="9" fill="#2D6A4F"/>
+    <text x="12" y="114" font-family="Arial, sans-serif" font-size="7" fill="#888" text-anchor="middle">지원사</text>
+    <!-- Bottom-right (복지사) -->
+    <circle cx="96" cy="96" r="9" fill="#2D6A4F"/>
+    <text x="96" y="114" font-family="Arial, sans-serif" font-size="7" fill="#888" text-anchor="middle">복지사</text>
+
+    <!-- Threads from corners to center -->
+    <line x1="20"  y1="20"  x2="44" y2="44" stroke="#2D6A4F" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="88"  y1="20"  x2="64" y2="44" stroke="#2D6A4F" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="20"  y1="88"  x2="44" y2="64" stroke="#2D6A4F" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="88"  y1="88"  x2="64" y2="64" stroke="#2D6A4F" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Center: 당사자 (coral, larger, emphasized) -->
+    <circle cx="54" cy="54" r="18" fill="#E07A5F"/>
+    <circle cx="54" cy="54" r="10" fill="#F5F0E8"/>
+    <!-- Person silhouette (simple) -->
+    <circle cx="54" cy="47" r="5"  fill="#E07A5F"/>
+    <path   d="M44,64 Q44,58 54,58 Q64,58 64,64" fill="#E07A5F"/>
+
+  </g>
+
+  <!-- Thin divider -->
+  <line x1="128" y1="18" x2="128" y2="112" stroke="#D8D8D8" stroke-width="1"/>
+
+  <!-- Wordmark -->
+  <text x="144" y="62" font-family="Georgia, 'Times New Roman', serif"
+        font-size="34" font-weight="bold" fill="#2D2D2D" letter-spacing="-0.5">Recordare</text>
+  <text x="145" y="84" font-family="Georgia, 'Times New Roman', serif"
+        font-size="13" fill="#2D6A4F" letter-spacing="5">레 코 다 레</text>
+  <text x="145" y="104" font-family="Georgia, 'Times New Roman', serif"
+        font-size="9.5" fill="#888888" font-style="italic" letter-spacing="0.5">당신의 삶, 단 하나의 기억으로</text>
+</svg>

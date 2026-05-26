@@ -1,0 +1,31 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction D: 나선형 타임라인 (아이콘)</title>
+
+  <!-- App icon background -->
+  <rect width="200" height="200" rx="44" ry="44" fill="#F5F0E8"/>
+
+  <!-- Spiral (deep green, clockwise outward, 1.5 turns) -->
+  <path d="M100,100
+           C100,84 112,76 124,84
+           C136,92 137,110 122,120
+           C107,130 84,128 72,112
+           C60,96 62,70 80,58
+           C98,46 126,50 140,70
+           C154,90 150,122 130,136
+           C110,150 78,150 60,134"
+        fill="none"
+        stroke="#2D6A4F"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Arrow at open end -->
+  <path d="M60,134 L44,128 M60,134 L56,152"
+        fill="none" stroke="#2D6A4F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Center dot (start point, coral) -->
+  <circle cx="100" cy="100" r="10" fill="#E07A5F"/>
+
+  <!-- Small ring around center dot -->
+  <circle cx="100" cy="100" r="16" fill="none" stroke="#E07A5F" stroke-width="2.5" stroke-dasharray="4,3"/>
+</svg>

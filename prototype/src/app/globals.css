@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #2d6a4f;
+  --color-accent: #e07a5f;
+}
+
+html { font-family: 'Pretendard', 'Malgun Gothic', system-ui, sans-serif; }
+body { background: #faf7f2; color: #2d2d2d; -webkit-font-smoothing: antialiased; }
+
+/* AAC / 당사자 모드 글로벌 보정 */
+.mode-self { font-size: 24px; line-height: 1.6; }
+.mode-self button { min-height: 56px; font-weight: 700; }
+
+/* 쉬운말 모드 */
+.mode-easy { font-size: 18px; line-height: 1.55; }
+
+@layer components {
+  .container-page { @apply max-w-content mx-auto px-6 lg:px-10; }
+  .card { @apply rounded-xl bg-white border border-border shadow-sm; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-white font-bold hover:bg-primary-dark transition; }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-primary px-6 py-3 text-primary font-bold hover:bg-primary/5 transition; }
+  .btn-accent { @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 text-white font-bold hover:opacity-90 transition; }
+  .badge { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold; }
+  .chip-life-infant { @apply badge bg-life-infant/15 text-yellow-900; }
+  .chip-life-school { @apply badge bg-life-school/15 text-green-900; }
+  .chip-life-transition { @apply badge bg-life-transition/15 text-blue-900; }
+  .chip-life-adult { @apply badge bg-life-adult/15 text-purple-900; }
+  .chip-life-senior { @apply badge bg-life-senior/15 text-gray-800; }
+  .section-title { @apply text-2xl lg:text-3xl font-bold text-primary-dark; }
+}
+
+/* 색약 대응 패턴 (점선 등 보조 시각 신호) */
+.stripe-infant { background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(0,0,0,.06) 6px 7px); }

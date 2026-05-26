@@ -1,0 +1,25 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction E: 기억의 실 (아이콘)</title>
+
+  <!-- App icon background -->
+  <rect width="200" height="200" rx="44" ry="44" fill="#2D6A4F"/>
+
+  <!-- Stakeholder dots (4 corners, cream) -->
+  <circle cx="36"  cy="36"  r="16" fill="#F5F0E8"/>
+  <circle cx="164" cy="36"  r="16" fill="#F5F0E8"/>
+  <circle cx="36"  cy="164" r="16" fill="#F5F0E8"/>
+  <circle cx="164" cy="164" r="16" fill="#F5F0E8"/>
+
+  <!-- Threads -->
+  <line x1="50"  y1="50"  x2="88"  y2="88"  stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="150" y1="50"  x2="112" y2="88"  stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="50"  y1="150" x2="88"  y2="112" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="150" y1="150" x2="112" y2="112" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Center: 당사자 (coral glow ring) -->
+  <circle cx="100" cy="100" r="36" fill="#E07A5F" opacity="0.25"/>
+  <circle cx="100" cy="100" r="28" fill="#E07A5F"/>
+  <!-- Person silhouette -->
+  <circle cx="100" cy="90"  r="10" fill="#F5F0E8"/>
+  <path   d="M80,120 Q80,108 100,108 Q120,108 120,120" fill="#F5F0E8"/>
+</svg>

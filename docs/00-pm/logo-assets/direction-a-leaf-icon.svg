@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction A: 잎맥 타임라인 (아이콘)</title>
+
+  <!-- App icon background -->
+  <rect width="200" height="200" rx="44" ry="44" fill="#2D6A4F"/>
+
+  <!-- Leaf (cream on green background) -->
+  <path d="M100,168 C62,146 54,88 100,32 C146,88 138,146 100,168 Z"
+        fill="#F5F0E8"/>
+
+  <!-- Central vein (green on cream) -->
+  <line x1="100" y1="163" x2="100" y2="37" stroke="#2D6A4F" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Vein pairs (coral) -->
+  <line x1="100" y1="64"  x2="66"  y2="54"  stroke="#E07A5F" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="100" y1="64"  x2="134" y2="54"  stroke="#E07A5F" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="100" y1="94"  x2="58"  y2="85"  stroke="#E07A5F" stroke-width="3.0" stroke-linecap="round"/>
+  <line x1="100" y1="94"  x2="142" y2="85"  stroke="#E07A5F" stroke-width="3.0" stroke-linecap="round"/>
+  <line x1="100" y1="124" x2="65"  y2="118" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="100" y1="124" x2="135" y2="118" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="100" y1="148" x2="77"  y2="144" stroke="#E07A5F" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="100" y1="148" x2="123" y2="144" stroke="#E07A5F" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

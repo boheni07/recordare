@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction B: 연결 고리 성장 (아이콘)</title>
+
+  <!-- App icon background -->
+  <rect width="200" height="200" rx="44" ry="44" fill="#F5F0E8"/>
+
+  <!-- Connecting line (horizontal, centered at y=105) -->
+  <line x1="22" y1="105" x2="178" y2="105" stroke="#2D6A4F" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Circle 1: smallest (영유아기) -->
+  <circle cx="22"  cy="105" r="12" fill="#F5F0E8" stroke="#E07A5F" stroke-width="3"/>
+
+  <!-- Circle 2 (학령기) -->
+  <circle cx="58"  cy="105" r="18" fill="#F5F0E8" stroke="#2D6A4F" stroke-width="3"/>
+
+  <!-- Circle 3 (전환기) -->
+  <circle cx="108" cy="105" r="25" fill="#EAF3EE"  stroke="#2D6A4F" stroke-width="3"/>
+
+  <!-- Circle 4: largest (성인기 자립) — filled -->
+  <circle cx="168" cy="105" r="32" fill="#2D6A4F"/>
+  <!-- Inner coral dot -->
+  <circle cx="168" cy="105" r="12" fill="#E07A5F"/>
+</svg>

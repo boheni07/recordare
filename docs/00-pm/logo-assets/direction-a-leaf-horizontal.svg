@@ -1,0 +1,35 @@
+<svg width="420" height="130" viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg">
+  <title>Recordare — Direction A: 잎맥 타임라인 (가로형)</title>
+
+  <!-- Symbol: Leaf with veins -->
+  <g transform="translate(8, 8)">
+    <!-- Leaf outline -->
+    <path d="M50,112 C18,93 12,48 50,8 C88,48 82,93 50,112 Z"
+          fill="#F5F0E8" stroke="#2D6A4F" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- Central vein -->
+    <line x1="50" y1="109" x2="50" y2="11" stroke="#2D6A4F" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- Vein pair 1 (top) -->
+    <line x1="50" y1="28" x2="25" y2="20" stroke="#E07A5F" stroke-width="2.0" stroke-linecap="round"/>
+    <line x1="50" y1="28" x2="75" y2="20" stroke="#E07A5F" stroke-width="2.0" stroke-linecap="round"/>
+    <!-- Vein pair 2 -->
+    <line x1="50" y1="47" x2="18" y2="40" stroke="#E07A5F" stroke-width="1.7" stroke-linecap="round"/>
+    <line x1="50" y1="47" x2="82" y2="40" stroke="#E07A5F" stroke-width="1.7" stroke-linecap="round"/>
+    <!-- Vein pair 3 -->
+    <line x1="50" y1="66" x2="21" y2="61" stroke="#E07A5F" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="50" y1="66" x2="79" y2="61" stroke="#E07A5F" stroke-width="1.4" stroke-linecap="round"/>
+    <!-- Vein pair 4 (bottom) -->
+    <line x1="50" y1="84" x2="30" y2="81" stroke="#E07A5F" stroke-width="1.1" stroke-linecap="round"/>
+    <line x1="50" y1="84" x2="70" y2="81" stroke="#E07A5F" stroke-width="1.1" stroke-linecap="round"/>
+  </g>
+
+  <!-- Thin divider -->
+  <line x1="128" y1="18" x2="128" y2="112" stroke="#D8D8D8" stroke-width="1"/>
+
+  <!-- Wordmark -->
+  <text x="144" y="62" font-family="Georgia, 'Times New Roman', serif"
+        font-size="34" font-weight="bold" fill="#2D2D2D" letter-spacing="-0.5">Recordare</text>
+  <text x="145" y="84" font-family="Georgia, 'Times New Roman', serif"
+        font-size="13" fill="#2D6A4F" letter-spacing="5">레 코 다 레</text>
+  <text x="145" y="104" font-family="Georgia, 'Times New Roman', serif"
+        font-size="9.5" fill="#888888" font-style="italic" letter-spacing="0.5">당신의 삶, 단 하나의 기억으로</text>
+</svg>
