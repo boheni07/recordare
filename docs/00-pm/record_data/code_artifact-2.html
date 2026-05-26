@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숨가든 (Soom-Garden) - 생애주기 통합 기록 플랫폼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        garden: {
+                            50: '#f4f7f5',
+                            100: '#e5ede8',
+                            200: '#cbdcd1',
+                            500: '#2e5a44', // Main Deep Forest Green
+                            600: '#244836',
+                            700: '#1c3729',
+                            900: '#0f1f17',
+                        },
+                        warm: {
+                            50: '#fbf9f4',  // Creamy Warm Background
+                            100: '#f5efe4',
+                            200: '#ebdcc5',
+                            900: '#2a1a08',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fbf9f4;
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbdcd1;
+            border-radius: 10px;
+        }
+        /* Smooth scale hover effects */
+        .hover-card-trigger:hover .hover-card-target {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(46, 90, 68, 0.1), 0 4px 6px -2px rgba(46, 90, 68, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-garden-200">
+
+    <header class="bg-white/90 backdrop-blur-md border-b border-garden-100 sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-garden-500 to-emerald-600 flex items-center justify-center text-white text-2xl shadow-md shadow-garden-200">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold text-garden-900 tracking-tight flex items-center">
+                        숨가든 <span class="text-xs bg-garden-100 text-garden-700 font-semibold px-2 py-0.5 rounded-full ml-2">Soom Garden</span>
+                    </h1>
+                    <span class="text-[11px] block text-slate-500 font-medium -mt-0.5">지적장애인 전생애 자립 동반 플랫폼</span>
+                </div>
+            </div>
+
+            <!-- Global Easy-Read Switch -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center bg-amber-50/80 border-2 border-amber-200/60 px-4 py-2.5 rounded-2xl shadow-sm hover:bg-amber-100/50 transition-all">
+                    <label class="flex items-center cursor-pointer select-none">
+                        <span class="mr-3 text-sm font-black text-amber-900 flex items-center">
+                            <span class="text-xl mr-1.5 animate-bounce">😊</span>
+                            <span id="easy-read-label">쉬운 말 모드 꺼짐</span>
+                        </span>
+                        <div class="relative">
+                            <input type="checkbox" id="easyReadToggle" class="sr-only" onchange="toggleEasyReadMode()">
+                            <div class="block bg-slate-300 w-12 h-7 rounded-full transition-colors" id="toggleBg"></div>
+                            <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform duration-300 shadow-sm" id="toggleDot"></div>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- Current Care Target Badge -->
+                <div class="hidden md:flex items-center space-x-3 bg-garden-50 border border-garden-100 px-4 py-2 rounded-2xl">
+                    <div class="w-8 h-8 rounded-full bg-garden-200 flex items-center justify-center text-garden-700 font-bold text-xs">호준</div>
+                    <div class="text-left text-xs">
+                        <p class="font-bold text-slate-800">이호준 (당사자)</p>
+                        <p class="text-[10px] text-garden-600">등록번호: #SR-2026-0815</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <aside class="lg:col-span-3 space-y-6">
+            <!-- 1. Stakeholder Selector (기록주체 정의) -->
+            <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">기록 주체 (이해관계자)</h3>
+                    <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded" id="current-role-badge">가족 (CG)</span>
+                </div>
+                <div class="grid grid-cols-1 gap-1.5" id="role-selector-container">
+                    <button onclick="selectRole('CG', this)" class="role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold bg-garden-500 text-white shadow-sm border border-transparent transition-all">
+                        <span class="w-6 text-center text-sm mr-2"><i class="fa-solid fa-people-roof"></i></span>
+                        <div>
+                            <p class="font-bold">가족 및 주돌봄자 (CG)</p>
+                            <p class="text-[9px] opacity-85">Primary Caregiver</p>
+                        </div>
+                    </button>
+                    <button onclick="selectRole('SR', this)" class="role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border border-transparent transition-all">
+                        <span class="w-6 text-center text-sm mr-2"><i class="fa-solid fa-hands-holding"></i></span>
+                        <div>
+                            <p class="font-bold">당사자 본인 (SR)</p>
+                            <p class="text-[9px] text-slate-400">Self-Representative</p>
+                        </div>
+                    </button>
+                    <button onclick="selectRole('MP', this)" class="role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border border-transparent transition-all">
+                        <span class="w-6 text-center text-sm mr-2"><i class="fa-solid fa-user-doctor"></i></span>
+                        <div>
+                            <p class="font-bold">의료진 및 치료사 (MP)</p>
+                            <p class="text-[9px] text-slate-400">Medical Professionals</p>
+                        </div>
+                    </button>
+                    <button onclick="selectRole('SE', this)" class="role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border border-transparent transition-all">
+                        <span class="w-6 text-center text-sm mr-2"><i class="fa-solid fa-graduation-cap"></i></span>
+                        <div>
+                            <p class="font-bold">특수교사 및 교육자 (SE)</p>
+                            <p class="text-[9px] text-slate-400">Special Educators</p>
+                        </div>
+                    </button>
+                    <button onclick="selectRole('SW', this)" class="role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border border-transparent transition-all">
+                        <span class="w-6 text-center text-sm mr-2"><i class="fa-solid fa-hands-bound"></i></span>
+                        <div>
+                            <p class="font-bold">사회복지사 & 지원사 (SW)</p>
+                            <p class="text-[9px] text-slate-400">Social Workers</p>
+                        </div>
+                    </button>
+                    <button onclick="selectRole('VC', this)" class="role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border border-transparent transition-all">
+                        <span class="w-6 text-center text-sm mr-2"><i class="fa-solid fa-briefcase"></i></span>
+                        <div>
+                            <p class="font-bold">직업재활사 & 코치 (VC)</p>
+                            <p class="text-[9px] text-slate-400">Vocational Coaches</p>
+                        </div>
+                    </button>
+                    <button onclick="selectRole('LG', this)" class="role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border border-transparent transition-all">
+                        <span class="w-6 text-center text-sm mr-2"><i class="fa-solid fa-scale-balanced"></i></span>
+                        <div>
+                            <p class="font-bold">성년후견인 & 대리인 (LG)</p>
+                            <p class="text-[9px] text-slate-400">Legal Guardians</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Lifecycle Navigation (생애주기 0~5단계) -->
+            <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">생애주기 단계 선택</h3>
+                </div>
+                <nav class="space-y-1.5" id="lifecycle-nav">
+                    <!-- Stage 0 -->
+                    <button onclick="switchStage(0)" class="stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all border border-slate-100">
+                        <span class="flex items-center"><span class="w-6 text-center text-pink-500 text-sm mr-2"><i class="fa-solid fa-baby"></i></span>0단계. 영아/진단기</span>
+                        <span class="text-[9px] text-slate-400 font-semibold px-1.5 py-0.5 rounded bg-white">0~2세</span>
+                    </button>
+                    <!-- Stage 1 -->
+                    <button onclick="switchStage(1)" class="stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all border border-slate-100">
+                        <span class="flex items-center"><span class="w-6 text-center text-amber-500 text-sm mr-2"><i class="fa-solid fa-puzzle-piece"></i></span>1단계. 유아/조기개입</span>
+                        <span class="text-[9px] text-slate-400 font-semibold px-1.5 py-0.5 rounded bg-white">3~6세</span>
+                    </button>
+                    <!-- Stage 2 (Default Active for Sample) -->
+                    <button onclick="switchStage(2)" class="stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-garden-100 text-garden-700 border border-garden-200 transition-all">
+                        <span class="flex items-center"><span class="w-6 text-center text-indigo-500 text-sm mr-2"><i class="fa-solid fa-child-reaching"></i></span>2단계. 학령기 교육</span>
+                        <span class="text-[9px] text-indigo-500 font-semibold px-1.5 py-0.5 rounded bg-white">7~18세</span>
+                    </button>
+                    <!-- Stage 3 -->
+                    <button onclick="switchStage(3)" class="stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all border border-slate-100">
+                        <span class="flex items-center"><span class="w-6 text-center text-emerald-600 text-sm mr-2"><i class="fa-solid fa-user-tie"></i></span>3단계. 성인기 자립</span>
+                        <span class="text-[9px] text-slate-400 font-semibold px-1.5 py-0.5 rounded bg-white">19~39세</span>
+                    </button>
+                    <!-- Stage 4 -->
+                    <button onclick="switchStage(4)" class="stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all border border-slate-100">
+                        <span class="flex items-center"><span class="w-6 text-center text-orange-500 text-sm mr-2"><i class="fa-solid fa-person-cane"></i></span>4단계. 중장년/노화</span>
+                        <span class="text-[9px] text-slate-400 font-semibold px-1.5 py-0.5 rounded bg-white">40세~</span>
+                    </button>
+                    <!-- Stage 5 -->
+                    <button onclick="switchStage(5)" class="stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all border border-slate-100">
+                        <span class="flex items-center"><span class="w-6 text-center text-rose-700 text-sm mr-2"><i class="fa-solid fa-heart-circle-exclamation"></i></span>5단계. 사후 지원기</span>
+                        <span class="text-[9px] text-slate-400 font-semibold px-1.5 py-0.5 rounded bg-white">유고</span>
+                    </button>
+                </nav>
+            </div>
+            
+            <!-- Quick Link: PBS Section -->
+            <button onclick="switchStage('PBS')" class="stage-nav-btn w-full flex items-center justify-between p-4 rounded-3xl text-left text-sm font-bold bg-rose-50 text-rose-800 border-2 border-rose-100 hover:bg-rose-100/70 transition-all shadow-sm">
+                <span class="flex items-center">
+                    <span class="relative flex h-3.5 w-3.5 mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-rose-600"></span>
+                    </span>
+                    상시 도전행동기록 (PBS)
+                </span>
+                <i class="fa-solid fa-arrow-trend-up text-rose-400"></i>
+            </button>
+        </aside>
+
+        <section class="lg:col-span-6 space-y-6">
+            
+            <!-- Target Information header card -->
+            <div class="bg-gradient-to-r from-garden-500 to-garden-600 text-white rounded-3xl p-6 shadow-sm flex items-center justify-between">
+                <div class="space-y-1">
+                    <span class="text-xs bg-white/20 px-2 py-0.5 rounded font-semibold uppercase tracking-wider text-garden-100" id="form-stage-badge">2단계: 학령기 교육 및 적응</span>
+                    <h2 class="text-xl font-extrabold" id="form-title">학교 개별화교육계획(IEP) 및 돌봄 기록</h2>
+                    <p class="text-[11px] text-garden-100/90 leading-relaxed" id="form-desc">학교 특수교사와 학급 생활을 기록하고 연도별 교과 달성도 추이를 파악합니다.</p>
+                </div>
+                <div class="hidden sm:block text-right">
+                    <p class="text-[10px] text-garden-200">마지막 작성일</p>
+                    <p class="text-sm font-bold text-white">어제 (15:24)</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Interactive Form Container -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-md transition-all duration-300">
+                <form id="lifecyle-main-form" onsubmit="submitForm(event)" class="space-y-6">
+                    
+                    <!-- Dynamic fields will be injected here by Javascript based on active stage -->
+                    <div id="dynamic-form-fields" class="space-y-6">
+                        <!-- Default: Step 2 Fields -->
+                    </div>
+
+                    <!-- AAC Quick Input Drawer (Direct voice/sentiment representation for SR) -->
+                    <div id="aac-drawer" class="pt-6 border-t border-slate-100 hidden">
+                        <h4 class="text-xs font-extrabold text-garden-900 tracking-wider uppercase mb-3 flex items-center">
+                            <i class="fa-solid fa-face-smile text-amber-500 mr-2 text-base"></i>
+                            당사자 직접 의사소통 지원 패널 (AAC)
+                        </h4>
+                        <p class="text-[11px] text-slate-500 mb-4">당사자가 직접 그림/아이콘을 누르면 AI가 정밀 문맥 일지로 번역해 기록합니다.</p>
+                        
+                        <div class="space-y-4">
+                            <!-- Mood Grid -->
+                            <div>
+                                <span class="text-[11px] text-slate-400 block mb-2 font-bold">1. 오늘 나의 기분은?</span>
+                                <div class="grid grid-cols-5 gap-2">
+                                    <button type="button" onclick="selectAAC('mood', '신나요 😊', this)" class="aac-btn py-3 px-2 border rounded-xl text-center hover:bg-amber-50/50 hover:border-amber-300 transition-all">
+                                        <span class="text-2xl block mb-1">😊</span>
+                                        <span class="text-[10px] font-bold block">신나요</span>
+                                    </button>
+                                    <button type="button" onclick="selectAAC('mood', '좋아요 🙂', this)" class="aac-btn py-3 px-2 border rounded-xl text-center hover:bg-amber-50/50 hover:border-amber-300 transition-all">
+                                        <span class="text-2xl block mb-1">🙂</span>
+                                        <span class="text-[10px] font-bold block">좋아요</span>
+                                    </button>
+                                    <button type="button" onclick="selectAAC('mood', '보통이에요 😐', this)" class="aac-btn py-3 px-2 border rounded-xl text-center hover:bg-amber-50/50 hover:border-amber-300 transition-all">
+                                        <span class="text-2xl block mb-1">😐</span>
+                                        <span class="text-[10px] font-bold block">보통</span>
+                                    </button>
+                                    <button type="button" onclick="selectAAC('mood', '슬퍼요 😢', this)" class="aac-btn py-3 px-2 border rounded-xl text-center hover:bg-amber-50/50 hover:border-amber-300 transition-all">
+                                        <span class="text-2xl block mb-1">😢</span>
+                                        <span class="text-[10px] font-bold block">슬퍼요</span>
+                                    </button>
+                                    <button type="button" onclick="selectAAC('mood', '속상해요 😡', this)" class="aac-btn py-3 px-2 border rounded-xl text-center hover:bg-amber-50/50 hover:border-amber-300 transition-all">
+                                        <span class="text-2xl block mb-1">😡</span>
+                                        <span class="text-[10px] font-bold block">속상해</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Daily Core Needs Grid -->
+                            <div>
+                                <span class="text-[11px] text-slate-400 block mb-2 font-bold">2. 하고 싶은 행동은?</span>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <button type="button" onclick="selectAAC('need', '집에 가고 싶어요 🏠', this)" class="aac-btn py-2.5 px-2 border rounded-xl text-center hover:bg-emerald-50/50 hover:border-emerald-300 transition-all">
+                                        <span class="text-xl block mb-1">🏠</span>
+                                        <span class="text-[9px] font-bold block">집에 갈래</span>
+                                    </button>
+                                    <button type="button" onclick="selectAAC('need', '밥이 먹고 싶어요 🍚', this)" class="aac-btn py-2.5 px-2 border rounded-xl text-center hover:bg-emerald-50/50 hover:border-emerald-300 transition-all">
+                                        <span class="text-xl block mb-1">🍚</span>
+                                        <span class="text-[9px] font-bold block">밥 먹기</span>
+                                    </button>
+                                    <button type="button" onclick="selectAAC('need', '쉬고 싶어요 🛋️', this)" class="aac-btn py-2.5 px-2 border rounded-xl text-center hover:bg-emerald-50/50 hover:border-emerald-300 transition-all">
+                                        <span class="text-xl block mb-1">🛋️</span>
+                                        <span class="text-[9px] font-bold block">쉬고 싶어</span>
+                                    </button>
+                                    <button type="button" onclick="selectAAC('need', '공부할래요 ✏️', this)" class="aac-btn py-2.5 px-2 border rounded-xl text-center hover:bg-emerald-50/50 hover:border-emerald-300 transition-all">
+                                        <span class="text-xl block mb-1">✏️</span>
+                                        <span class="text-[9px] font-bold block">공부하기</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-100 flex items-center space-x-3">
+                        <button type="button" onclick="resetActiveForm()" class="px-5 py-3 border border-slate-200 hover:bg-slate-50 text-slate-600 rounded-2xl text-xs font-bold transition-all">
+                            입력 초기화
+                        </button>
+                        <button type="submit" class="flex-grow py-3 px-6 rounded-2xl text-xs font-extrabold text-white bg-gradient-to-r from-garden-500 to-emerald-700 hover:from-garden-600 hover:to-emerald-800 transition-all shadow-md shadow-garden-100">
+                            기록 임시 저장 및 AI 전송
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <aside class="lg:col-span-3 space-y-6">
+            <!-- 1. Real-time AI Assistant Card -->
+            <div class="bg-gradient-to-b from-slate-900 to-garden-900 text-white rounded-3xl p-6 shadow-md relative overflow-hidden">
+                <div class="absolute -right-12 -bottom-12 text-white/5 text-9xl">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <span class="flex h-2.5 w-2.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <h3 class="font-extrabold text-xs tracking-wider uppercase text-emerald-300 flex items-center">
+                        <i class="fa-solid fa-sparkles mr-1.5"></i> AI 라이브 코치
+                    </h3>
+                </div>
+
+                <!-- Live Evaluation feedback panel (Interprets actions) -->
+                <div class="space-y-4">
+                    <div class="bg-white/10 rounded-2xl p-4 border border-white/10 text-xs">
+                        <span class="font-bold block text-emerald-300 mb-1 flex items-center">
+                            <i class="fa-solid fa-arrows-spin mr-1"></i> 현재 폼 실시간 평가
+                        </span>
+                        <p id="ai-live-feedback" class="text-[11px] text-slate-300 leading-relaxed">
+                            기록 주체별 추천 가이드라인이 자동 맵핑되었습니다. 보호자(CG) 시점의 대행 기록을 준비해 주세요.
+                        </p>
+                    </div>
+
+                    <!-- Clinical advice -->
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/5 text-xs">
+                        <span class="font-bold block text-amber-300 mb-1 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> 중대 이상 징후 (과거 연동)
+                        </span>
+                        <p class="text-[11px] text-slate-400 leading-relaxed" id="ai-live-warning">
+                            지난 3일간 수면 패턴 데이터 부재. 오늘의 자조 행동 달성 점수에 누적 수면 손실이 부정적인 영향을 줄 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-white/10 flex space-x-2">
+                    <button onclick="downloadMockReport()" class="flex-grow py-2.5 bg-white/15 hover:bg-white/20 text-white rounded-xl text-[10px] font-bold flex items-center justify-center space-x-1.5 transition">
+                        <i class="fa-solid fa-file-invoice text-emerald-300"></i>
+                        <span>소통 일지 PDF</span>
+                    </button>
+                    <button onclick="simulateBehaviorPattern()" class="py-2.5 px-3 bg-white/15 hover:bg-white/20 text-white rounded-xl text-[10px] font-bold transition flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Integrated Care Providers Network Widget -->
+            <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm space-y-4">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">동기화된 협업 돌봄망</h4>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between p-2 hover:bg-slate-50 rounded-xl transition">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs font-bold">서울</span>
+                            <div class="text-left">
+                                <p class="text-xs font-bold text-slate-800">서울나래특수학교</p>
+                                <p class="text-[9px] text-slate-400">교사 김혜린 (SE)</p>
+                            </div>
+                        </div>
+                        <span class="h-2 w-2 rounded-full bg-emerald-500" title="실시간 동기화 완료"></span>
+                    </div>
+                    <div class="flex items-center justify-between p-2 hover:bg-slate-50 rounded-xl transition">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="w-8 h-8 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center text-xs font-bold">참빛</span>
+                            <div class="text-left">
+                                <p class="text-xs font-bold text-slate-800">참빛 감각통합치료센터</p>
+                                <p class="text-[9px] text-slate-400">치료사 이진우 (MP)</p>
+                            </div>
+                        </div>
+                        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                    </div>
+                    <div class="flex items-center justify-between p-2 hover:bg-slate-50 rounded-xl transition">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xs font-bold">자립</span>
+                            <div class="text-left">
+                                <p class="text-xs font-bold text-slate-800">나눔장애인주간보호소</p>
+                                <p class="text-[9px] text-slate-400">지원사 박정수 (SW)</p>
+                            </div>
+                        </div>
+                        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                    </div>
+                </div>
+                <p class="text-[10px] text-slate-400 leading-normal text-center bg-slate-50 rounded-xl py-2 px-1">
+                    숨가든 Open API를 기반으로 모든 돌봄자가 당사자의 실시간 IEP 및 행동 패턴(PBS)을 상호 연계합니다.
+                </p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Modal Window (Replaces legacy alerts) -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm items-center justify-center z-50 hidden flex transition-all duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full mx-4 shadow-2xl border border-slate-100 text-center space-y-5 transform scale-95 transition-transform duration-300" id="modal-container">
+            <div class="w-16 h-16 bg-garden-100 text-garden-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+                <i class="fa-solid fa-circle-check" id="modal-icon"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-black text-slate-900" id="modal-title-text">처리 완료</h3>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed" id="modal-body-text">요구사항이 정상적으로 제출되었으며 돌봄 연합체에 즉시 동기화되었습니다.</p>
+            </div>
+            <button onclick="closeModal()" class="w-full py-3 rounded-2xl text-xs font-extrabold text-white bg-garden-500 hover:bg-garden-600 transition-all">
+                확인 및 계속하기
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Reactive App State
+        let currentStage = 2; // Default starting at School Stage
+        let currentRole = 'CG'; // Default Caregiver
+        let easyReadMode = false;
+        
+        // Active AAC Inputs
+        let activeAAC = {
+            mood: '',
+            need: ''
+        };
+
+        // Complete database schemas mirroring soom_garden_life_cycle_spec.md
+        const formSchemas = {
+            0: {
+                title: "0단계. 영아기 및 초기 진단기 (0~2세)",
+                badge: "조기 감지 및 발달 평가 수용",
+                desc: "조기 지연 징후 탐지와 감각 과민 반응, 전문 진단 이력을 수집하여 발달 기반을 추적합니다.",
+                fields: [
+                    {
+                        id: "infant-kdst",
+                        type: "radio-grid",
+                        label: "한국 영유아 발달선별검사 (K-DST) 영역 지표",
+                        easyLabel: "👶 아기가 손과 다리를 잘 움직이고 반응하나요?",
+                        options: [
+                            { val: "good", text: "정상 범위 (P > 10)", easy: "문제 없이 잘해요" },
+                            { val: "warning", text: "경계선 / 관찰 요망", easy: "열심히 연습하고 있어요" },
+                            { val: "severe", text: "심화평가 권고 대상", easy: "선생님의 도움이 필요해요" }
+                        ]
+                    },
+                    {
+                        id: "infant-clinical",
+                        type: "textarea",
+                        label: "임상적 의학 진단 및 유전자 소견 (주진단명 및 처방 약물)",
+                        easyLabel: "🩺 의사 선생님께 들은 중요 병명이 있거나 정기 처방 약물이 있나요?",
+                        placeholder: "예: 자폐스펙트럼 장애 소견, 페노바르비탈 처방 (소아뇌전증 동반)"
+                    },
+                    {
+                        id: "infant-sensory",
+                        type: "multiselect",
+                        label: "감각 수용 민감 및 특이 반응 대역",
+                        easyLabel: "👂 아기가 특히 무서워하거나 피하고 싶어하는 소리/빛이 있나요?",
+                        options: [
+                            { val: "sound", text: "청각 예민 (갑작스런 큰 소리 소란)", easy: "시끄러운 소리를 너무 싫어해요" },
+                            { val: "light", text: "시각 과민 (플래시, 번쩍이는 조명)", easy: "눈부신 불빛을 싫어해요" },
+                            { val: "touch", text: "촉각 거부 (특정 옷 재질, 머리 빗기 거부)", easy: "닿는 느낌에 예민해요" },
+                            { val: "balance", text: "전정 감각 (낙상 고소 공포증 징후)", easy: "높이 올라가는 것을 겁내요" }
+                        ]
+                    }
+                ]
+            },
+            1: {
+                title: "1단계. 유아기 및 조기 개입기 (3~6세)",
+                badge: "치료 연속성 확보 및 생활 루틴화",
+                desc: "발달재활 바우처 세션 일지와 가정 내 수면, 영양 저작 습관 연속 기록망을 정립합니다.",
+                fields: [
+                    {
+                        id: "toddler-voucher",
+                        type: "select",
+                        label: "진행 중인 발달재활 바우처 종류",
+                        easyLabel: "🎨 지금 주로 지원받는 발달 활동 유형은 무엇인가요?",
+                        options: [
+                            { val: "speech", text: "언어 치료 (수용/표현 발달)" },
+                            { val: "sensory", text: "감각 통합 치료 (신체 제어 및 수용)" },
+                            { val: "play", text: "놀이/미술 놀이 심리 중재" },
+                            { val: "none", text: "진행 중인 치료 없음" }
+                        ]
+                    },
+                    {
+                        id: "toddler-session",
+                        type: "textarea",
+                        label: "세션 반응 경과 및 가정 홈트레이닝 연계 제안",
+                        easyLabel: "📝 치료 센터에서 선생님과 배운 활동 중 집에서 연습할 행동을 쓰세요.",
+                        placeholder: "예: 치료실 내 컵 블록 쌓기 수행률 향상. 가정 내 식사 시 컵 사용 시도 유도 권고."
+                    },
+                    {
+                        id: "toddler-sleep",
+                        type: "radio-grid",
+                        label: "야경증 및 유아기 수면 유지 패턴",
+                        easyLabel: "🌙 밤새 깨지 않고 곤히 잠을 잘 자나요?",
+                        options: [
+                            { val: "stable", text: "수면 패턴 규칙적 (8시간 이상 유지)", easy: "한 번도 깨지 않고 푹 자요" },
+                            { val: "interrupted", text: "자주 깨거나 울고 일어남 (야경증 징후)", easy: "밤에 가끔 소리 지르며 깨요" },
+                            { val: "insomnia", text: "심한 입면 장애 (수면 유도 수당 개입 필수)", easy: "잠들기까지 오랜 시간이 걸려요" }
+                        ]
+                    }
+                ]
+            },
+            2: {
+                title: "2단계. 학령기 교육 및 적응 (7~18세)",
+                badge: "학교 특수교육(IEP) 상호작용 추적",
+                desc: "국어/수학 개별 교과 목표 달성률을 슬라이더로 추적하고 또래 교우 적응 상태를 연동합니다.",
+                fields: [
+                    {
+                        id: "school-iep-slider",
+                        type: "slider",
+                        label: "학기별 개별화교육계획(IEP) 교과 종합 성취도",
+                        easyLabel: "🎒 이번 학기 학교 공부 목표는 얼마나 해냈나요?",
+                        min: 0,
+                        max: 100,
+                        val: 65
+                    },
+                    {
+                        id: "school-interaction",
+                        type: "textarea",
+                        label: "통합반 어울림 및 또래 교우 마찰 특이 관찰 사항",
+                        easyLabel: "🤝 반 친구들과는 다투지 않고 재미있게 어울렸나요?",
+                        placeholder: "예: 교우가 놀림 시 가벼운 소리 지르기 반응 보였으나 교사 촉구로 즉시 안정을 취함."
+                    },
+                    {
+                        id: "school-shuttle",
+                        type: "multiselect",
+                        label: "방과후 아카데미 및 통학 셔틀 이동 지원 유형",
+                        easyLabel: "🚌 학교 수업이 끝나면 어디로 어떻게 이동하나요?",
+                        options: [
+                            { val: "shuttle", text: "장애인 콜택시 혹은 특수 휠체어 리프트 셔틀", easy: "복지관 버스나 휠체어 택시 타요" },
+                            { val: "parents", text: "주돌봄자 자차 동승 이동", easy: "부모님이 직접 오셔서 데려가요" },
+                            { val: "independent", text: "교사/활동지원사 가이드 하 도보 독립 이동", easy: "지원사 선생님 손 잡고 함께 걸어가요" }
+                        ]
+                    }
+                ]
+            },
+            3: {
+                title: "3단계. 성인기 전환 및 고용 자립 (19~39세)",
+                badge: "직업 훈련 및 지역사회 자립생활(IL)",
+                desc: "보호/근로작업장 근태 현황, 일상 가사 자립, 금융 거래 권한 보장 데이터를 모니터링합니다.",
+                fields: [
+                    {
+                        id: "adult-pcp",
+                        type: "textarea",
+                        label: "당사자 중심 자립 희망 선호 프로필 (PCP)",
+                        easyLabel: "🏡 내가 미래에 가장 꿈꾸는 소중한 우리 집 모습은 어떤가요?",
+                        placeholder: "예: '부모님으로부터 독립하여 친한 친구 한 명과 원룸에서 정식 바리스타 일을 하며 살고 싶음.'"
+                    },
+                    {
+                        id: "adult-work",
+                        type: "select",
+                        label: "직무 집중 수행도 및 근무 유형",
+                        easyLabel: "💼 지금 일하고 있는 곳의 업무 집중도는 어떤가요?",
+                        options: [
+                            { val: "excellent", text: "1시간 이상 독립 직무 유지 (바리스타, 조립)" },
+                            { val: "support", text: "직무 지도원의 지속적 촉구 개입 요구 (단순 소포장)" },
+                            { val: "unemployed", text: "보호작업장 구직 대기 상태 / 훈련 적응 지연" }
+                        ]
+                    },
+                    {
+                        id: "adult-finance",
+                        type: "radio-grid",
+                        label: "가사 분담 및 금융 소비 주체성 역량",
+                        easyLabel: "💳 편의점에서 내 카드로 먹고 싶은 것을 직접 살 수 있나요?",
+                        options: [
+                            { val: "full", text: "독립 카드 소비 및 잔액 체크 완료", easy: "내 카드로 스스로 물건을 잘 사요" },
+                            { val: "partial", text: "키오스크 및 바코드 결제 부분 대리 지원", easy: "가게 이모의 도움을 받으면 살 수 있어요" },
+                            { val: "none", text: "보호자 부재 시 금융 사기 노출 극심", easy: "돈 계산이나 스마트 결제가 아직은 무서워요" }
+                        ]
+                    }
+                ]
+            },
+            4: {
+                title: "4단계. 중장년 및 노년기 인지 모니터링 (40세 이상)",
+                badge: "조기 퇴행성 노화 및 치매 징후 추적",
+                desc: "퇴행성 인지 쇠퇴 점검, 가동 관절 상태 및 만성질환 일일 복약 순응도를 정합합니다.",
+                fields: [
+                    {
+                        id: "senior-dementia",
+                        type: "multiselect",
+                        label: "조기 노화 치매 위험 인지 행동 체크 리스트",
+                        easyLabel: "🩺 최근 부쩍 예전과 다르게 자주 잃어버리거나 길을 잃나요?",
+                        options: [
+                            { val: "lost", text: "수년간 다닌 통근길 실종 해매 이력 발생", easy: "매일 가던 복지관 길을 혼자 잃어버렸어요" },
+                            { val: "adl-drop", text: "익숙한 기본 위생 신변 뒤처리 갑작스런 수행 실패", easy: "화장실 볼일을 보고 혼자 뒤처리를 못해요" },
+                            { val: "memory", text: "당일 식사 및 대화 인지 단기 기억 극심 손상", easy: "방금 아침을 먹었는지 자꾸 까먹어요" }
+                        ]
+                    },
+                    {
+                        id: "senior-adl",
+                        type: "radio-grid",
+                        label: "일상생활동작 (ADL) 관절 보행 지지대 필요도",
+                        easyLabel: "🦯 길을 걸어 다니거나 계단을 오를 때 어떤가요?",
+                        options: [
+                            { val: "independent", text: "안전 지지대 없는 완전 독립 보행", easy: "도움 없이 혼자 잘 걸어요" },
+                            { val: "canes", text: "보조 자전거 혹은 지지대 스틱 필수 사용", easy: "지팡이를 짚거나 안전 바를 잡아야 안전해요" },
+                            { val: "wheelchair", text: "이동 침대 휠체어 및 주돌봄자 전담 보조 밀기", easy: "휠체어가 없으면 밖으로 나갈 수가 없어요" }
+                        ]
+                    }
+                ]
+            },
+            5: {
+                title: "5단계. 주보호자 부재 사후 대비기 (유고 시)",
+                badge: "신탁 설계 및 긴급 연속적 양육권 확보",
+                desc: "보호자 유고 시 법률 신탁 연계, 후견인 자산 대리권 지정, 2차 긴급 입소 준비망을 명세화합니다.",
+                fields: [
+                    {
+                        id: "dead-trust",
+                        type: "select",
+                        label: "발달장애인 특별부양 법률 신탁 (SNT) 연계 상태",
+                        easyLabel: "🏛️ 미래에 부모님이 계시지 않을 때를 대비한 전용 연계 신탁 계약을 하셨나요?",
+                        options: [
+                            { val: "ready", text: "SNT 가입 완료 및 매월 수혜 집행액 예치 (안심 설계)" },
+                            { val: "seeking", text: "금융 신탁 연계 상담 및 대리인 선임 진행 중" },
+                            { val: "none", text: "아직 구체적인 준비 부재 (우선 점검 가이드 대상)" }
+                        ]
+                    },
+                    {
+                        id: "dead-group",
+                        type: "textarea",
+                        label: "비상 긴급 보호 시설 배치 및 임시 애도 케어 계획",
+                        easyLabel: "🏡 갑작스런 유고 비상 사태 발생 시 당일 이동할 긴급 돌봄 쉼터를 아시나요?",
+                        placeholder: "예: 보호자 전신 상해/사망 감지 시 나눔자립그룹홈 긴급 입소 계약 승인 완료."
+                    }
+                ]
+            },
+            PBS: {
+                title: "긍정적 행동지원 (PBS) & 도전행동 정밀 일지",
+                badge: "행동의 과학적 기능 분석 (A-B-C)",
+                desc: "당사자가 보인 자해, 타해, 소리지르기 등 도전행동을 과학적 선행사건-행동-결과 척도로 규명합니다.",
+                fields: [
+                    {
+                        id: "pbs-behavior",
+                        type: "multiselect",
+                        label: "오늘 표출된 도전행동 양상 (Behavior - 중복 선택)",
+                        easyLabel: "🚨 당사자가 감당하기 어려운 마음으로 표현한 행동은 무엇인가요?",
+                        options: [
+                            { val: "self", text: "자해 (머리 벽 찧기, 물기, 머리카락 쥐기)", easy: "스스로 몸을 다치게 하는 위험한 행동" },
+                            { val: "other", text: "타해 (주변 친구 때리기, 교사 꼬집기)", easy: "다른 사람을 다치게 한 공격적인 행동" },
+                            { val: "property", text: "기물 파손 (컵 세게 던지기, 의자 밀치기)", easy: "의자나 컵을 강하게 던지는 파괴적인 행동" },
+                            { val: "scream", text: "극심한 고성 비명 및 대변 벽 비비기", easy: "매우 크게 지르는 비명 소동" }
+                        ]
+                    },
+                    {
+                        id: "pbs-antecedent",
+                        type: "textarea",
+                        label: "선행 사건 (Antecedent) : 행동이 일어나기 직전의 환경·신체적 유발 유인",
+                        easyLabel: "❔ 도전행동이 일어나기 직전에 주변에서 무슨 일이 일어났었나요?",
+                        placeholder: "예: 외부 도로 공사 소리가 쾅 울린 직후 귀를 양손으로 막으며 극단적 흥분 시작."
+                    },
+                    {
+                        id: "pbs-consequence",
+                        type: "textarea",
+                        label: "대응 결과 (Consequence) : 행동 직후 주변의 즉각적인 안심 중재법",
+                        easyLabel: "💡 소란을 가라앉히기 위해 어떤 적극적인 도움을 주셨나요?",
+                        placeholder: "예: 즉각 노이즈캔슬링 헤드폰 장착 조치 후 좋아하는 촉각 인형을 안겨 전정 감각 회복."
+                    }
+                ]
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            renderActiveForm();
+        });
+
+        function switchStage(stageNum) {
+            currentStage = stageNum;
+            renderActiveForm();
+            
+            // Adjust UI Visual Highlights on Sidebar Active tab
+            const buttons = document.querySelectorAll('.stage-nav-btn');
+            buttons.forEach((btn, index) => {
+                btn.className = "stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all border border-slate-100";
+            });
+
+            // Adjust PBS Button Styling Reset
+            const pbsBtn = document.querySelector('[onclick="switchStage(\'PBS\')"]');
+            pbsBtn.className = "stage-nav-btn w-full flex items-center justify-between p-4 rounded-3xl text-left text-sm font-bold bg-rose-50 text-rose-800 border-2 border-rose-100 hover:bg-rose-100/70 transition-all shadow-sm";
+
+            // Highlight chosen one
+            if (stageNum === 'PBS') {
+                pbsBtn.className = "stage-nav-btn w-full flex items-center justify-between p-4 rounded-3xl text-left text-sm font-bold bg-rose-600 text-white transition-all shadow-md shadow-rose-200";
+            } else {
+                const activeBtn = buttons[stageNum];
+                if (activeBtn) {
+                    activeBtn.className = "stage-nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold bg-garden-100 text-garden-700 border border-garden-200 transition-all";
+                }
+            }
+
+            // Sync Header Badges
+            const currentSchema = formSchemas[currentStage];
+            document.getElementById('form-stage-badge').innerText = currentSchema.badge;
+            document.getElementById('form-title').innerText = currentSchema.title;
+            document.getElementById('form-desc').innerText = currentSchema.desc;
+
+            // Trigger AI Evaluator recommendation switch
+            updateAICopilotAdvices();
+        }
+
+        function selectRole(roleKey, element) {
+            currentRole = roleKey;
+            
+            // Update role badge in UI
+            const badge = document.getElementById('current-role-badge');
+            badge.innerText = `${element.querySelector('p').innerText}`;
+
+            // Reset selector buttons styling
+            const roleBtns = document.querySelectorAll('.role-selector-btn');
+            roleBtns.forEach(btn => {
+                btn.className = "role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border border-transparent transition-all";
+                const p2 = btn.querySelector('p:nth-child(2)');
+                if (p2) p2.className = "text-[9px] text-slate-400";
+            });
+
+            // Set chosen active style
+            element.className = "role-selector-btn w-full flex items-center px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold bg-garden-500 text-white shadow-sm border border-transparent transition-all";
+            const pActive = element.querySelector('p:nth-child(2)');
+            if (pActive) pActive.className = "text-[9px] text-garden-200";
+
+            // AAC support panel check (AAC only opens for SR)
+            const aacDrawer = document.getElementById('aac-drawer');
+            if (currentRole === 'SR') {
+                aacDrawer.classList.remove('hidden');
+                // Suggest Easy-read active auto-prompt
+                if (!easyReadMode) {
+                    document.getElementById('easyReadToggle').checked = true;
+                    toggleEasyReadMode();
+                }
+            } else {
+                aacDrawer.classList.add('hidden');
+            }
+
+            // Fire AI Agent Response
+            updateAICopilotAdvices();
+        }
+
+        function renderActiveForm() {
+            const container = document.getElementById('dynamic-form-fields');
+            container.innerHTML = ''; // Clear previous fields
+            
+            const schema = formSchemas[currentStage];
+            
+            schema.fields.forEach(field => {
+                const wrapper = document.createElement('div');
+                wrapper.className = "space-y-2 transition-all duration-300";
+                
+                // Construct Label with standard and easy translations
+                const label = document.createElement('label');
+                label.className = "block text-xs font-extrabold text-slate-700 tracking-wider flex justify-between items-center";
+                
+                const labelTextSpan = document.createElement('span');
+                labelTextSpan.className = "field-label-text";
+                labelTextSpan.setAttribute('data-std', field.label);
+                labelTextSpan.setAttribute('data-easy', field.easyLabel || field.label);
+                labelTextSpan.innerText = easyReadMode ? (field.easyLabel || field.label) : field.label;
+                label.appendChild(labelTextSpan);
+                
+                wrapper.appendChild(label);
+
+                // Build inputs based on schema types
+                if (field.type === 'textarea') {
+                    const textarea = document.createElement('textarea');
+                    textarea.className = "w-full border-2 border-slate-100 rounded-2xl p-4 text-xs focus:outline-none focus:ring-2 focus:ring-garden-500 focus:border-transparent transition-all bg-slate-50/50";
+                    textarea.rows = 3;
+                    textarea.placeholder = field.placeholder || "내용을 기재하세요.";
+                    textarea.id = field.id;
+                    wrapper.appendChild(textarea);
+
+                } else if (field.type === 'select') {
+                    const select = document.createElement('select');
+                    select.className = "w-full border-2 border-slate-100 rounded-2xl p-4 text-xs bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-garden-500 transition-all font-bold text-slate-700";
+                    select.id = field.id;
+                    
+                    field.options.forEach(opt => {
+                        const option = document.createElement('option');
+                        option.value = opt.val;
+                        option.innerText = opt.text;
+                        select.appendChild(option);
+                    });
+                    wrapper.appendChild(select);
+
+                } else if (field.type === 'slider') {
+                    const sliderContainer = document.createElement('div');
+                    sliderContainer.className = "flex items-center space-x-4 bg-slate-50 p-4 rounded-2xl border border-slate-100";
+                    
+                    const slider = document.createElement('input');
+                    slider.type = "range";
+                    slider.min = field.min;
+                    slider.max = field.max;
+                    slider.value = field.val;
+                    slider.className = "w-full accent-garden-500";
+                    slider.id = field.id;
+                    
+                    const valueDisplay = document.createElement('span');
+                    valueDisplay.className = "text-sm font-extrabold text-garden-500 w-12 text-right";
+                    valueDisplay.innerText = field.val + "%";
+                    
+                    slider.oninput = function() {
+                        valueDisplay.innerText = this.value + "%";
+                    };
+                    
+                    sliderContainer.appendChild(slider);
+                    sliderContainer.appendChild(valueDisplay);
+                    wrapper.appendChild(sliderContainer);
+
+                } else if (field.type === 'radio-grid') {
+                    const grid = document.createElement('div');
+                    grid.className = "grid grid-cols-1 sm:grid-cols-3 gap-3";
+                    
+                    field.options.forEach((opt, oIdx) => {
+                        const card = document.createElement('label');
+                        card.className = "border-2 border-slate-100 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-garden-50/30 hover:border-garden-200 transition-all text-center";
+                        if (oIdx === 0) {
+                            card.className += " border-garden-500 bg-garden-50/20";
+                        }
+                        
+                        const radio = document.createElement('input');
+                        radio.type = "radio";
+                        radio.name = field.id;
+                        radio.value = opt.val;
+                        radio.className = "sr-only";
+                        if (oIdx === 0) radio.checked = true;
+                        
+                        // Custom interaction to mimic active selections
+                        radio.onchange = function() {
+                            const siblings = grid.querySelectorAll('label');
+                            siblings.forEach(sib => sib.className = "border-2 border-slate-100 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-garden-50/30 hover:border-garden-200 transition-all text-center");
+                            card.className = "border-2 border-garden-500 bg-garden-50/20 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-garden-50/30 hover:border-garden-200 transition-all text-center";
+                        };
+
+                        const icon = document.createElement('span');
+                        icon.className = "text-xl mb-1";
+                        icon.innerText = oIdx === 0 ? "🟢" : oIdx === 1 ? "🟡" : "🔴";
+                        
+                        const labelSpan = document.createElement('span');
+                        labelSpan.className = "text-[11px] font-extrabold text-slate-700 block option-label";
+                        labelSpan.setAttribute('data-std', opt.text);
+                        labelSpan.setAttribute('data-easy', opt.easy || opt.text);
+                        labelSpan.innerText = easyReadMode ? (opt.easy || opt.text) : opt.text;
+
+                        card.appendChild(radio);
+                        card.appendChild(icon);
+                        card.appendChild(labelSpan);
+                        grid.appendChild(card);
+                    });
+                    wrapper.appendChild(grid);
+
+                } else if (field.type === 'multiselect') {
+                    const grid = document.createElement('div');
+                    grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-2.5";
+                    
+                    field.options.forEach(opt => {
+                        const card = document.createElement('label');
+                        card.className = "border-2 border-slate-100 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition-all";
+                        
+                        const textSpan = document.createElement('span');
+                        textSpan.className = "text-xs font-bold text-slate-700 option-label";
+                        textSpan.setAttribute('data-std', opt.text);
+                        textSpan.setAttribute('data-easy', opt.easy || opt.text);
+                        textSpan.innerText = easyReadMode ? (opt.easy || opt.text) : opt.text;
+                        
+                        const checkbox = document.createElement('input');
+                        checkbox.type = "checkbox";
+                        checkbox.value = opt.val;
+                        checkbox.className = "rounded text-garden-500 focus:ring-garden-500 border-slate-200";
+                        
+                        checkbox.onchange = function() {
+                            if (this.checked) {
+                                card.className = "border-2 border-garden-500 bg-garden-50/20 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition-all";
+                            } else {
+                                card.className = "border-2 border-slate-100 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition-all";
+                            }
+                        };
+
+                        card.appendChild(textSpan);
+                        card.appendChild(checkbox);
+                        grid.appendChild(card);
+                    });
+                    wrapper.appendChild(grid);
+                }
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function selectAAC(category, value, element) {
+            // Remove previous active outline in sibling buttons
+            const parentSection = element.parentElement;
+            const buttons = parentSection.querySelectorAll('.aac-btn');
+            buttons.forEach(btn => btn.className = "aac-btn py-3 px-2 border rounded-xl text-center hover:bg-amber-50/50 hover:border-amber-300 transition-all");
+            
+            // Highlight active selection
+            element.className = "aac-btn py-3 px-2 border-2 border-amber-500 bg-amber-50 rounded-xl text-center transition-all shadow-sm";
+            
+            activeAAC[category] = value;
+
+            // Auto-reflect within textareas of the form if possible
+            const activeTextarea = document.querySelector('textarea');
+            if (activeTextarea) {
+                activeTextarea.value = `[당사자 목소리 (AAC) 수집] 기분 상태: ${activeAAC.mood || '기입 안됨'} | 요청 및 선호: ${activeAAC.need || '기입 안됨'}`;
+            }
+
+            // Real-time LLM Co-pilot response translation
+            document.getElementById('ai-live-feedback').innerText = `당사자 본인(SR)의 감정 및 선호 요구(${activeAAC.mood || '선택 안 됨'}, ${activeAAC.need || '선택 안 됨'})를 AI가 행동 기능(PCP)과 매칭하여 자동 요약 기록 중입니다.`;
+        }
+
+        function toggleEasyReadMode() {
+            easyReadMode = document.getElementById('easyReadToggle').checked;
+            
+            // Update Toggle labels
+            const statusLabel = document.getElementById('easy-read-label');
+            const bg = document.getElementById('toggleBg');
+            const dot = document.getElementById('toggleDot');
+
+            if (easyReadMode) {
+                statusLabel.innerText = "쉬운 말 모드 켜짐";
+                statusLabel.className = "mr-3 text-sm font-black text-emerald-950 flex items-center";
+                bg.className = "block bg-emerald-500 w-12 h-7 rounded-full transition-colors";
+                dot.className = "dot absolute right-1 top-1 bg-white w-5 h-5 rounded-full transition-transform duration-300 translate-x-5 shadow-sm";
+            } else {
+                statusLabel.innerText = "쉬운 말 모드 꺼짐";
+                statusLabel.className = "mr-3 text-sm font-black text-amber-900 flex items-center";
+                bg.className = "block bg-slate-300 w-12 h-7 rounded-full transition-colors";
+                dot.className = "dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform duration-300 shadow-sm";
+            }
+
+            // Toggle Label Texts (Standard vs Easy mapping)
+            const labels = document.querySelectorAll('.field-label-text');
+            labels.forEach(lbl => {
+                const stdText = lbl.getAttribute('data-std');
+                const easyText = lbl.getAttribute('data-easy');
+                lbl.innerText = easyReadMode ? easyText : stdText;
+            });
+
+            const optLabels = document.querySelectorAll('.option-label');
+            optLabels.forEach(opt => {
+                const stdText = opt.getAttribute('data-std');
+                const easyText = opt.getAttribute('data-easy');
+                opt.innerText = easyReadMode ? easyText : stdText;
+            });
+        }
+
+        function updateAICopilotAdvices() {
+            const feedbackBox = document.getElementById('ai-live-feedback');
+            const warningBox = document.getElementById('ai-live-warning');
+
+            const roleNames = {
+                CG: "가족 및 주돌봄자 (CG)",
+                SR: "당사자 본인 (SR)",
+                MP: "의료진 및 재활치료사 (MP)",
+                SE: "특수교사 및 교육 제공자 (SE)",
+                SW: "사회복지사 및 활동지원사 (SW)",
+                VC: "직업재활사 및 고용코치 (VC)",
+                LG: "성년후견인 및 대리인 (LG)"
+            };
+
+            const stageFeedback = {
+                0: "K-DST 진단의 미세 대치 데이터를 수집 중입니다. 소아과 치료와 치료 센터와의 데이터 대칭성 확보를 위해 의료진(MP) 필드를 함께 켜는 것을 추천합니다.",
+                1: "유아기 연속성 발달 바우처를 검출합니다. 특수 아동 심리 교육 및 감각 통제가 원활히 자조 행동으로 연계되는지 모니터링합니다.",
+                2: "개별화교육(IEP) 65% 달성 추적. 학업 적응과 또래 관계 마찰 이력이 연계되었습니다. 최근 통합학습 내 가벼운 소지 지르기 행동에 유의해야 합니다.",
+                3: "보호작업장 훈련 및 성인전환기 자립생활 데이터 검출. 편의점 카드 사용 등의 독립 소비를 지속 가이드해 주세요.",
+                4: "조기 인지 퇴행성 쇠퇴 감지 가동 중. 길 잃음 징후 및 뒤처리 낙상 위기를 차단하기 위해 주택 내 안전 바 조정을 검토하세요.",
+                5: "부모 사후 대비 신탁 명세 조회. 미비된 신탁 연계 사항을 해결하기 위해 공공 법률 신탁 상담 신청으로 연계합니다.",
+                PBS: "선행-행동-결과(A-B-C) 과학적 행동 분석 작동 중. 자해성 머리 찧기는 통제 중심 대처보다 노이즈캔슬링과 전정 안심 유도로 소강 수렴된 데이터가 기록되었습니다."
+            };
+
+            feedbackBox.innerText = `[${roleNames[currentRole]} 시점] ${stageFeedback[currentStage]}`;
+            
+            // Warnings trigger based on current active choices
+            if (currentStage === 'PBS') {
+                warningBox.innerText = "자해 빈도 전주 대비 20% 증가 감지. 주 수요일 하교 시각 15시 전후의 소음 피크 타임 스트레스가 요인으로 추론됩니다.";
+            } else if (currentStage === 5) {
+                warningBox.innerText = "보호자 건강 검진 이력 누락 감지. 유고 시나리오 비상 단기 쉼터 연계가 유효한지 확인하십시오.";
+            } else {
+                warningBox.innerText = "지난 3일간 수면 패턴 데이터 부재. 오늘의 자조 행동 달성 점수에 누적 수면 손실이 부정적인 영향을 줄 수 있습니다.";
+            }
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Custom popup modal triggers
+            const modal = document.getElementById('custom-modal');
+            const container = document.getElementById('modal-container');
+            const title = document.getElementById('modal-title-text');
+            const body = document.getElementById('modal-body-text');
+
+            title.innerText = "기록 작성 및 동기화 완료";
+            body.innerText = `${formSchemas[currentStage].title}에 관한 정보가 돌봄 협업망(학교, 병원, 자립센터)에 즉각 공유되었습니다.`;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 50);
+        }
+
+        function resetActiveForm() {
+            renderActiveForm();
+            activeAAC = { mood: '', need: '' };
+            const aacBtns = document.querySelectorAll('.aac-btn');
+            aacBtns.forEach(btn => btn.className = "aac-btn py-3 px-2 border rounded-xl text-center hover:bg-amber-50/50 hover:border-amber-300 transition-all");
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            modal.classList.add('hidden');
+        }
+
+        function downloadMockReport() {
+            const modal = document.getElementById('custom-modal');
+            const container = document.getElementById('modal-container');
+            const title = document.getElementById('modal-title-text');
+            const body = document.getElementById('modal-body-text');
+
+            title.innerText = "보호자용 보고서 준비 완료";
+            body.innerText = "지난 일주일간 기록된 IEP 공부 달성도 및 PBS 대응 소강 일지 PDF를 클립보드 복사 혹은 다운로드 완료했습니다.";
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 50);
+        }
+
+        function simulateBehaviorPattern() {
+            const modal = document.getElementById('custom-modal');
+            const container = document.getElementById('modal-container');
+            const title = document.getElementById('modal-title-text');
+            const body = document.getElementById('modal-body-text');
+
+            title.innerText = "행동 지원 패턴 추이";
+            body.innerText = "AI 코치가 추론한 당사자의 자극 민감도는 '청각 영역 75%'로 도출되었습니다. 훈련 중 소음 소강을 유지해야 안전합니다.";
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 50);
+        }
+    </script>
+</body>
+</html>

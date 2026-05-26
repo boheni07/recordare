@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숨가든 (Soom-Garden) - 생애주기별 입력 폼 프로토타입</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f7f6f2; /* 따뜻하고 편안한 미색 베이지 계열 */
+        }
+        /* 포커스 및 강조용 숨가든 테마 컬러 */
+        .theme-primary { color: #2e5a44; }
+        .theme-bg-primary { background-color: #2e5a44; }
+        .theme-bg-light { background-color: #eef3f0; }
+        .theme-border { border-color: #cbd5e1; }
+    </style>
+</head>
+<body class="min-height-screen text-slate-800">
+
+    <!-- TOP HEADER NAVIGATION -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full theme-bg-primary flex items-center justify-center text-white text-xl font-bold shadow-md">
+                    <i class="fa-solid fa-seedling"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-black theme-primary tracking-wide">숨가든</span>
+                    <span class="text-xs block text-slate-500 font-medium -mt-1">지적장애인 생애주기별 통합 지원</span>
+                </div>
+            </div>
+
+            <!-- 글로벌 쉬운 말 모드 및 프로필 관리 -->
+            <div class="flex items-center space-x-6">
+                <!-- 쉬운 말 모드 스위치 -->
+                <div class="flex items-center bg-amber-50 border border-amber-200 px-4 py-2 rounded-full shadow-sm">
+                    <label class="flex items-center cursor-pointer select-none">
+                        <span class="mr-3 text-sm font-bold text-amber-900 flex items-center">
+                            <i class="fa-solid fa-face-smile text-lg mr-1.5 text-amber-500"></i>
+                            쉬운 말 모드
+                        </span>
+                        <div class="relative">
+                            <input type="checkbox" id="easyReadToggle" class="sr-only" onchange="toggleEasyRead()">
+                            <div class="block bg-slate-300 w-11 h-6 rounded-full transition-colors" id="toggleBg"></div>
+                            <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform" id="toggleDot"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <img class="w-10 h-10 rounded-full border-2 border-emerald-600 object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=100" alt="사용자 프로필">
+                    <div class="hidden md:block text-left">
+                        <span class="block text-sm font-bold text-slate-800">이정민 (보호자)</span>
+                        <span class="block text-xs text-emerald-700 font-medium">당사자: 이호준 (학령기)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- LEFT SIDEBAR: LIFE CYCLE NAVIGATION -->
+        <aside class="lg:col-span-3 space-y-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 px-2">생애주기 서비스 전환</h3>
+                <nav class="space-y-1">
+                    <button onclick="switchTab('infant')" id="btn-infant" class="tab-btn w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-left transition text-slate-600 hover:bg-slate-50">
+                        <span class="flex items-center"><i class="fa-solid fa-baby text-pink-500 mr-3 text-lg"></i>영유아기 <span class="text-xs font-normal text-slate-400 ml-1.5">(0~6세)</span></span>
+                        <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    </button>
+                    <button onclick="switchTab('school')" id="btn-school" class="tab-btn w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-left transition theme-bg-light theme-primary">
+                        <span class="flex items-center"><i class="fa-solid fa-child-reaching text-indigo-500 mr-3 text-lg"></i>학령기 <span class="text-xs font-normal text-slate-500 ml-1.5">(7~18세)</span></span>
+                        <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    </button>
+                    <button onclick="switchTab('adult')" id="btn-adult" class="tab-btn w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-left transition text-slate-600 hover:bg-slate-50">
+                        <span class="flex items-center"><i class="fa-solid fa-user-tie text-emerald-600 mr-3 text-lg"></i>성인기 <span class="text-xs font-normal text-slate-400 ml-1.5">(19~39세)</span></span>
+                        <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    </button>
+                    <button onclick="switchTab('senior')" id="btn-senior" class="tab-btn w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-left transition text-slate-600 hover:bg-slate-50">
+                        <span class="flex items-center"><i class="fa-solid fa-person-cane text-amber-600 mr-3 text-lg"></i>노년기 <span class="text-xs font-normal text-slate-400 ml-1.5">(40세 이상)</span></span>
+                        <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- 상시 도전행동/긍정행동지원 퀵 액세스 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">상시 행동지원</h3>
+                <button onclick="switchTab('pbs')" id="btn-pbs" class="tab-btn w-full flex items-center justify-between px-4 py-3.5 rounded-xl font-bold text-left transition bg-rose-50 text-rose-800 border border-rose-100 hover:bg-rose-100">
+                    <span class="flex items-center">
+                        <span class="relative flex h-3 w-3 mr-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                        </span>
+                        도전행동 기록 (PBS)
+                    </span>
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </button>
+            </div>
+
+            <!-- 플랫폼 도움말 팁 -->
+            <div class="bg-gradient-to-br from-emerald-800 to-teal-950 rounded-2xl p-5 text-white shadow-md relative overflow-hidden">
+                <div class="absolute -right-8 -bottom-8 text-white opacity-10 text-8xl">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-2 flex items-center">
+                    <i class="fa-solid fa-circle-question mr-2 text-emerald-300"></i>기록 꿀팁
+                </h4>
+                <p class="text-xs leading-relaxed text-emerald-100">
+                    쉬운 말 모드를 켜면 당사자가 직접 일지나 요구를 직접 작성할 때 복잡한 보조도구 없이도 자연스러운 문항을 볼 수 있습니다.
+                </p>
+            </div>
+        </aside>
+
+        <!-- CENTER: ACTIVE FORM INTERFACES -->
+        <section class="lg:col-span-6 space-y-6">
+
+            <!-- 작성 주체 셀렉터 -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex items-center justify-between">
+                <span class="text-sm font-bold text-slate-500">지금 누가 작성하시나요?</span>
+                <div class="flex bg-slate-100 rounded-lg p-1 space-x-1">
+                    <button onclick="switchRole('family')" id="role-family" class="role-btn px-3 py-1.5 rounded-md text-xs font-bold transition bg-white text-emerald-800 shadow-sm">
+                        <i class="fa-solid fa-people-roof mr-1"></i>가족/보호자
+                    </button>
+                    <button onclick="switchRole('self')" id="role-self" class="role-btn px-3 py-1.5 rounded-md text-xs font-bold transition text-slate-600 hover:text-slate-900">
+                        <i class="fa-solid fa-user-graduate mr-1"></i>당사자 본인
+                    </button>
+                    <button onclick="switchRole('teacher')" id="role-teacher" class="role-btn px-3 py-1.5 rounded-md text-xs font-bold transition text-slate-600 hover:text-slate-900">
+                        <i class="fa-solid fa-user-doctor mr-1"></i>교사/치료사
+                    </button>
+                </div>
+            </div>
+
+            <!-- [FORM 1] 영유아기 (0~6세) -->
+            <div id="form-infant" class="form-content hidden bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 bg-gradient-to-r from-pink-50 to-rose-50 border-b border-rose-100">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-bold">영유아기 폼</span>
+                        <h2 class="text-xl font-bold text-slate-800">조기 스크리닝 및 바우처 치료 기록</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">아이의 소중한 발달 신호를 기록하고 발달재활 바우처 치료의 세션 진행 과정을 남깁니다.</p>
+                </div>
+                <form class="p-6 space-y-6" onsubmit="handleFormSubmit(event, '영유아기 발달 및 조기개입 이력')">
+                    <!-- Q1. 발달 스크리닝 (대/소근육) -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 flex justify-between items-center">
+                            <span class="q-label" data-std="대/소근육 운동 및 신체 발달 특이사항" data-easy="👶 아이가 손을 움직이거나 걸을 때 어떤가요?">대/소근육 운동 및 신체 발달 특이사항</span>
+                            <span class="text-xs text-slate-400">발달 스크리닝</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <label class="border rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 transition border-slate-200">
+                                <input type="radio" name="infant-motor" value="good" class="sr-only">
+                                <span class="text-xl">😊</span>
+                                <span class="text-xs font-bold mt-1" data-std="양호 / 연령 적합" data-easy="잘 움직여요">양호 / 연령 적합</span>
+                            </label>
+                            <label class="border rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 transition border-emerald-600 bg-emerald-50/20">
+                                <input type="radio" name="infant-motor" value="training" class="sr-only" checked>
+                                <span class="text-xl">🐣</span>
+                                <span class="text-xs font-bold mt-1" data-std="시도 중 / 경계선" data-easy="열심히 연습해요">시도 중 / 경계선</span>
+                            </label>
+                            <label class="border rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 transition border-slate-200">
+                                <input type="radio" name="infant-motor" value="delayed" class="sr-only">
+                                <span class="text-xl">😢</span>
+                                <span class="text-xs font-bold mt-1" data-std="지연 의심 / 조기개입 요망" data-easy="도움이 필요해요">지연 의심</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2. 주관식 일지 -->
+                    <div class="space-y-2 relative">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="바우처 언어/감각통합 세션 관찰 기록" data-easy="💬 최근 받은 미술·체육 놀이나 언어 공부에서 어땠나요?">
+                            바우처 언어/감각통합 세션 관찰 기록
+                        </label>
+                        <textarea class="w-full border border-slate-200 rounded-xl p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent" rows="3" placeholder="예: 언어치료 중 '물'을 지칭할 때 눈맞춤을 2초 이상 유지함." onfocus="showAIAssist('infant-assist')"></textarea>
+                    </div>
+
+                    <!-- AI Assistant Section -->
+                    <div id="infant-assist" class="bg-amber-50/50 border border-amber-200/60 rounded-2xl p-4 flex items-start space-x-3 text-xs text-amber-900 hidden">
+                        <i class="fa-solid fa-sparkles text-amber-500 mt-0.5 text-sm animate-pulse"></i>
+                        <div>
+                            <span class="font-bold block mb-1">AI 기록 가이드 추천</span>
+                            <span>"아이의 눈맞춤 빈도, 치료 후 피로도가 높아 밤잠 투정으로 이어졌는지 여부를 적어두시면 다음 주 치료실 일지 자동 생성에 큰 도움이 됩니다."</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-xl text-sm font-bold text-white theme-bg-primary shadow-lg transition hover:bg-emerald-900">
+                        기록 저장 및 AI 분석하기
+                    </button>
+                </form>
+            </div>
+
+            <!-- [FORM 2] 학령기 (7~18세) - DEFAULT ACTIVE -->
+            <div id="form-school" class="form-content bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border-b border-indigo-100">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold">학령기 폼</span>
+                        <h2 class="text-xl font-bold text-slate-800">개별화교육계획(IEP) 및 학교생활 일상</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">학교 생활 적응을 극대화하기 위해 IEP의 세부 목표와 또래 관계, 방과후 돌봄을 기록합니다.</p>
+                </div>
+                <form class="p-6 space-y-6" onsubmit="handleFormSubmit(event, '학령기 IEP 및 학교생활 기록')">
+                    
+                    <!-- Q1. IEP 목표 달성률 (수 개념, 화폐 계산 등) -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 flex justify-between items-center">
+                            <span class="q-label" data-std="학기별 개별화 교육 목표 달성 추이" data-easy="🎒 이번 학기 학교 공부 목표는 얼마나 해냈나요?">학기별 개별화 교육 목표 달성 추이</span>
+                            <span class="text-xs text-slate-400">IEP 관련 데이터</span>
+                        </label>
+                        <div class="flex items-center space-x-4 bg-slate-50 p-4 rounded-xl">
+                            <input type="range" class="w-full accent-emerald-600" min="0" max="100" value="65" id="iepRange" oninput="updateRangeVal(this.value)">
+                            <span class="text-lg font-bold text-indigo-700 whitespace-nowrap" id="rangeVal">65%</span>
+                        </div>
+                    </div>
+
+                    <!-- Q2. 학교생활 적응 및 또래관계 기록 -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="통합학급 활동 참여도 및 또래관계 특이사항" data-easy="🤝 학교 친구들과는 어떻게 어울렸나요? 갈등이 있었나요?">
+                            통합학급 활동 참여도 및 또래관계 특이사항
+                        </label>
+                        <textarea class="w-full border border-slate-200 rounded-xl p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600" rows="3" placeholder="예: 미술 시간에 짝꿍과 가위질을 돕고 양보하는 모범적인 상호작용 관찰됨." onfocus="showAIAssist('school-assist')"></textarea>
+                    </div>
+
+                    <!-- AI Assistant Section -->
+                    <div id="school-assist" class="bg-amber-50/50 border border-amber-200/60 rounded-2xl p-4 flex items-start space-x-3 text-xs text-amber-900 hidden">
+                        <i class="fa-solid fa-sparkles text-amber-500 mt-0.5 text-sm animate-pulse"></i>
+                        <div>
+                            <span class="font-bold block mb-1">AI 기록 가이드 추천</span>
+                            <span>"특수학급에서의 수업뿐 아니라, 급식 지도시 스스로 밥을 먹는 과정이나 통합반 체육 수업 중 이탈 유무를 단어 중심으로만 적어주셔도 AI가 풍부한 관찰 리포트를 완성해 드립니다."</span>
+                        </div>
+                    </div>
+
+                    <!-- Q3. 돌봄 기관 이용 여부 및 이동 지원 -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="방과후 돌봄센터 이용 시간 및 이동 수단" data-easy="🚌 학교가 끝나고 나서는 어디로 가고 어떻게 갔나요?">
+                            방과후 돌봄센터 이용 시간 및 이동 수단
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="border rounded-xl p-3 flex items-center justify-between cursor-pointer hover:bg-slate-50">
+                                <span class="text-xs font-bold" data-std="장애인콜택시 / 전용 통학차" data-easy="콜택시나 노란 버스 타기">장애인콜택시 / 통학차</span>
+                                <input type="checkbox" checked class="rounded text-emerald-600 focus:ring-emerald-600">
+                            </label>
+                            <label class="border rounded-xl p-3 flex items-center justify-between cursor-pointer hover:bg-slate-50">
+                                <span class="text-xs font-bold" data-std="도보 (보호자 동행)" data-easy="엄마/아빠랑 걸어서 가기">도보 (보호자 동행)</span>
+                                <input type="checkbox" class="rounded text-emerald-600 focus:ring-emerald-600">
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-xl text-sm font-bold text-white theme-bg-primary shadow-lg transition hover:bg-emerald-900">
+                        기록 저장 및 AI 분석하기
+                    </button>
+                </form>
+            </div>
+
+            <!-- [FORM 3] 성인기 (19~39세) -->
+            <div id="form-adult" class="form-content hidden bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-100">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">성인기 폼</span>
+                        <h2 class="text-xl font-bold text-slate-800">직업재활 훈련 및 독립적 자립생활</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">자립도를 높이기 위한 대중교통 이동, 현명한 지출 소비 루틴 및 보호작업장 훈련을 체크합니다.</p>
+                </div>
+                <form class="p-6 space-y-6" onsubmit="handleFormSubmit(event, '성인기 직업 및 자립생활 기록')">
+                    <!-- Q1. 직장 근태 및 동료관계 -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="출퇴근 근태 상황 및 동료 마찰 여부" data-easy="💼 일하러 갈 때 시간은 잘 지켰나요? 기분은 어땠나요?">
+                            출퇴근 근태 상황 및 동료 마찰 여부
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="border rounded-xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50 border-emerald-600 bg-emerald-50/20">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg">⏰</span>
+                                    <span class="text-xs font-bold text-slate-700" data-std="지각/조퇴 없이 개근" data-easy="시간 맞춰 출근 완료">지각/조퇴 없이 개근</span>
+                                </div>
+                                <input type="radio" name="adult-commute" checked class="text-emerald-600">
+                            </label>
+                            <label class="border rounded-xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50 border-slate-200">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg">🌧️</span>
+                                    <span class="text-xs font-bold text-slate-700" data-std="출근 거부 또는 잦은 지각" data-easy="출근하기 힘들어함">출근하기 힘들어함</span>
+                                </div>
+                                <input type="radio" name="adult-commute" class="text-emerald-600">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2. 금전/소비 패턴 주관식 -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="가사 자립 수준 및 소비 의사결정" data-easy="💳 마트나 편의점에서 직접 돈이나 카드로 물건을 잘 샀나요?">
+                            가사 자립 수준 및 소비 의사결정
+                        </label>
+                        <textarea class="w-full border border-slate-200 rounded-xl p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600" rows="3" placeholder="예: 키오스크 결제 시 직원 도움을 받아 좋아하는 음료수를 단독 결제함." onfocus="showAIAssist('adult-assist')"></textarea>
+                    </div>
+
+                    <!-- AI Assistant Section -->
+                    <div id="adult-assist" class="bg-amber-50/50 border border-amber-200/60 rounded-2xl p-4 flex items-start space-x-3 text-xs text-amber-900 hidden">
+                        <i class="fa-solid fa-sparkles text-amber-500 mt-0.5 text-sm animate-pulse"></i>
+                        <div>
+                            <span class="font-bold block mb-1">AI 기록 가이드 추천</span>
+                            <span>"성인 자립생활의 핵심은 위험 대처입니다. 보이스피싱 시도 등의 보안 상황에 어떻게 대처했는지, 대중교통 이용 시 헤맸던 포인트를 적어두면 자립훈련 계획서가 정교해집니다."</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-xl text-sm font-bold text-white theme-bg-primary shadow-lg transition hover:bg-emerald-900">
+                        기록 저장 및 AI 분석하기
+                    </button>
+                </form>
+            </div>
+
+            <!-- [FORM 4] 노년기 (40세 이상) -->
+            <div id="form-senior" class="form-content hidden bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-100">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold">노년기 폼</span>
+                        <h2 class="text-xl font-bold text-slate-800">조기 치매 모니터링 및 상실 사후 대비</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">일반인보다 조기에 시작되는 노화 징후를 추적하고, 보호자 사후 대비 공공신탁을 설계합니다.</p>
+                </div>
+                <form class="p-6 space-y-6" onsubmit="handleFormSubmit(event, '중장년/노년기 조기노화 및 사후대비 기록')">
+                    <!-- Q1. 치매/기억력 조기 노화 이상 징후 -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="급격한 인지능력 저하 및 행동 기억 상실 징후" data-easy="🩺 최근 자주 가던 길을 헤매거나 가까운 사람 이름을 잊었나요?">
+                            급격한 인지능력 저하 및 행동 기억 상실 징후
+                        </label>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 bg-slate-50 p-3 rounded-xl cursor-pointer hover:bg-slate-100">
+                                <input type="checkbox" class="rounded text-amber-600 focus:ring-amber-600">
+                                <span class="text-xs font-bold text-slate-700" data-std="이전에 하던 익숙한 신변 처리(화장실 뒤처리 등) 실수 발생" data-easy="잘하던 화장실 이용이나 세수를 갑자기 서툴러해요">이전에 하던 익숙한 신변 처리 실수 발생</span>
+                            </label>
+                            <label class="flex items-center space-x-3 bg-slate-50 p-3 rounded-xl cursor-pointer hover:bg-slate-100">
+                                <input type="checkbox" class="rounded text-amber-600 focus:ring-amber-600">
+                                <span class="text-xs font-bold text-slate-700" data-std="자주 부르는 지인의 이름 또는 물품 명칭 인지 실패" data-easy="매일 보던 물건의 이름을 기억하지 못해요">자주 부르는 지인의 이름 또는 물품 명칭 인지 실패</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2. 부모 사후 보장을 위한 공공 신탁 준비 상황 -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="주돌봄자 유고 대비 신탁 및 후견인 지정 관리" data-easy="🏛️ 부모님 유고 시 당사자를 돌봐줄 후견인이나 통장이 준비되어 있나요?">
+                            주돌봄자 유고 대비 신탁 및 후견인 지정 관리
+                        </label>
+                        <select class="w-full border border-slate-200 rounded-xl p-3 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                            <option value="none">아직 준비하지 않음 (상담 희망)</option>
+                            <option value="trust">발달장애인 특별부양 신탁 가입 완료</option>
+                            <option value="guardian">공공 성년 후견인 지정 및 승인 완료</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-xl text-sm font-bold text-white theme-bg-primary shadow-lg transition hover:bg-emerald-900">
+                        기록 저장 및 AI 분석하기
+                    </button>
+                </form>
+            </div>
+
+            <!-- [FORM pbs] 긍정적 행동지원 (PBS) -->
+            <div id="form-pbs" class="form-content hidden bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 bg-gradient-to-r from-rose-50 to-red-50 border-b border-rose-100">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-xs font-bold">상시 위험군 기록</span>
+                        <h2 class="text-xl font-bold text-slate-800">도전행동 발생 상황 및 긍정지원(PBS) 일지</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">도전행동의 원인을 정확히 찾아내는 선행-행동-결과(A-B-C) 매커니즘을 토대로 기록합니다.</p>
+                </div>
+                <form class="p-6 space-y-6" onsubmit="handleFormSubmit(event, '긍정적 행동지원(PBS) 및 도전행동 관찰 기록')">
+                    
+                    <!-- Q1. 도전행동 유형 선택 -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 q-label" data-std="관찰된 도전행동 유형 (중복 선택)" data-easy="🚨 방금 어떤 마음 아픈 행동을 하였나요?">
+                            관찰된 도전행동 유형 (중복 선택)
+                        </label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="border rounded-xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50 border-rose-600 bg-rose-50/20">
+                                <span class="text-xs font-bold text-slate-700" data-std="자해 (머리 벽 찧기 등)" data-easy="스스로를 다치게 하는 행동">자해 (머리 찧기 등)</span>
+                                <input type="checkbox" checked class="rounded text-rose-600 focus:ring-rose-600">
+                            </label>
+                            <label class="border rounded-xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50">
+                                <span class="text-xs font-bold text-slate-700" data-std="타해 (꼬집기, 때리기)" data-easy="다른 사람을 다치게 하는 행동">타해 (꼬집기, 때리기)</span>
+                                <input type="checkbox" class="rounded text-rose-600 focus:ring-rose-600">
+                            </label>
+                            <label class="border rounded-xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50">
+                                <span class="text-xs font-bold text-slate-700" data-std="기물 파손" data-easy="물건을 마구 던지거나 부수는 행동">기물 파손</span>
+                                <input type="checkbox" class="rounded text-rose-600 focus:ring-rose-600">
+                            </label>
+                            <label class="border rounded-xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50">
+                                <span class="text-xs font-bold text-slate-700" data-std="소리 지르기" data-easy="매우 큰 소리로 비명 지르기">소리 지르기</span>
+                                <input type="checkbox" class="rounded text-rose-600 focus:ring-rose-600">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2. ABC 기반 정성 분석 -->
+                    <div class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-slate-700 q-label" data-std="선행 사건 (Antecedent) : 행동 직전의 상황" data-easy="❔ 왜 그 행동을 한 것 같나요? 직전에 무슨 일이 있었나요?">
+                                선행 사건 (Antecedent) : 행동 직전의 상황
+                            </label>
+                            <textarea class="w-full border border-slate-200 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-rose-600" rows="2" placeholder="예: 주변 공사 소음으로 갑자기 실내가 시끄러워짐." onfocus="showAIAssist('pbs-assist')"></textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-slate-700 q-label" data-std="대응 및 중재 결과 (Consequence) : 행동 직후 취한 조치" data-easy="💡 소란이 잦아들도록 어떤 도움을 주셨나요?">
+                                대응 및 중재 결과 (Consequence) : 행동 직후 취한 조치
+                            </label>
+                            <textarea class="w-full border border-slate-200 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-rose-600" rows="2" placeholder="예: 노이즈캔슬링 헤드폰을 씌워주고 소강상태 확인 후 안정의 방으로 이동."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- AI Assistant Section -->
+                    <div id="pbs-assist" class="bg-amber-50/50 border border-amber-200/60 rounded-2xl p-4 flex items-start space-x-3 text-xs text-amber-900 hidden">
+                        <i class="fa-solid fa-sparkles text-amber-500 mt-0.5 text-sm animate-pulse"></i>
+                        <div>
+                            <span class="font-bold block mb-1">AI 긍정행동지원 코치</span>
+                            <span>"도전행동을 기록할 땐 '화가 나서 그랬다'처럼 감정으로 판단하기보다는, '특정 소리가 났을 때 귀를 막고 머리를 찧었다'와 같이 객관적인 신체적 움직임과 감각 요인을 적어주시면 정확한 행동기능 평가 보고서가 도출됩니다."</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-xl text-sm font-bold text-white bg-rose-600 shadow-lg transition hover:bg-rose-800">
+                        도전행동 저장 및 행동 분석 AI 전송
+                    </button>
+                </form>
+            </div>
+
+        </section>
+
+        <!-- RIGHT SIDEBAR: AI CO-PILOT REPORTING -->
+        <section class="lg:col-span-3 space-y-6">
+            
+            <!-- AI 에이전트 실시간 분석 패널 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 relative overflow-hidden">
+                <div class="flex items-center space-x-2 text-emerald-800 mb-4">
+                    <span class="flex h-2.5 w-2.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <h3 class="font-bold text-sm">실시간 AI 라이브 코치</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-emerald-50 p-4 rounded-xl text-xs space-y-2 text-emerald-950 border border-emerald-100">
+                        <span class="font-bold block flex items-center">
+                            <i class="fa-solid fa-brain mr-1.5 text-emerald-600"></i>학령기 데이터 추세 분석
+                        </span>
+                        <p class="leading-relaxed">
+                            이호준 아동은 지난 2주간 IEP 수 개념 달성도가 급격히 15% 상승했습니다. 쉬운 읽기 보조도구(AAC)의 가정 내 병행 사용 효과로 추정됩니다.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-xl text-xs space-y-2 text-amber-950 border border-amber-100">
+                        <span class="font-bold block flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-1.5 text-amber-600"></i>이상행동 경고 알림
+                        </span>
+                        <p class="leading-relaxed">
+                            도전행동 주간 리포트 분석 결과, 수요일 오후 3시~4시 사이에 자해 소소동이 80% 집중적으로 집중 발생합니다. 방과후 학원 이동 시의 피로도를 모니터링해야 합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-100">
+                    <button class="w-full py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1 transition shadow-sm">
+                        <i class="fa-solid fa-file-pdf mr-1 text-red-400"></i> 
+                        <span>보호자 제출용 리포트 다운로드</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 플랫폼 데이터 통계 위젯 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 text-center">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">가족과 연동된 돌봄 기관</h4>
+                <div class="flex items-center justify-center -space-x-3 my-3">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 border-2 border-white flex items-center justify-center text-indigo-700 font-bold text-xs" title="특수학교">학교</div>
+                    <div class="w-10 h-10 rounded-full bg-pink-100 border-2 border-white flex items-center justify-center text-pink-700 font-bold text-xs" title="언어치료실">치료</div>
+                    <div class="w-10 h-10 rounded-full bg-amber-100 border-2 border-white flex items-center justify-center text-amber-700 font-bold text-xs" title="자립센터">센터</div>
+                    <div class="w-10 h-10 rounded-full bg-slate-800 text-white border-2 border-white flex items-center justify-center text-xs font-bold" title="추가">+2</div>
+                </div>
+                <p class="text-[11px] text-slate-400">모든 기관이 숨가든 API를 통해 실시간으로 당사자의 IEP 성과를 연동받고 있습니다.</p>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- SUCCESS MODAL POPUP -->
+    <div id="successModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full mx-4 shadow-2xl border border-slate-100 text-center space-y-4">
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-3xl mx-auto shadow-inner">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold text-slate-800" id="modalTitle">기록 저장 완료</h3>
+                <p class="text-xs text-slate-500 mt-1">소중히 입력된 생애주기 일지가 저장되었습니다. AI 에이전트 분석 보고서가 자동으로 돌봄 기관에 공유됩니다.</p>
+            </div>
+            <button onclick="closeModal()" class="w-full py-2.5 rounded-xl text-xs font-bold text-white theme-bg-primary transition hover:bg-emerald-950">
+                확인
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC FOR INTERACTION -->
+    <script>
+        // 1. 생애주기 탭 전환 로직
+        function switchTab(tabId) {
+            // 모든 폼 가리기
+            const forms = document.querySelectorAll('.form-content');
+            forms.forEach(form => form.classList.add('hidden'));
+
+            // 선택된 폼 보여주기
+            const activeForm = document.getElementById('form-' + tabId);
+            if (activeForm) activeForm.classList.remove('hidden');
+
+            // 모든 탭 버튼 스타일 초기화
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.className = "tab-btn w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-left transition text-slate-600 hover:bg-slate-50";
+            });
+
+            // pbs 버튼 스타일 초기화
+            const pbsBtn = document.getElementById('btn-pbs');
+            pbsBtn.className = "tab-btn w-full flex items-center justify-between px-4 py-3.5 rounded-xl font-bold text-left transition bg-rose-50 text-rose-800 border border-rose-100 hover:bg-rose-100";
+
+            // 선택된 탭 스타일 지정
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (tabId === 'pbs') {
+                activeBtn.className = "tab-btn w-full flex items-center justify-between px-4 py-3.5 rounded-xl font-bold text-left transition bg-rose-600 text-white shadow-md";
+            } else if (activeBtn) {
+                activeBtn.className = "tab-btn w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-left transition theme-bg-light theme-primary";
+            }
+        }
+
+        // 2. 쉬운 말(Easy-Read) 모드 토글 시스템
+        function toggleEasyRead() {
+            const toggle = document.getElementById('easyReadToggle');
+            const toggleBg = document.getElementById('toggleBg');
+            const toggleDot = document.getElementById('toggleDot');
+            const qLabels = document.querySelectorAll('.q-label');
+            const radioLabels = document.querySelectorAll('[data-easy]');
+
+            if (toggle.checked) {
+                toggleBg.className = "block bg-amber-500 w-11 h-6 rounded-full transition-colors";
+                toggleDot.className = "dot absolute right-1 top-1 bg-white w-4 h-4 rounded-full transition-transform translate-x-5";
+                
+                // 주관식 질문 변경
+                qLabels.forEach(label => {
+                    label.innerText = label.getAttribute('data-easy');
+                });
+
+                // 라디오/체크박스 옵션 텍스트 변경
+                radioLabels.forEach(opt => {
+                    const easyText = opt.getAttribute('data-easy');
+                    const stdText = opt.getAttribute('data-std');
+                    // 자식 노드 중 텍스트만 찾아서 변경
+                    for (let node of opt.childNodes) {
+                        if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() === stdText) {
+                            node.nodeValue = easyText;
+                        }
+                    }
+                });
+            } else {
+                toggleBg.className = "block bg-slate-300 w-11 h-6 rounded-full transition-colors";
+                toggleDot.className = "dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform";
+                
+                // 원래대로 복구
+                qLabels.forEach(label => {
+                    label.innerText = label.getAttribute('data-std');
+                });
+
+                radioLabels.forEach(opt => {
+                    const easyText = opt.getAttribute('data-easy');
+                    const stdText = opt.getAttribute('data-std');
+                    for (let node of opt.childNodes) {
+                        if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() === easyText) {
+                            node.nodeValue = stdText;
+                        }
+                    }
+                });
+            }
+        }
+
+        // 3. 작성 주체(이해관계자) 역할 전환
+        function switchRole(roleId) {
+            const roleBtns = document.querySelectorAll('.role-btn');
+            roleBtns.forEach(btn => {
+                btn.className = "role-btn px-3 py-1.5 rounded-md text-xs font-bold transition text-slate-600 hover:text-slate-900";
+            });
+
+            const activeBtn = document.getElementById('role-' + roleId);
+            activeBtn.className = "role-btn px-3 py-1.5 rounded-md text-xs font-bold transition bg-white text-emerald-800 shadow-sm";
+            
+            // 역할 변경 시 AI 컨텍스트가 텍스트폼에 영향 가능 (생략 또는 향후 기능 확장용)
+        }
+
+        // 4. IEP 레인지 바 연동 수치 업데이트
+        function updateRangeVal(val) {
+            document.getElementById('rangeVal').innerText = val + "%";
+        }
+
+        // 5. AI 실시간 어시스트 활성화 (Focus 시 노출)
+        function showAIAssist(assistId) {
+            // 모든 어시스트 가림
+            document.getElementById('infant-assist').classList.add('hidden');
+            document.getElementById('school-assist').classList.add('hidden');
+            document.getElementById('adult-assist').classList.add('hidden');
+            document.getElementById('pbs-assist').classList.add('hidden');
+
+            // 포커스된 인풋 대상 어시스트 노출
+            const assist = document.getElementById(assistId);
+            if (assist) assist.classList.remove('hidden');
+        }
+
+        // 6. 데이터 전송 모의 성공 모달 창
+        function handleFormSubmit(event, formTitle) {
+            event.preventDefault();
+            document.getElementById('modalTitle').innerText = formTitle + " 저장 완료";
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
