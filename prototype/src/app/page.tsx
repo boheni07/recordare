@@ -77,7 +77,7 @@ export default function LandingPage() {
             <div className="mt-12 grid md:grid-cols-2 gap-6">
               {[
                 { n: "01", title: "통합 타임라인", desc: "영유아부터 성인까지 단 하나의 기록선", detail: "생애주기 5단계 컬러 구분 · 카톡 사진 1만장 14일 자동 정리", color: "#FFC857" },
-                { n: "02", title: "AI 음성 일지", desc: "말 한 마디 30초로 자동 카테고리", detail: "한국어 비표준 발화 학습 · 식사·투약·행동·정서·학습 5종 자동", color: "#5CB85C" },
+                { n: "02", title: "다중 입력 일지", desc: "시설 현장에서 15초 빠른 선택", detail: "빠른 선택·체크리스트·사진+태그·텍스트+OS 음성 키보드", color: "#5CB85C" },
                 { n: "03", title: "3분 마스터 인계서", desc: "기관 전환의 2주를 3분으로", detail: "PDF + 시스템 동시 전달 · 권한 이양 워크플로 자동", color: "#3B82F6" },
                 { n: "04", title: "AAC 동의 UI", desc: "당사자가 직접 그림으로 Yes/No", detail: "픽토그램 + 음성안내 + 2단계 확인", color: "#7C3AED" },
               ].map((s) => (

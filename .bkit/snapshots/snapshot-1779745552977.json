@@ -1,0 +1,1107 @@
+{
+  "timestamp": "2026-05-25T21:45:52.972Z",
+  "reason": "compaction",
+  "status": {
+    "version": "3.0",
+    "lastUpdated": "2026-05-25T14:57:51.447Z",
+    "activeFeatures": [
+      "recordare",
+      "prototype",
+      "login",
+      "role-select",
+      "signup",
+      "step-1",
+      "step-2",
+      "step-3",
+      "step-4",
+      "step-5",
+      "step-6",
+      "step-7",
+      "parent",
+      "timeline",
+      "new",
+      "migration",
+      "grant",
+      "revoke",
+      "list",
+      "notifications",
+      "export",
+      "worker",
+      "schedule",
+      "voice",
+      "photo",
+      "received",
+      "offline",
+      "contract",
+      "self",
+      "diary",
+      "consent",
+      "activities",
+      "case",
+      "cases",
+      "meeting",
+      "facility",
+      "bulk",
+      "quarterly",
+      "b2g",
+      "screening",
+      "k-dst",
+      "trend",
+      "quick",
+      "checklist",
+      "general-teacher",
+      "memo"
+    ],
+    "primaryFeature": "recordare",
+    "features": {
+      "recordare": {
+        "phase": "plan",
+        "phaseNumber": 1,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [
+          "MVP Beta (M3-M6) 범위: FR 21건 + NFR 7건"
+        ],
+        "documents": {
+          "prd_v1": "docs/00-pm/recordare.prd.md",
+          "prd_v2": "docs/00-pm/recordare-prd-v2.md",
+          "workflows": "docs/00-pm/recordare-workflows.md",
+          "ux_structure": "docs/00-pm/recordare-ux-structure.md",
+          "plan": "docs/01-plan/features/recordare.plan.md"
+        },
+        "timestamps": {
+          "started": "2026-05-24T00:00:00Z",
+          "planCompleted": "2026-05-24T15:58:29.614426Z",
+          "lastUpdated": "2026-05-24T15:58:29.614426Z"
+        }
+      },
+      "prototype": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:03:16.197Z",
+          "lastUpdated": "2026-05-25T14:55:49.917Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\lib\\mock-data.ts"
+      },
+      "login": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:06:20.861Z",
+          "lastUpdated": "2026-05-24T23:06:20.861Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\login\\page.tsx"
+      },
+      "role-select": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:06:34.540Z",
+          "lastUpdated": "2026-05-24T23:06:34.540Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\role-select\\page.tsx"
+      },
+      "signup": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:06:43.482Z",
+          "lastUpdated": "2026-05-24T23:06:43.482Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\layout.tsx"
+      },
+      "step-1": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:06:50.353Z",
+          "lastUpdated": "2026-05-24T23:06:50.353Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\step-1\\page.tsx"
+      },
+      "step-2": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:06:56.818Z",
+          "lastUpdated": "2026-05-24T23:06:56.818Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\step-2\\page.tsx"
+      },
+      "step-3": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:07:04.457Z",
+          "lastUpdated": "2026-05-24T23:07:04.457Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\step-3\\page.tsx"
+      },
+      "step-4": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:07:14.641Z",
+          "lastUpdated": "2026-05-24T23:07:14.641Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\step-4\\page.tsx"
+      },
+      "step-5": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:07:21.776Z",
+          "lastUpdated": "2026-05-24T23:07:21.777Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\step-5\\page.tsx"
+      },
+      "step-6": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:07:30.339Z",
+          "lastUpdated": "2026-05-24T23:07:30.339Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\step-6\\page.tsx"
+      },
+      "step-7": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:07:44.091Z",
+          "lastUpdated": "2026-05-24T23:07:44.091Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\signup\\step-7\\page.tsx"
+      },
+      "parent": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:41:15.375Z",
+          "lastUpdated": "2026-05-25T05:40:30.164Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\page.tsx"
+      },
+      "timeline": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:41:52.827Z",
+          "lastUpdated": "2026-05-24T23:41:52.827Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\timeline\\page.tsx"
+      },
+      "new": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:42:09.489Z",
+          "lastUpdated": "2026-05-24T23:43:31.540Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\handover\\new\\page.tsx"
+      },
+      "migration": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:42:29.887Z",
+          "lastUpdated": "2026-05-24T23:42:29.887Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\migration\\page.tsx"
+      },
+      "grant": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:42:50.081Z",
+          "lastUpdated": "2026-05-24T23:42:50.081Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\permissions\\grant\\page.tsx"
+      },
+      "revoke": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:43:05.849Z",
+          "lastUpdated": "2026-05-24T23:43:05.849Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\permissions\\revoke\\page.tsx"
+      },
+      "list": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:43:43.224Z",
+          "lastUpdated": "2026-05-24T23:43:43.224Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\handover\\list\\page.tsx"
+      },
+      "notifications": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:43:59.526Z",
+          "lastUpdated": "2026-05-24T23:43:59.526Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\notifications\\page.tsx"
+      },
+      "export": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:44:17.052Z",
+          "lastUpdated": "2026-05-24T23:44:17.052Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\export\\page.tsx"
+      },
+      "worker": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:45:37.818Z",
+          "lastUpdated": "2026-05-24T23:45:55.311Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\worker\\page.tsx"
+      },
+      "schedule": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:46:05.303Z",
+          "lastUpdated": "2026-05-24T23:46:05.303Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\worker\\schedule\\page.tsx"
+      },
+      "voice": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:46:23.878Z",
+          "lastUpdated": "2026-05-24T23:46:23.878Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\worker\\journal\\voice\\page.tsx"
+      },
+      "photo": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:46:40.029Z",
+          "lastUpdated": "2026-05-24T23:46:40.029Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\worker\\journal\\photo\\page.tsx"
+      },
+      "received": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:47:07.111Z",
+          "lastUpdated": "2026-05-24T23:47:07.111Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\worker\\handover\\received\\page.tsx"
+      },
+      "offline": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:47:29.651Z",
+          "lastUpdated": "2026-05-24T23:47:29.651Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\worker\\offline\\page.tsx"
+      },
+      "contract": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:47:49.401Z",
+          "lastUpdated": "2026-05-24T23:47:49.401Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\worker\\contract\\page.tsx"
+      },
+      "self": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:48:00.214Z",
+          "lastUpdated": "2026-05-24T23:48:15.677Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\self\\page.tsx"
+      },
+      "diary": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:48:29.689Z",
+          "lastUpdated": "2026-05-24T23:48:29.689Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\self\\diary\\page.tsx"
+      },
+      "consent": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:48:42.029Z",
+          "lastUpdated": "2026-05-24T23:48:42.029Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\self\\consent\\page.tsx"
+      },
+      "activities": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-24T23:48:53.708Z",
+          "lastUpdated": "2026-05-24T23:48:53.708Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\self\\activities\\page.tsx"
+      },
+      "case": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T04:30:04.852Z",
+          "lastUpdated": "2026-05-25T04:30:24.001Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\case\\page.tsx"
+      },
+      "cases": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T04:30:41.525Z",
+          "lastUpdated": "2026-05-25T04:30:41.525Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\case\\cases\\page.tsx"
+      },
+      "meeting": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T04:31:13.740Z",
+          "lastUpdated": "2026-05-25T04:31:13.740Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\case\\meeting\\page.tsx"
+      },
+      "facility": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T04:31:19.008Z",
+          "lastUpdated": "2026-05-25T04:31:41.909Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\facility\\page.tsx"
+      },
+      "bulk": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T04:32:09.081Z",
+          "lastUpdated": "2026-05-25T04:32:09.081Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\facility\\permissions\\bulk\\page.tsx"
+      },
+      "quarterly": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T04:32:36.699Z",
+          "lastUpdated": "2026-05-25T04:32:36.699Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\facility\\handover\\quarterly\\page.tsx"
+      },
+      "b2g": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T04:33:07.017Z",
+          "lastUpdated": "2026-05-25T04:33:07.017Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\facility\\billing\\b2g\\page.tsx"
+      },
+      "screening": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T06:02:08.409Z",
+          "lastUpdated": "2026-05-25T06:02:08.409Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\screening\\page.tsx"
+      },
+      "k-dst": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T06:02:37.665Z",
+          "lastUpdated": "2026-05-25T06:02:37.665Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\screening\\k-dst\\page.tsx"
+      },
+      "trend": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T06:03:18.290Z",
+          "lastUpdated": "2026-05-25T06:03:18.290Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\screening\\trend\\page.tsx"
+      },
+      "quick": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T14:56:32.579Z",
+          "lastUpdated": "2026-05-25T14:56:32.579Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\journal\\quick\\page.tsx"
+      },
+      "checklist": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T14:57:00.827Z",
+          "lastUpdated": "2026-05-25T14:57:00.827Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\parent\\journal\\checklist\\page.tsx"
+      },
+      "general-teacher": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T14:57:12.850Z",
+          "lastUpdated": "2026-05-25T14:57:30.917Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\general-teacher\\page.tsx"
+      },
+      "memo": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-25T14:57:51.444Z",
+          "lastUpdated": "2026-05-25T14:57:51.444Z"
+        },
+        "lastFile": "C:\\GIT-Project\\recordare\\prototype\\src\\app\\general-teacher\\memo\\page.tsx"
+      }
+    },
+    "pipeline": {
+      "currentPhase": 1,
+      "level": "Dynamic",
+      "phaseHistory": []
+    },
+    "session": {
+      "startedAt": "2026-05-24T02:46:21.348Z",
+      "onboardingCompleted": false,
+      "lastActivity": "2026-05-25T14:57:51.447Z"
+    },
+    "history": [
+      {
+        "timestamp": "2026-05-24T11:40:38.783Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T15:30:49.454Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:03:16.204Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:04:23.185Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:04:41.708Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:05:01.586Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:05:11.481Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:05:17.313Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:05:21.019Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:06:08.493Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:06:20.874Z",
+        "feature": "login",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:06:34.543Z",
+        "feature": "role-select",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:06:43.486Z",
+        "feature": "signup",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:06:50.356Z",
+        "feature": "step-1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:06:56.821Z",
+        "feature": "step-2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:07:04.463Z",
+        "feature": "step-3",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:07:14.650Z",
+        "feature": "step-4",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:07:21.783Z",
+        "feature": "step-5",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:07:30.341Z",
+        "feature": "step-6",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:07:44.094Z",
+        "feature": "step-7",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:41:15.376Z",
+        "feature": "parent",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:41:36.528Z",
+        "feature": "parent",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:41:52.829Z",
+        "feature": "timeline",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:42:09.494Z",
+        "feature": "new",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:42:29.890Z",
+        "feature": "migration",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:42:50.087Z",
+        "feature": "grant",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:43:05.851Z",
+        "feature": "revoke",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:43:31.547Z",
+        "feature": "new",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:43:43.234Z",
+        "feature": "list",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:43:59.528Z",
+        "feature": "notifications",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:44:17.054Z",
+        "feature": "export",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:45:37.819Z",
+        "feature": "worker",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:45:55.319Z",
+        "feature": "worker",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:46:05.305Z",
+        "feature": "schedule",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:46:23.879Z",
+        "feature": "voice",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:46:40.031Z",
+        "feature": "photo",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:47:07.115Z",
+        "feature": "received",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:47:29.653Z",
+        "feature": "offline",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:47:49.402Z",
+        "feature": "contract",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:48:00.217Z",
+        "feature": "self",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:48:15.682Z",
+        "feature": "self",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:48:29.693Z",
+        "feature": "diary",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:48:42.036Z",
+        "feature": "consent",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-24T23:48:53.710Z",
+        "feature": "activities",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:30:04.857Z",
+        "feature": "case",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:30:24.004Z",
+        "feature": "case",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:30:41.528Z",
+        "feature": "cases",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:31:13.748Z",
+        "feature": "meeting",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:31:19.016Z",
+        "feature": "facility",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:31:41.913Z",
+        "feature": "facility",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:32:09.082Z",
+        "feature": "bulk",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:32:36.707Z",
+        "feature": "quarterly",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T04:33:07.019Z",
+        "feature": "b2g",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T05:39:22.655Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T05:40:09.661Z",
+        "feature": "parent",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T05:40:30.172Z",
+        "feature": "parent",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T05:58:24.456Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T05:59:23.452Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T06:02:08.412Z",
+        "feature": "screening",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T06:02:37.668Z",
+        "feature": "k-dst",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T06:03:18.305Z",
+        "feature": "trend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T06:03:40.858Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T14:55:20.047Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T14:55:49.919Z",
+        "feature": "prototype",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T14:56:32.583Z",
+        "feature": "quick",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T14:57:00.830Z",
+        "feature": "checklist",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T14:57:12.854Z",
+        "feature": "general-teacher",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T14:57:30.923Z",
+        "feature": "general-teacher",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-25T14:57:51.446Z",
+        "feature": "memo",
+        "phase": "do",
+        "action": "updated"
+      }
+    ],
+    "stateMachine": {
+      "defaultWorkflow": "default",
+      "activeWorkflows": {},
+      "totalTransitions": 0
+    },
+    "automation": {
+      "globalLevel": 2,
+      "trustScore": 40,
+      "pendingApprovals": 0,
+      "lastGateResult": null
+    },
+    "team": {
+      "enabled": true,
+      "stateFile": ".bkit/runtime/agent-state.json",
+      "eventsFile": ".bkit/runtime/agent-events.jsonl"
+    }
+  }
+}

@@ -8,26 +8,32 @@ export default function WorkerDashboard() {
       <PageHeader
         title="활동지원사 대시보드"
         subtitle="안녕하세요 이수진님 · 오늘 담당 이용자 3명 · 권한 받음 6건"
-        actions={<Link href="/worker/journal/voice" className="btn-primary">🎤 음성 일지 작성 →</Link>}
+        actions={<Link href="/parent/journal/quick" className="btn-primary">⚡ 빠른 선택 일지 →</Link>}
       />
 
-      {/* Quick action - Big voice button */}
+      {/* Quick action - FR-69 다중 입력 */}
       <section className="card p-8 bg-gradient-to-br from-life-school/10 to-primary/5">
         <div className="text-center">
-          <div className="text-sm text-ink-mid mb-2">한 번 누르고 30초 말하면 자동 카테고리 분류됩니다 (FR-05)</div>
+          <div className="text-sm text-ink-mid mb-2">시설 점심·교실·이용자 옆에서도 1~3탭으로 기록합니다 (FR-69)</div>
           <Link
-            href="/worker/journal/voice"
+            href="/parent/journal/quick"
             className="inline-flex h-32 w-32 items-center justify-center rounded-full bg-accent text-white text-5xl shadow-2xl hover:scale-105 transition"
-          >🎤</Link>
-          <div className="mt-4 font-bold text-primary-dark">빠른 음성 일지</div>
-          <div className="text-xs text-ink-mid">평균 작성 시간: 1분 47초 · 목표: 2분 이하 (SC-02)</div>
+          >⚡</Link>
+          <div className="mt-4 font-bold text-primary-dark">빠른 선택 일지</div>
+          <div className="text-xs text-ink-mid">목표 작성 시간: 15초 · 체크리스트 5초 · 자체 STT 통합 없음</div>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Link href="/parent/journal/quick" className="btn-secondary text-xs">⚡ 빠른 선택</Link>
+            <Link href="/parent/journal/checklist" className="btn-secondary text-xs">✅ 체크리스트</Link>
+            <Link href="/worker/journal/photo" className="btn-secondary text-xs">📷 사진+태그</Link>
+            <Link href="/worker/journal/voice" className="btn-secondary text-xs">⌨️ 텍스트/OS 음성</Link>
+          </div>
         </div>
       </section>
 
       {/* KPI */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard label="오늘 일정" value="3명" sub="9시 / 14시 / 19시" />
-        <StatCard label="이번 주 작성한 일지" value="38건" sub="평균 1분 47초/건" color="#5CB85C" />
+        <StatCard label="이번 주 작성한 일지" value="38건" sub="빠른 선택 평균 15초/건" color="#5CB85C" />
         <StatCard label="내 권한 만료 임박" value="0건" sub="평균 D-180" />
         <StatCard label="새 인계 수령" value="1건" sub="박지훈 - 3분 마스터" color="#E07A5F" />
       </div>
@@ -46,7 +52,7 @@ export default function WorkerDashboard() {
                 <div className="font-bold">{s.user}</div>
                 <div className="text-xs text-ink-mid">{s.place} · {s.task}</div>
               </div>
-              <Link href="/worker/journal/voice" className="btn-secondary text-xs">일지 작성</Link>
+              <Link href="/parent/journal/quick" className="btn-secondary text-xs">일지 작성</Link>
             </div>
           ))}
         </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PageHeader, CategoryChip, LifeBadge } from "@/components/Card";
-import { JOURNAL_ENTRIES, CHILDREN, LIFE_STAGES, CATEGORIES } from "@/lib/mock-data";
+import { JOURNAL_ENTRIES, CHILDREN, LIFE_STAGES, CATEGORIES, RECORD_CATEGORIES } from "@/lib/mock-data";
 
 export default function TimelinePage() {
   const child = CHILDREN[0];
@@ -19,8 +19,9 @@ export default function TimelinePage() {
       />
 
       {/* Filters */}
-      <section className="card p-4 flex flex-wrap items-center gap-3 text-sm">
-        <div className="text-xs font-bold text-ink-mid">필터:</div>
+      <section className="card p-4 space-y-3 text-sm">
+        <div className="flex flex-wrap items-center gap-3">
+        <div className="text-xs font-bold text-ink-mid">일지 필터:</div>
         <select className="rounded-lg border border-border px-3 py-1.5 text-xs">
           <option>전체 기간</option>
           <option>최근 1주</option>
@@ -33,6 +34,21 @@ export default function TimelinePage() {
           ))}
         </div>
         <div className="ml-auto text-xs text-ink-mid">총 {JOURNAL_ENTRIES.length}건</div>
+        </div>
+        <div className="border-t border-border pt-3">
+          <div className="mb-2 text-xs font-bold text-ink-mid">공통 기록 카테고리 (PRD §0.1 / Plan §2.0)</div>
+          <div className="flex flex-wrap gap-1.5">
+            {(Object.entries(RECORD_CATEGORIES) as any).map(([k, c]: any) => (
+              <button
+                key={k}
+                className={`badge border ${c.sensitive ? "border-alert bg-alert/10 text-orange-900" : "border-border"}`}
+                title={c.examples.join(", ")}
+              >
+                {c.label}{c.sensitive ? " · 민감" : ""}
+              </button>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Lifecycle legend */}

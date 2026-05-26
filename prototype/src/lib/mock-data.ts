@@ -4,6 +4,17 @@
 export type Role = "parent" | "worker" | "self" | "case" | "facility" | "general-teacher";
 export type Category = "meal" | "med" | "behavior" | "emotion" | "study";
 export type LifeStage = "infant" | "school" | "transition" | "adult" | "senior";
+export type RecordCategory =
+  | "profile"
+  | "health_medical"
+  | "development_screening"
+  | "education_learning"
+  | "daily_care"
+  | "behavior_emotion"
+  | "independence_work"
+  | "permission_consent"
+  | "handover_case"
+  | "audit_security";
 
 export const ROLES: Record<Role, { label: string; path: string; lifeColor: LifeStage }> = {
   parent: { label: "보호자", path: "/parent", lifeColor: "infant" },
@@ -58,10 +69,25 @@ export const CATEGORIES: Record<Category, { label: string; emoji: string; color:
   study: { label: "학습", emoji: "📘", color: "#5CB85C" },
 };
 
+// PRD §0.1 / Plan §2.0 — 공통 기록 카테고리 taxonomy.
+// 화면 필터, 인계서 섹션, 권한 범위, 자가진단 안전 정책의 기준으로 사용한다.
+export const RECORD_CATEGORIES: Record<RecordCategory, { label: string; sensitive: boolean; examples: string[] }> = {
+  profile: { label: "기본정보", sensitive: true, examples: ["인적사항", "장애등록", "가족관계", "소속기관"] },
+  health_medical: { label: "건강/의료", sensitive: true, examples: ["검진", "진료", "투약", "알레르기", "응급"] },
+  development_screening: { label: "발달 체크", sensitive: true, examples: ["K-DST", "M-CHAT-R", "AIR-SDS", "적응행동"] },
+  education_learning: { label: "교육/학습", sensitive: false, examples: ["IEP", "학습목표", "수업참여", "일반교사 메모"] },
+  daily_care: { label: "일상돌봄", sensitive: false, examples: ["식사", "수면", "위생", "이동", "활동"] },
+  behavior_emotion: { label: "행동/정서", sensitive: true, examples: ["트리거", "안정방법", "감정 변화"] },
+  independence_work: { label: "자립/직업", sensitive: false, examples: ["직업훈련", "주거", "금전관리", "이동훈련"] },
+  permission_consent: { label: "권한/동의", sensitive: true, examples: ["접근권한", "동의", "회수", "후견"] },
+  handover_case: { label: "인계/회의", sensitive: false, examples: ["3분 인계서", "케이스 회의", "PDF 공유"] },
+  audit_security: { label: "보안기록", sensitive: true, examples: ["접근로그", "이상접근", "다운로드"] },
+};
+
 export const LIFE_STAGES: Record<LifeStage, { label: string; color: string; age: string }> = {
   infant: { label: "영유아", color: "#FFC857", age: "0~6세" },
-  school: { label: "학령기", color: "#5CB85C", age: "7~17세" },
-  transition: { label: "전환기", color: "#3B82F6", age: "18~24세" },
+  school: { label: "학령기", color: "#5CB85C", age: "7~14세" },
+  transition: { label: "전환기", color: "#3B82F6", age: "15~24세" },
   adult: { label: "성인기", color: "#7C3AED", age: "25~64세" },
   senior: { label: "고령기", color: "#6B7280", age: "65세+" },
 };

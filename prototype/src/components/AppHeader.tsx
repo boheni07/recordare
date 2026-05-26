@@ -56,7 +56,7 @@ export function AppFooter() {
         <div>
           <div className="font-semibold mb-2 text-primary-dark">서비스</div>
           <ul className="space-y-1 text-ink-mid text-xs">
-            <li>통합 타임라인</li><li>AI 음성 일지</li><li>3분 인계서</li><li>AAC 동의</li>
+            <li>통합 타임라인</li><li>다중 입력 일지</li><li>3분 인계서</li><li>AAC 동의</li>
           </ul>
         </div>
         <div>

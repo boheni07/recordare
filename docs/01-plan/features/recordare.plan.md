@@ -6,11 +6,11 @@
 | 항목 | 값 |
 |------|-----|
 | 제품명 | Recordare (레코다레) |
-| Plan 버전 | **v1.3 (리빙랩 #01 의사결정 반영)** |
-| 작성일 | 2026-05-24~25 (v1.0~v1.3) |
+| Plan 버전 | **v1.4 (보호자 자조 모임 기능 참조 추가)** |
+| 작성일 | 2026-05-24~25 (v1.0~v1.3) / 2026-05-26 (v1.4) |
 | 작성자 | PM Lead (PDCA plan phase) |
 | 범위 | MVP Beta (M3-M6, 4개월) |
-| 입력 문서 | `recordare.prd.md` v1.0 · `recordare-prd-v2.md` **v2.4** · `recordare-workflows.md` v1.3 · `recordare-ux-structure.md` v1.2 · `07-livinglab/01-living-lab-meeting-minutes.md` **v1.1** |
+| 입력 문서 | `recordare.prd.md` v1.0 · `recordare-prd-v2.md` **v2.4** · `recordare-workflows.md` v1.3 · `recordare-ux-structure.md` v1.2 · `07-livinglab/01-living-lab-meeting-minutes.md` **v1.1** · `recordare-lifecycle-recording-and-legal-screening.md` |
 | 상태 | Draft v1.3 (PRD v2.4 동기화 + 리빙랩 #01 의사결정 반영) |
 | v1.3 변경 | **STT 폐기** + MVP 25 → **28 FR** (FR-69 다중 입력 + FR-71 후견인 얼굴 인증 + FR-72/73 U6 일반교사) + 6종 사용자 + Sprint 4·5 재배치 + PoC E1' 신설 |
 | 다음 단계 | `/pdca design recordare` |
@@ -36,7 +36,7 @@
 | **WHO** | 1차 사용자: 보호자(U2 100명) + 활동지원사(U3 50명) + 당사자(U1 부수, AAC 사용) / 비치헤드: 특수학교 5곳(서울·경기) + 그룹홈 3곳 / 결제자(U5 시설장)와 행정자(U4 사회복지사·교사)는 일부만 시범 참여 |
 | **RISK** | (1) STT 한국어 비표준 발화 정확도 < 70% 시 일지 가치 미달 (Risk #1) (2) 보호자 권한 거부감으로 활동지원사 권한 위임 시도가 30% 미만 (Risk #2) (3) 카톡 사진 마이그레이션 정확도 < 70% 시 보호자 이탈 (Risk #4) (4) 시범 5곳 인프라 부재 시 ISMS-P 사전 절차 지연 (5) 자체 스택 채택으로 인한 초기 인프라 셋업 4주 소요 |
 | **SUCCESS** | (1) First Value 1h 도달율 ≥ 60% (KPI-01) (2) 활성 사용자 일지 작성 평균 ≤ 5분/건 (KPI-02) (3) 인계서 1건 작성 시간 ≤ 5분 (KPI-03) (4) 오프라인 동기화 성공률 ≥ 95% (KPI-04) (5) 당사자 자문단 5인 평가 ‘쉬운말 모드’ 만족도 ≥ 4/5 (KPI-05) (6) NPS ≥ 30 (시범 사용자, KPI-06) |
-| **SCOPE** | **포함 (v2.4)**: FR-01,02,**05(빠른 선택)**,06,08,09,11,13~16 + FR-17~19,25,26,**30(오프라인 일지)**,32,35,40,43 + FR-62,63,67,68 (자가진단) + ⭐ **FR-69 다중 입력 + FR-71 후견인 얼굴 인증 + FR-72/73 U6 일반교사** = **28개 FR** / NFR-01,02,04,05,06,07,09 = 7개 / PWA 단일 빌드 / **시범: 보호자 100명 + 시설 8곳 + 통합학급 일반교사 25명** / **제외**: B2B 결제·18세 이양·후견 차등(FR-48~58,60,61) / 케이스 회의(FR-53) / 자가진단 P1·P2(FR-64~66) / 행복e음·NEIS(v1.1) / IoT/PHR(v2.0) |
+| **SCOPE** | **포함 (v2.4)**: FR-01,02,**05(빠른 선택)**,06,08,09,11,13~16 + FR-17~19,25,26,**30(오프라인 일지)**,32,35,40,43 + FR-62,63,67,68 (자가진단) + ⭐ **FR-69 다중 입력 + FR-71 후견인 얼굴 인증 + FR-72/73 U6 일반교사** = **28개 FR** / NFR-01,02,04,05,06,07,09 = 7개 / PWA 단일 빌드 / **시범: 보호자 100명 + 시설 8곳 + 통합학급 일반교사 25명** / **제외**: B2B 결제·18세 이양·후견 차등(FR-48~58,60,61) / 케이스 회의(FR-53) / 자가진단 P1·P2(FR-64~66) / 행복e음·NEIS(v1.1) / IoT/PHR(v2.0) / **보호자 자조 모임(FR-74~83) — 별도 Plan 참조: `parent-self-help-group.plan.md` v1.0, M5~M6 배치 예정** |
 
 ---
 
@@ -51,6 +51,7 @@ Recordare의 PRD v2.1은 24개월 로드맵에 걸친 61개 FR을 정의한다. 
 - `docs/00-pm/recordare-prd-v2.md` v2.1 — §6~§19 + FR-17~61 + NFR-09,10 누적
 - `docs/00-pm/recordare-workflows.md` v1.1 — 5종 사용자 × 18종 단위업무 매트릭스
 - `docs/00-pm/recordare-ux-structure.md` — 퍼블릭 랜딩 + 대시보드 5종
+- `docs/00-pm/recordare-lifecycle-recording-and-legal-screening.md` — 생애주기별 기록 체계, 공통 기록 카테고리, 자가진단 법적·공식 자료
 
 ### 1.2 핵심 가설 (MVP Beta 단계)
 
@@ -65,6 +66,43 @@ Recordare의 PRD v2.1은 24개월 로드맵에 걸친 61개 FR을 정의한다. 
 ---
 
 ## 2. Requirements
+
+### 2.0 공통 데이터 분류 기준 (Lifecycle × RecordCategory)
+
+> 기준 문서: `docs/00-pm/recordare-lifecycle-recording-and-legal-screening.md`  
+> Design 단계의 ERD, Prisma schema, API DTO, 필터 UI, 권한 정책, 인계서 템플릿은 아래 enum을 공통 기준으로 사용한다.
+
+#### 2.0.1 LifecycleStage
+
+| 코드 | 생애주기 | 연령 기준 | 대표 기록 |
+|---|---|---:|---|
+| `INFANT_EARLY` | 영유아기 | 0~6세 | 건강검진, K-DST, M-CHAT-R, 발달재활, 보호자 관찰 |
+| `SCHOOL_AGE` | 학령기 | 7~14세 | IEP, 학습, 학교생활, 일반교사/특수교사 메모 |
+| `TRANSITION` | 전환기 | 15~24세 | 자기결정, 진로·직업, AAC 동의, 18세 권한 이양 |
+| `ADULT` | 성인기 | 25~64세 | 주거, 고용, 활동지원, 권한관리, 후견 |
+| `SENIOR` | 고령기 | 65세+ | 의료·돌봄 인계, 인지·신체 변화, 장기돌봄, 후견 로그 |
+
+#### 2.0.2 RecordCategory
+
+| 코드 | 대분류 | 대표 세부 항목 | 민감정보 여부 |
+|---|---|---|:---:|
+| `PROFILE` | 기본 프로필 | 인적사항, 장애등록, 가족관계, 소속기관 | 높음 |
+| `HEALTH_MEDICAL` | 건강·의료 | 검진, 진료, 투약, 알레르기, 응급 | 높음 |
+| `DEVELOPMENT_SCREENING` | 발달·자가진단 | K-DST, M-CHAT-R, AIR-SDS, 적응행동 | 높음 |
+| `EDUCATION_LEARNING` | 교육·학습 | IEP, 학습목표, 수업참여, 일반교사 메모 | 중간 |
+| `DAILY_CARE` | 일상·돌봄 | 식사, 수면, 위생, 이동, 활동 | 중간 |
+| `BEHAVIOR_EMOTION` | 행동·정서 | 트리거, 안정방법, 감정 변화 | 높음 |
+| `INDEPENDENCE_WORK` | 자립·직업 | 직업훈련, 주거, 금전관리, 이동훈련 | 중간 |
+| `PERMISSION_CONSENT` | 권한·동의 | 접근권한, 동의, 회수, 후견 | 높음 |
+| `HANDOVER_CASE` | 인계·회의 | 3분 인계서, 케이스 회의, PDF 공유 | 중간 |
+| `AUDIT_SECURITY` | 감사·보안 | 접근로그, 이상접근, 다운로드 | 높음 |
+
+#### 2.0.3 구현 요구
+
+- 모든 `JournalEntry`, `TimelineCard`, `ScreeningResult`, `Handover`, `CaseMaterial`, `AuditLog`는 `lifecycleStage`와 `recordCategory[]`를 가진다.
+- `HEALTH_MEDICAL`, `DEVELOPMENT_SCREENING`, `BEHAVIOR_EMOTION`, `PERMISSION_CONSENT`, `AUDIT_SECURITY`는 기본값으로 민감정보 처리 정책(FR-13~15)을 적용한다.
+- 자가진단 관련 화면·PDF·AI 출력은 `DEVELOPMENT_SCREENING` 카테고리로 분류하고 FR-68 면책 고지를 강제한다.
+- U6 일반교사 메모는 기본적으로 `EDUCATION_LEARNING` 또는 `BEHAVIOR_EMOTION`만 허용하며 일반 학생 식별정보 입력을 차단한다.
 
 ### 2.1 Functional Requirements (21개, MVP Beta)
 
