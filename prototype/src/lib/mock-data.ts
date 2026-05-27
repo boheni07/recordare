@@ -1,9 +1,10 @@
 // Recordare Prototype — Mock Data
 // 실제 API 호출 없이 화면 전환만으로 워크플로우를 검증하기 위한 데이터.
 
-export type Role = "parent" | "worker" | "self" | "case" | "facility" | "general-teacher";
+export type Role = "parent" | "worker" | "self" | "case" | "facility" | "general-teacher" | "mp" | "vc" | "lg";
 export type Category = "meal" | "med" | "behavior" | "emotion" | "study";
-export type LifeStage = "infant" | "school" | "transition" | "adult" | "senior";
+// 7-stage lifecycle (UX v1.5 §0.1 — Plan v1.6 §2.0.1)
+export type LifeStage = "infant" | "early_childhood" | "school" | "transition" | "adult" | "senior" | "post_care";
 export type RecordCategory =
   | "profile"
   | "health_medical"
@@ -11,18 +12,24 @@ export type RecordCategory =
   | "education_learning"
   | "daily_care"
   | "behavior_emotion"
+  | "pbs_behavior_support"
   | "independence_work"
   | "permission_consent"
   | "handover_case"
-  | "audit_security";
+  | "audit_security"
+  | "post_care_legal";
 
-export const ROLES: Record<Role, { label: string; path: string; lifeColor: LifeStage }> = {
-  parent: { label: "보호자", path: "/parent", lifeColor: "infant" },
+export const ROLES: Record<Role, { label: string; path: string; lifeColor: LifeStage; m7?: boolean }> = {
+  parent: { label: "보호자", path: "/parent", lifeColor: "early_childhood" },
   worker: { label: "활동지원사", path: "/worker", lifeColor: "school" },
   self: { label: "당사자 (AAC)", path: "/self", lifeColor: "adult" },
   case: { label: "사회복지사 · 교사", path: "/case", lifeColor: "transition" },
   facility: { label: "시설장", path: "/facility", lifeColor: "senior" },
   "general-teacher": { label: "일반교사 (통합학급)", path: "/general-teacher", lifeColor: "school" },
+  // M7+ 추가 이해관계자 (Workflows v1.6 §0.1)
+  mp: { label: "의료진 · 치료사", path: "/mp", lifeColor: "adult", m7: true },
+  vc: { label: "직업재활사", path: "/vc", lifeColor: "transition", m7: true },
+  lg: { label: "성년후견인", path: "/guardian/post-care-plan", lifeColor: "post_care", m7: true },
 };
 
 // ─────────── v2.4 신규: 빠른 선택 옵션 (FR-69a) ───────────
@@ -78,18 +85,25 @@ export const RECORD_CATEGORIES: Record<RecordCategory, { label: string; sensitiv
   education_learning: { label: "교육/학습", sensitive: false, examples: ["IEP", "학습목표", "수업참여", "일반교사 메모"] },
   daily_care: { label: "일상돌봄", sensitive: false, examples: ["식사", "수면", "위생", "이동", "활동"] },
   behavior_emotion: { label: "행동/정서", sensitive: true, examples: ["트리거", "안정방법", "감정 변화"] },
+  // v1.5 신규: PBS 도전행동 지원 (B22 워크플로, FR-84~86) — 민감정보 최고 등급
+  pbs_behavior_support: { label: "PBS 행동지원", sensitive: true, examples: ["ABC 분석", "선행사건", "도전행동", "대응전략", "AI 패턴"] },
   independence_work: { label: "자립/직업", sensitive: false, examples: ["직업훈련", "주거", "금전관리", "이동훈련"] },
   permission_consent: { label: "권한/동의", sensitive: true, examples: ["접근권한", "동의", "회수", "후견"] },
   handover_case: { label: "인계/회의", sensitive: false, examples: ["3분 인계서", "케이스 회의", "PDF 공유"] },
   audit_security: { label: "보안기록", sensitive: true, examples: ["접근로그", "이상접근", "다운로드"] },
+  // v1.5 신규: 사후 지원 법률 (B24 워크플로, FR-88~90) — 민감정보 최최고 등급 (LG·CG 전용)
+  post_care_legal: { label: "사후지원/후견", sensitive: true, examples: ["SNT 신탁", "후견인 지정", "거주지 전환", "권한 이양"] },
 };
 
+// 7-stage lifecycle colors (UX v1.5 §0.1)
 export const LIFE_STAGES: Record<LifeStage, { label: string; color: string; age: string }> = {
-  infant: { label: "영유아", color: "#FFC857", age: "0~6세" },
-  school: { label: "학령기", color: "#5CB85C", age: "7~14세" },
-  transition: { label: "전환기", color: "#3B82F6", age: "15~24세" },
-  adult: { label: "성인기", color: "#7C3AED", age: "25~64세" },
-  senior: { label: "고령기", color: "#6B7280", age: "65세+" },
+  infant:          { label: "영아기",   color: "#FFB49A", age: "0~2세" },
+  early_childhood: { label: "영유아기", color: "#FFC857", age: "3~6세" },
+  school:          { label: "학령기",   color: "#5CB85C", age: "7~18세" },
+  transition:      { label: "전환기",   color: "#3B82F6", age: "15~24세" },
+  adult:           { label: "성인기",   color: "#7C3AED", age: "25~64세" },
+  senior:          { label: "고령기",   color: "#6B7280", age: "65세+" },
+  post_care:       { label: "사후지원기", color: "#8FAF8E", age: "—" },
 };
 
 // Mock persona — 박순영(보호자)이 사용
@@ -156,10 +170,10 @@ export interface Person {
 }
 
 export const CHILDREN: Person[] = [
-  // ① 영유아 (0~6세) — 신규 진단 보호자, 어린이집 다님
+  // ① 영유아기 (3~6세) — 신규 진단 보호자, 어린이집 다님
   {
     id: "c-005", name: "박서연", birth: "2022-08-20", age: 3,
-    stage: "infant",
+    stage: "early_childhood",
     disability: "발달지연 정밀검사 중", disabilityCategory: "정밀검사",
     aac: false, aacPictograms: 0,
     schoolOrCenter: "햇살어린이집",
@@ -174,10 +188,10 @@ export const CHILDREN: Person[] = [
     consentSensitive: true,
   },
 
-  // ⓞ 소속 없음 (가정 거주) — 신규 진단 직후, 어린이집 미입소
+  // ⓞ 영아기 (0~2세) — 신규 진단 직후, 어린이집 미입소
   {
     id: "c-006", name: "김하준", birth: "2023-04-10", age: 2,
-    stage: "infant",
+    stage: "infant",  // 영아기 (0~2세)
     disability: "발달지연 의심 (자가진단 단계)", disabilityCategory: "의심",
     aac: false, aacPictograms: 0,
     // facility, schoolOrCenter 모두 비워둠 — 소속 없는 상태
@@ -399,6 +413,55 @@ export const FACILITY_RESIDENTS = [
   { name: "최영진", room: "202호", entered: "2024-06-15", primary: "이수진" },
   { name: "윤서연", room: "203호", entered: "2025-01-10", primary: "정민지" },
 ];
+
+// ─────────── v1.5 신규: PBS 도전행동 기록 (FR-84~86, B22 워크플로) ───────────
+export interface PbsRecord {
+  id: string;
+  personId: string;
+  recordedAt: string;       // YYYY-MM-DD HH:mm
+  antecedent: { triggers: string[]; detail?: string };
+  behavior: { types: string[]; intensity: number; durationMin: number };
+  consequence: { responses: string[]; note?: string };
+  contextAuto: { weather: string; sleepHours: number; mealNormal: boolean; medicationTaken: boolean };
+}
+
+export const PBS_RECORDS: PbsRecord[] = [
+  {
+    id: "pbs-001", personId: "c-001",
+    recordedAt: "2026-05-26 14:30",
+    antecedent: { triggers: ["소음", "일정 변경"], detail: "점심 후 산책 코스 갑자기 변경" },
+    behavior: { types: ["소리지르기", "바닥 눕기"], intensity: 3, durationMin: 5 },
+    consequence: { responses: ["안정실 이동", "AAC 판"], note: "8분 후 진정" },
+    contextAuto: { weather: "맑음", sleepHours: 7, mealNormal: true, medicationTaken: true },
+  },
+  {
+    id: "pbs-002", personId: "c-001",
+    recordedAt: "2026-05-24 10:15",
+    antecedent: { triggers: ["강한 빛", "낯선 사람"] },
+    behavior: { types: ["자해"], intensity: 2, durationMin: 3 },
+    consequence: { responses: ["AAC 판", "조용한 공간 이동"] },
+    contextAuto: { weather: "흐림", sleepHours: 5, mealNormal: false, medicationTaken: true },
+  },
+  {
+    id: "pbs-003", personId: "c-001",
+    recordedAt: "2026-05-22 16:00",
+    antecedent: { triggers: ["소음"] },
+    behavior: { types: ["소리지르기"], intensity: 2, durationMin: 4 },
+    consequence: { responses: ["안정실 이동"] },
+    contextAuto: { weather: "맑음", sleepHours: 6, mealNormal: true, medicationTaken: true },
+  },
+];
+
+// ─────────── v1.5 신규: PCP 당사자 선호 프로필 (FR-87, B23 워크플로) ───────────
+export const PCP_PROFILE = {
+  personId: "c-001",
+  likes: ["음악", "그림", "산책", "강아지"],
+  hardSituations: ["시끄러운 곳", "갑자기 바뀌는 것", "모르는 사람 많은 곳"],
+  dream: "혼자서 버스 타고 싶어요",
+  communicationMode: "photo-first" as const,
+  learningGoals: ["버스 타기", "편의점 결제", "혼자 아침 준비"],
+  updatedAt: "2026-05-20",
+};
 
 export const BULK_PERMISSIONS_EXPIRING = [
   { worker: "이수진", residents: 3, currentEnd: "2026-06-30", daysLeft: 36 },

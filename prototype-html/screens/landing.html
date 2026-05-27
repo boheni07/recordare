@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 기록은 끊기지 않고, 권한은 당사자에게 자란다</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; }
+    body { background: white; font-size: 16px; margin: 0; }
+
+    /* GNB */
+    .gnb { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 1px solid var(--c-border); padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .gnb-logo { font-size: 18px; font-weight: 800; color: var(--c-primary); display: flex; align-items: center; gap: 8px; }
+    .gnb-links { display: flex; align-items: center; gap: 24px; font-size: 14px; color: var(--c-ink-mid); font-weight: 600; }
+    .gnb-links a { color: var(--c-ink-mid); text-decoration: none; }
+    .gnb-links a:hover { color: var(--c-primary); }
+    .gnb-cta { display: flex; gap: 8px; }
+
+    /* Hero */
+    .hero { background: linear-gradient(135deg, var(--c-primary-dk) 0%, var(--c-primary) 60%, #60a5fa 100%); color: white; padding: 80px 40px; }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.2; margin: 0 0 16px; }
+    .hero-sub { font-size: 18px; opacity: .9; margin-bottom: 32px; line-height: 1.6; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,.12); border-radius: 9999px; padding: 5px 14px; font-size: 12px; font-weight: 700; margin-right: 8px; margin-top: 4px; }
+    .hero-trust { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .mockup-card { background: white; border-radius: 20px; padding: 24px; color: var(--c-ink); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+    .timeline-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--c-border); align-items: flex-start; }
+    .timeline-row:last-child { border-bottom: none; }
+    .tl-dot { width: 6px; border-radius: 3px; flex-shrink: 0; margin-top: 4px; }
+
+    /* Section commons */
+    .section { padding: 80px 40px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-title { font-size: 32px; font-weight: 800; color: var(--c-primary-dk); text-align: center; margin-bottom: 12px; }
+    .section-sub { font-size: 16px; color: var(--c-ink-mid); text-align: center; margin-bottom: 48px; }
+    .bg-light { background: var(--c-secondary); }
+
+    /* Problem cards */
+    .prob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .prob-card { background: white; border-radius: var(--radius-xl); padding: 28px; border-top: 4px solid; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .prob-icon { font-size: 40px; margin-bottom: 12px; }
+    .prob-title { font-size: 20px; font-weight: 800; color: var(--c-primary-dk); margin-bottom: 6px; }
+    .prob-stat { font-size: 13px; color: var(--c-ink-mid); margin-bottom: 16px; }
+    .prob-quote { font-size: 14px; font-weight: 600; border-top: 1px solid var(--c-border); padding-top: 14px; }
+    .prob-who { font-size: 12px; color: var(--c-ink-mid); margin-top: 4px; }
+
+    /* Solution zigzag */
+    .sol-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 60px; }
+    .sol-row:nth-child(even) { direction: rtl; }
+    .sol-row:nth-child(even) > * { direction: ltr; }
+    .sol-num { font-size: 48px; font-weight: 800; margin-bottom: 8px; }
+    .sol-title { font-size: 24px; font-weight: 800; color: var(--c-primary-dk); margin-bottom: 8px; }
+    .sol-desc { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .sol-detail { font-size: 14px; color: var(--c-ink-mid); line-height: 1.6; }
+    .sol-mockup { background: var(--c-secondary); border: 1px solid var(--c-border); border-radius: var(--radius-xl); padding: 28px; min-height: 180px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+
+    /* Persona tabs */
+    .persona-tabs { display: flex; gap: 4px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .p-tab { padding: 8px 20px; border-radius: 9999px; font-size: 13px; font-weight: 700; cursor: pointer; border: 2px solid var(--c-border); background: white; transition: all 0.15s; }
+    .p-tab.active { background: var(--c-primary); color: white; border-color: var(--c-primary); }
+    .persona-panel { display: none; background: white; border-radius: var(--radius-xl); padding: 32px; border: 1px solid var(--c-border); }
+    .persona-panel.active { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; }
+    .persona-icon-big { font-size: 64px; }
+
+    /* Impact numbers */
+    .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .impact-card { text-align: center; padding: 32px 16px; background: white; border-radius: var(--radius-xl); border: 1px solid var(--c-border); }
+    .impact-num { font-size: 40px; font-weight: 800; color: var(--c-primary); }
+    .impact-unit { font-size: 18px; color: var(--c-primary); }
+    .impact-label { font-size: 14px; color: var(--c-ink-mid); margin-top: 8px; }
+    .impact-sub { font-size: 11px; color: var(--c-ink-mid); margin-top: 4px; }
+
+    /* Trust logos */
+    .trust-row { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center; }
+    .trust-badge { background: var(--c-secondary); border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 14px 24px; font-size: 13px; font-weight: 700; color: var(--c-ink-mid); }
+
+    /* Community CTA */
+    .community-strip { background: color-mix(in srgb,var(--life-school) 8%,white); border: 1px solid color-mix(in srgb,var(--life-school) 20%,transparent); border-radius: var(--radius-xl); padding: 32px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 20px; flex-wrap: wrap; }
+
+    /* Final CTA */
+    .final-cta { background: var(--c-primary-dk); color: white; padding: 80px 40px; text-align: center; }
+    .final-cta h2 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+    .final-cta p { font-size: 16px; opacity: .85; margin-bottom: 32px; }
+
+    /* Footer */
+    footer { background: #111827; color: #9ca3af; padding: 48px 40px; font-size: 13px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand { font-size: 20px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .footer-tagline { font-size: 13px; line-height: 1.6; }
+    .footer-col-title { font-size: 12px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .footer-col a { display: block; color: #9ca3af; text-decoration: none; margin-bottom: 8px; font-size: 13px; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom { border-top: 1px solid #374151; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-legal { font-size: 11px; color: #6b7280; line-height: 1.7; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .gnb { padding: 12px 16px; }
+      .gnb-links { display: none; }
+      .hero { padding: 48px 16px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hero h1 { font-size: 32px; }
+      .section { padding: 48px 16px; }
+      .prob-grid, .impact-grid { grid-template-columns: 1fr; }
+      .sol-row { grid-template-columns: 1fr; }
+      .sol-row:nth-child(even) { direction: ltr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- GNB -->
+<nav class="gnb">
+  <div class="gnb-logo">🌿 Recordare</div>
+  <div class="gnb-links">
+    <a href="#solution">서비스 소개</a>
+    <a href="#persona">누구에게</a>
+    <a href="#impact">사회적 임팩트</a>
+    <a href="community-groups.html">자조 모임</a>
+    <a href="#contact">기관 도입</a>
+  </div>
+  <div class="gnb-cta">
+    <a href="login.html" class="btn btn-secondary btn-sm">로그인</a>
+    <a href="role-select.html" class="btn btn-primary btn-sm">무료 시작 →</a>
+  </div>
+</nav>
+
+<!-- §1 Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div style="font-size:13px;font-weight:700;opacity:.7;letter-spacing:.08em;margin-bottom:16px;">RECORDARE · 레코다레</div>
+      <h1>기록은 끊기지 않고,<br>권한은 당사자에게 자란다</h1>
+      <p class="hero-sub">지적장애인 가족을 위한<br>평생 기록 + 자기결정권 플랫폼</p>
+      <div class="hero-cta">
+        <a href="role-select.html" class="btn" style="background:#f59e0b;color:white;border:none;padding:14px 28px;font-size:16px;font-weight:800;">무료로 시작하기 →</a>
+        <a href="#contact" class="btn" style="background:rgba(255,255,255,.12);color:white;border:2px solid rgba(255,255,255,.3);padding:14px 28px;font-size:16px;">기관 도입 상담</a>
+      </div>
+      <div style="margin-top:16px;font-size:13px;opacity:.8;">✓ 신규 가입 1시간 안에 첫 인계서 PDF를 받아보세요</div>
+      <div class="hero-trust">
+        <span class="hero-badge">✓ 한국지적발달장애인복지협회 추천(예정)</span>
+        <span class="hero-badge">✓ ISMS-P 인증(예정)</span>
+        <span class="hero-badge">✓ AAC 픽토그램 지원</span>
+      </div>
+    </div>
+    <div>
+      <div class="mockup-card">
+        <div style="font-size:11px;color:var(--c-ink-mid);font-weight:700;margin-bottom:12px;">📱 박지훈 (20세) — 타임라인 미리보기</div>
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:#FFB49A;height:44px;"></div>
+          <div><div style="font-size:11px;font-weight:700;color:#FFB49A;">영아기 · 0~2세</div><div style="font-size:13px;margin-top:2px;">건강검진 · 첫 걸음 기록</div><div style="font-size:11px;color:var(--c-ink-mid);">K-DST 1차 검사 완료</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:#FFC857;height:44px;"></div>
+          <div><div style="font-size:11px;font-weight:700;color:#FFC857;">영유아기 · 3~6세</div><div style="font-size:13px;margin-top:2px;">어린이집 적응 · 언어치료</div><div style="font-size:11px;color:var(--c-ink-mid);">발달재활서비스 시작</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:#5CB85C;height:44px;"></div>
+          <div><div style="font-size:11px;font-weight:700;color:#5CB85C;">학령기 · 7~18세</div><div style="font-size:13px;margin-top:2px;">특수학교 · IEP 3년차</div><div style="font-size:11px;color:var(--c-ink-mid);">보조기구 도입 · 교사 인계</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:#3B82F6;height:44px;"></div>
+          <div><div style="font-size:11px;font-weight:700;color:#3B82F6;">전환기 · 15~24세</div><div style="font-size:13px;margin-top:2px;">AAC 학습 · 권한 이양 시작</div><div style="font-size:11px;color:var(--c-ink-mid);">자기결정 점수 42% → 67%</div></div>
+        </div>
+        <div class="timeline-row" style="border-bottom:none;">
+          <div class="tl-dot" style="background:#7C3AED;height:44px;"></div>
+          <div><div style="font-size:11px;font-weight:700;color:#7C3AED;">성인기 · 현재 (20세)</div><div style="font-size:13px;margin-top:2px;">그룹홈 거주 · PBS 관리</div><div style="font-size:11px;color:var(--c-ink-mid);">활동지원사 권한 6건 운영 중</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 Problem -->
+<section class="section" id="problem">
+  <div class="section-inner">
+    <h2 class="section-title">왜 지금 Recordare인가요?</h2>
+    <p class="section-sub">발달장애인 가족이 매일 겪는 3가지 현실</p>
+    <div class="prob-grid">
+      <div class="prob-card" style="border-top-color:#FFC857;">
+        <div class="prob-icon">📁</div>
+        <div class="prob-title">기록 단절</div>
+        <div class="prob-stat">기관 이동마다 2주씩 적응 기간</div>
+        <div class="prob-quote" style="color:#FFC857;">"30년 모은 노트를 누가 다 봐주겠어요?"</div>
+        <div class="prob-who">— 박순영 (보호자, 자녀 22세)</div>
+      </div>
+      <div class="prob-card" style="border-top-color:#5CB85C;">
+        <div class="prob-icon">✍️</div>
+        <div class="prob-title">행정 부담</div>
+        <div class="prob-stat">일 평균 30분 일지 작성에 묶인 일상</div>
+        <div class="prob-quote" style="color:#5CB85C;">"퇴근하고 30분 더 일하는 게 진짜 힘들어요."</div>
+        <div class="prob-who">— 이수진 (활동지원사 6년차)</div>
+      </div>
+      <div class="prob-card" style="border-top-color:#7C3AED;">
+        <div class="prob-icon">🤝</div>
+        <div class="prob-title">자기결정권 배제</div>
+        <div class="prob-stat">평생 보호자 동의에 의존하는 구조</div>
+        <div class="prob-quote" style="color:#7C3AED;">"엄마, 이건 내가 할게요."</div>
+        <div class="prob-who">— 김민지 (당사자, 22세)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 Solution -->
+<section class="section bg-light" id="solution">
+  <div class="section-inner">
+    <h2 class="section-title">Recordare는 이렇게 해결합니다</h2>
+    <p class="section-sub">평생 기록 + 빠른 입력 + 자기결정권의 3가지 축</p>
+
+    <div class="sol-row">
+      <div class="sol-mockup">
+        <div style="text-align:center;">
+          <div style="font-size:14px;font-weight:800;color:var(--c-ink-mid);margin-bottom:12px;">생애주기 타임라인</div>
+          <div style="display:flex;gap:6px;justify-content:center;">
+            <div style="width:16px;height:80px;background:#FFB49A;border-radius:4px;"></div>
+            <div style="width:16px;height:120px;background:#FFC857;border-radius:4px;"></div>
+            <div style="width:16px;height:160px;background:#5CB85C;border-radius:4px;"></div>
+            <div style="width:16px;height:100px;background:#3B82F6;border-radius:4px;"></div>
+            <div style="width:16px;height:60px;background:#7C3AED;border-radius:4px;"></div>
+          </div>
+          <div style="font-size:11px;color:var(--c-ink-mid);margin-top:8px;">영아기 → 성인기</div>
+        </div>
+      </div>
+      <div>
+        <div class="sol-num" style="color:#FFC857;">01</div>
+        <div class="sol-title">통합 타임라인</div>
+        <div class="sol-desc" style="color:#FFC857;">영유아부터 성인까지, 단 하나의 기록선</div>
+        <div class="sol-detail">생애주기 7단계 컬러 구분 · 기관 이동 시 자동 인계 · 보호자·지원사·당사자 역할별 접근 권한 · 카카오톡 사진 1만장 14일 자동 정리</div>
+      </div>
+    </div>
+
+    <div class="sol-row">
+      <div>
+        <div class="sol-num" style="color:#5CB85C;">02</div>
+        <div class="sol-title">다중 입력 일지 (FR-69)</div>
+        <div class="sol-desc" style="color:#5CB85C;">시설 현장에서 15초 — 3탭으로 완료</div>
+        <div class="sol-detail">⚡ 빠른 선택 (15초 3탭) · ✅ 체크리스트 (5초) · 📷 사진+태그 · ⌨️ 텍스트+OS 음성 키보드 4가지 모드 — 자체 STT 없이도 현장에서 즉시 기록</div>
+      </div>
+      <div class="sol-mockup">
+        <div style="text-align:center;">
+          <div style="font-size:14px;font-weight:800;color:var(--c-ink-mid);margin-bottom:12px;">빠른 선택 일지</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:160px;">
+            <div style="background:var(--c-primary);color:white;border-radius:8px;padding:8px;font-size:11px;font-weight:700;text-align:center;">잘 드심 ✓</div>
+            <div style="background:white;border:1px solid var(--c-border);border-radius:8px;padding:8px;font-size:11px;font-weight:700;text-align:center;">다 드심</div>
+            <div style="background:white;border:1px solid var(--c-border);border-radius:8px;padding:8px;font-size:11px;font-weight:700;text-align:center;">일부만</div>
+            <div style="background:white;border:1px solid var(--c-border);border-radius:8px;padding:8px;font-size:11px;font-weight:700;text-align:center;">거부함</div>
+          </div>
+          <div style="font-size:11px;color:var(--c-ink-mid);margin-top:8px;">⚡ 평균 15초 완료</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol-row">
+      <div class="sol-mockup">
+        <div style="text-align:center;">
+          <div style="font-size:14px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">3분 마스터 인계서</div>
+          <div style="background:white;border-radius:8px;padding:12px;font-size:12px;border:1px solid var(--c-border);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-weight:700;">박지훈 (20세)</span><span style="font-size:10px;color:#5cb85c;">✓ 인계 완료</span></div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">식사 · 투약 · 행동 · PBS · PCP</div>
+            <div style="margin-top:8px;display:flex;gap:4px;"><span style="background:#eff6ff;color:#3b82f6;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">PDF 저장</span><span style="background:#f0fdf4;color:#5cb85c;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">시스템 전달</span></div>
+          </div>
+          <div style="font-size:11px;color:var(--c-ink-mid);margin-top:8px;">기관 전환 2주 → 3분</div>
+        </div>
+      </div>
+      <div>
+        <div class="sol-num" style="color:#3B82F6;">03</div>
+        <div class="sol-title">3분 마스터 인계서</div>
+        <div class="sol-desc" style="color:#3B82F6;">기관 전환의 2주를 3분으로</div>
+        <div class="sol-detail">PDF + 시스템 동시 전달 · 보호자가 열람 권한 설정 · 활동지원사 계약·인계 자동화 · PBS/PCP/복약 정보 포함 구조화 인계</div>
+      </div>
+    </div>
+
+    <div class="sol-row">
+      <div>
+        <div class="sol-num" style="color:#7C3AED;">04</div>
+        <div class="sol-title">AAC 동의 UI + 자조 모임</div>
+        <div class="sol-desc" style="color:#7C3AED;">당사자가 직접 그림으로 Yes/No · 같은 길을 걷는 보호자와 연결</div>
+        <div class="sol-detail">픽토그램 + 음성안내 + 2단계 확인 · 당사자 권한 점진적 이양 시뮬레이션 · Recordare 인증 보호자 전용 폐쇄형 자조 모임 · 생애주기 자동 매칭 그룹</div>
+      </div>
+      <div class="sol-mockup">
+        <div style="text-align:center;">
+          <div style="font-size:14px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">당사자 동의 화면</div>
+          <div style="font-size:36px;margin-bottom:8px;">✋</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:160px;">
+            <div style="border:3px solid #5cb85c;color:#5cb85c;border-radius:10px;padding:10px;font-size:24px;text-align:center;">👍<div style="font-size:12px;font-weight:800;margin-top:4px;">네</div></div>
+            <div style="border:3px solid #ef4444;color:#ef4444;border-radius:10px;padding:10px;font-size:24px;text-align:center;">👎<div style="font-size:12px;font-weight:800;margin-top:4px;">싫어요</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 Persona Benefit -->
+<section class="section" id="persona">
+  <div class="section-inner">
+    <h2 class="section-title">누구에게 좋은가요?</h2>
+    <p class="section-sub">Recordare는 돌봄 생태계 전체를 연결합니다</p>
+
+    <div class="persona-tabs">
+      <button class="p-tab active" onclick="switchPersona('self')">당사자</button>
+      <button class="p-tab" onclick="switchPersona('parent')">보호자</button>
+      <button class="p-tab" onclick="switchPersona('worker')">활동지원사</button>
+      <button class="p-tab" onclick="switchPersona('teacher')">사회복지사·교사</button>
+      <button class="p-tab" onclick="switchPersona('facility')">시설장</button>
+    </div>
+
+    <div id="panel-self" class="persona-panel active">
+      <div class="persona-icon-big">✋</div>
+      <div>
+        <div style="font-size:22px;font-weight:800;color:#7C3AED;margin-bottom:6px;">당사자 — 자기결정권이 자라는 경험</div>
+        <div style="font-size:14px;color:var(--c-ink-mid);margin-bottom:16px;">전환기(15세+) 이후 단계적으로 권한이 이양됩니다</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="auto-item" style="background:color-mix(in srgb,#7C3AED 6%,transparent);border:1px solid color-mix(in srgb,#7C3AED 20%,transparent);">
+            <div style="font-size:24px;margin-bottom:4px;">🖼️</div>
+            <div style="font-size:13px;font-weight:700;">그림으로 Yes/No</div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">AAC 픽토그램 동의</div>
+          </div>
+          <div class="auto-item" style="background:color-mix(in srgb,#7C3AED 6%,transparent);border:1px solid color-mix(in srgb,#7C3AED 20%,transparent);">
+            <div style="font-size:24px;margin-bottom:4px;">📖</div>
+            <div style="font-size:13px;font-weight:700;">나의 이야기 (PCP)</div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">좋아하는 것·꿈 기록</div>
+          </div>
+          <div class="auto-item" style="background:color-mix(in srgb,#7C3AED 6%,transparent);border:1px solid color-mix(in srgb,#7C3AED 20%,transparent);">
+            <div style="font-size:24px;margin-bottom:4px;">📓</div>
+            <div style="font-size:13px;font-weight:700;">나의 일기</div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">당사자 직접 기록</div>
+          </div>
+          <div class="auto-item" style="background:color-mix(in srgb,#7C3AED 6%,transparent);border:1px solid color-mix(in srgb,#7C3AED 20%,transparent);">
+            <div style="font-size:24px;margin-bottom:4px;">📈</div>
+            <div style="font-size:13px;font-weight:700;">자기결정 성장 추이</div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">AIR-SDS 점수 변화</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="panel-parent" class="persona-panel" style="display:none;">
+      <div class="persona-icon-big">👨‍👩‍👧</div>
+      <div>
+        <div style="font-size:22px;font-weight:800;color:#FFC857;margin-bottom:6px;">보호자 — 30년 기록을 1분에 꺼내는 경험</div>
+        <div style="font-size:14px;color:var(--c-ink-mid);margin-bottom:16px;">기관이 바뀌어도 기록은 이어집니다</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">⏱️</div><div style="font-size:13px;font-weight:700;">인계서 3분 완성</div><div style="font-size:11px;color:var(--c-ink-mid);">PDF+시스템 동시 전달</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">🔑</div><div style="font-size:13px;font-weight:700;">권한 직접 관리</div><div style="font-size:11px;color:var(--c-ink-mid);">지원사 6명 열람 범위 설정</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">👥</div><div style="font-size:13px;font-weight:700;">자조 모임 연결</div><div style="font-size:11px;color:var(--c-ink-mid);">같은 생애주기 보호자 커뮤니티</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">📊</div><div style="font-size:13px;font-weight:700;">K-DST 발달 추이</div><div style="font-size:11px;color:var(--c-ink-mid);">자가진단 + 전문가 연계</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="panel-worker" class="persona-panel" style="display:none;">
+      <div class="persona-icon-big">💼</div>
+      <div>
+        <div style="font-size:22px;font-weight:800;color:#5CB85C;margin-bottom:6px;">활동지원사 — 일지 30분 → 평균 2분</div>
+        <div style="font-size:14px;color:var(--c-ink-mid);margin-bottom:16px;">시설 현장에서 3탭으로 기록 완료</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">⚡</div><div style="font-size:13px;font-weight:700;">15초 빠른 선택</div><div style="font-size:11px;color:var(--c-ink-mid);">점심·교실·이용자 옆에서</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">📋</div><div style="font-size:13px;font-weight:700;">PBS 도전행동 기록</div><div style="font-size:11px;color:var(--c-ink-mid);">ABC 분석 + AI 패턴</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">📄</div><div style="font-size:13px;font-weight:700;">인계서 수신</div><div style="font-size:11px;color:var(--c-ink-mid);">3분 마스터 버전 수령</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">📅</div><div style="font-size:13px;font-weight:700;">일정 관리</div><div style="font-size:11px;color:var(--c-ink-mid);">오늘 담당 이용자 일람</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="panel-teacher" class="persona-panel" style="display:none;">
+      <div class="persona-icon-big">👩‍🏫</div>
+      <div>
+        <div style="font-size:22px;font-weight:800;color:#3B82F6;margin-bottom:6px;">사회복지사·교사 — 회의 자료가 자동으로</div>
+        <div style="font-size:14px;color:var(--c-ink-mid);margin-bottom:16px;">케이스 회의부터 IEP까지 한 곳에서</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">🤝</div><div style="font-size:13px;font-weight:700;">케이스 회의</div><div style="font-size:11px;color:var(--c-ink-mid);">자동 회의록·안건 생성</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">📝</div><div style="font-size:13px;font-weight:700;">짧은 메모 일지</div><div style="font-size:11px;color:var(--c-ink-mid);">교사 메모 보호자 동기화</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">🔒</div><div style="font-size:13px;font-weight:700;">개인정보 보호</div><div style="font-size:11px;color:var(--c-ink-mid);">일반 학생 정보 차단</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">📊</div><div style="font-size:13px;font-weight:700;">진행 보고서</div><div style="font-size:11px;color:var(--c-ink-mid);">월별 케이스 통계 자동</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="panel-facility" class="persona-panel" style="display:none;">
+      <div class="persona-icon-big">🏢</div>
+      <div>
+        <div style="font-size:22px;font-weight:800;color:#6B7280;margin-bottom:6px;">시설장 — 12~80명 통합 대시보드</div>
+        <div style="font-size:14px;color:var(--c-ink-mid);margin-bottom:16px;">B2G 청구부터 직원 관리까지</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">💰</div><div style="font-size:13px;font-weight:700;">B2G 청구 자동화</div><div style="font-size:11px;color:var(--c-ink-mid);">급여청구 → 인정률 97%+</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">👥</div><div style="font-size:13px;font-weight:700;">이용자 통합 관리</div><div style="font-size:11px;color:var(--c-ink-mid);">12~80명 대시보드</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">📋</div><div style="font-size:13px;font-weight:700;">분기 인계 보고</div><div style="font-size:11px;color:var(--c-ink-mid);">자동 생성 · PDF 다운로드</div></div>
+          <div class="auto-item"><div style="font-size:24px;margin-bottom:4px;">🔐</div><div style="font-size:13px;font-weight:700;">권한 일괄 관리</div><div style="font-size:11px;color:var(--c-ink-mid);">직원 권한 일괄 부여·회수</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §5 Impact -->
+<section class="section bg-light" id="impact">
+  <div class="section-inner">
+    <h2 class="section-title">사회적 임팩트</h2>
+    <p class="section-sub">레코다레가 만들어가는 변화 (시범 운영 100명 기준 목표)</p>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div><span class="impact-num">30</span><span class="impact-unit">분 → 2분</span></div>
+        <div class="impact-label">활동지원사 일지 작성 시간</div>
+        <div class="impact-sub">FR-69 다중 입력 모드 도입 후</div>
+      </div>
+      <div class="impact-card">
+        <div><span class="impact-num">2</span><span class="impact-unit">주 → 3분</span></div>
+        <div class="impact-label">기관 전환 적응 기간</div>
+        <div class="impact-sub">마스터 인계서 시스템 기준</div>
+      </div>
+      <div class="impact-card">
+        <div><span class="impact-num">70</span><span class="impact-unit">%+</span></div>
+        <div class="impact-label">보호자 1주 잔존율 목표</div>
+        <div class="impact-sub">자조 모임 연결 효과 포함 (M6 KPI)</div>
+      </div>
+      <div class="impact-card">
+        <div><span class="impact-num">42</span><span class="impact-unit">% → 67%</span></div>
+        <div class="impact-label">당사자 자기결정 점수 변화</div>
+        <div class="impact-sub">전환기 1년 AIR-SDS 목표 수치</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 자조 모임 CTA -->
+<section class="section" id="community">
+  <div class="section-inner">
+    <h2 class="section-title">혼자가 아닙니다</h2>
+    <p class="section-sub">같은 길을 걷는 보호자와 Recordare 안에서 안전하게 연결됩니다</p>
+    <div class="community-strip">
+      <div>
+        <div style="font-size:20px;font-weight:800;color:var(--c-primary-dk);margin-bottom:6px;">👥 보호자 자조 모임 (인증 보호자 전용)</div>
+        <div style="font-size:14px;color:var(--c-ink-mid);margin-bottom:8px;">생애주기 자동 매칭 · 폐쇄형 · 자녀 기록과 완전 분리</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="badge" style="background:color-mix(in srgb,#FFC857 15%,transparent);color:#92400e;">영유아기 보호자 모임 (312명)</span>
+          <span class="badge" style="background:color-mix(in srgb,#5CB85C 15%,transparent);color:#166534;">학령기 보호자 모임 (247명)</span>
+          <span class="badge" style="background:color-mix(in srgb,#3B82F6 15%,transparent);color:#1e40af;">전환기 자립 준비 (89명)</span>
+          <span class="badge" style="background:color-mix(in srgb,#7C3AED 15%,transparent);color:#5b21b6;">성인기 그룹홈 모임 (64명)</span>
+        </div>
+      </div>
+      <div>
+        <a href="community-groups.html" class="btn btn-primary">자조 모임 둘러보기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §6 Trust -->
+<section class="section bg-light" id="trust">
+  <div class="section-inner">
+    <h2 class="section-title">신뢰할 수 있는 파트너들</h2>
+    <p class="section-sub">기관·협회·인증 예정 현황</p>
+    <div class="trust-row">
+      <div class="trust-badge">🏛️ 한국지적발달장애인복지협회 추천 (예정)</div>
+      <div class="trust-badge">🔐 ISMS-P 인증 준비 중</div>
+      <div class="trust-badge">🌿 숨가든 리빙랩 협력</div>
+      <div class="trust-badge">🏥 발달재활서비스 연계 (협의 중)</div>
+      <div class="trust-badge">⚖️ 성년후견 지원 법인 MOU (예정)</div>
+    </div>
+    <div style="text-align:center;margin-top:24px;">
+      <div style="font-size:13px;color:var(--c-ink-mid);">※ (예정) 표시는 협의 또는 준비 중인 사항입니다</div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 Final CTA -->
+<section class="final-cta" id="contact">
+  <h2>지금 시작하세요</h2>
+  <p>카드 등록 없이 14일 무료 체험 · 1시간 안에 첫 인계서 PDF 받기</p>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+    <a href="role-select.html" class="btn" style="background:#f59e0b;color:white;border:none;padding:14px 32px;font-size:16px;font-weight:800;">무료로 시작하기 →</a>
+    <a href="login.html" class="btn" style="background:rgba(255,255,255,.12);color:white;border:2px solid rgba(255,255,255,.3);padding:14px 32px;font-size:16px;">기존 계정으로 로그인</a>
+  </div>
+  <div style="margin-top:32px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div style="font-size:24px;font-weight:800;">📋</div>
+      <div style="font-size:12px;opacity:.8;margin-top:4px;">기관 도입 상담</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:24px;font-weight:800;">📞</div>
+      <div style="font-size:12px;opacity:.8;margin-top:4px;">070-XXXX-XXXX</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:24px;font-weight:800;">✉️</div>
+      <div style="font-size:12px;opacity:.8;margin-top:4px;">hello@recordare.kr</div>
+    </div>
+  </div>
+</section>
+
+<!-- §8 Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🌿 Recordare</div>
+        <div class="footer-tagline">지적장애인 가족을 위한 평생 기록 + 자기결정권 플랫폼.<br>기록은 끊기지 않고, 권한은 당사자에게 자란다.</div>
+        <div style="margin-top:16px;font-size:12px;color:#6b7280;">서울특별시 ○○구 ○○로 000<br>사업자 등록번호: 000-00-00000<br>대표: ○○○</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">서비스</div>
+        <a href="#">서비스 소개</a>
+        <a href="#">가격 안내</a>
+        <a href="community-groups.html">자조 모임</a>
+        <a href="#">기관 도입</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">지원</div>
+        <a href="#">도움말 센터</a>
+        <a href="#">API 문서</a>
+        <a href="#">보안 센터</a>
+        <a href="#">블로그</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">법적 고지</div>
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">접근성 정책</a>
+        <a href="#">쿠키 설정</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        © 2026 Recordare. All rights reserved.<br>
+        이 서비스는 의료 진단 서비스가 아닙니다. 모든 자가진단 결과와 AI 분석은 참고용에 한합니다. (FR-68)
+      </div>
+      <div style="display:flex;gap:12px;font-size:12px;color:#6b7280;">
+        <a href="#" style="color:#9ca3af;">개인정보처리방침</a>
+        <a href="#" style="color:#9ca3af;">이용약관</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchPersona(id) {
+    document.querySelectorAll('.persona-panel').forEach(p => { p.style.display = 'none'; p.classList.remove('active'); });
+    document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
+    const panel = document.getElementById('panel-' + id);
+    if (panel) { panel.style.display = 'grid'; panel.classList.add('active'); }
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>

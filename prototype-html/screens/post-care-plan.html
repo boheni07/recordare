@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 사후 지원 계획 (SNT)</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .nav-link { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--c-ink-mid);transition:all 0.15s;text-decoration:none; }
+    .nav-link:hover,.nav-link.active { background:color-mix(in srgb,var(--c-primary) 8%,transparent);color:var(--c-primary); }
+    .snt-header { background:linear-gradient(135deg,color-mix(in srgb,var(--life-post-care) 12%,transparent),white);border:2px solid color-mix(in srgb,var(--life-post-care) 25%,transparent);border-radius:var(--radius-xl);padding:24px;margin-bottom:16px; }
+    .milestone-row { display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--c-border);align-items:flex-start; }
+    .milestone-row:last-child { border-bottom:none; }
+    .milestone-icon { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0; }
+    .step-connector { width:2px;background:var(--c-border);margin:0 17px;height:24px; }
+    .contact-row { display:flex;gap:12px;padding:12px;border:1px solid var(--c-border);border-radius:var(--radius-md);margin-bottom:8px;background:white;align-items:center; }
+    .progress-section { margin-bottom:12px; }
+    .progress-label { display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px; }
+    .progress-track { height:12px;background:var(--c-border);border-radius:9999px;overflow:hidden; }
+    .progress-fill { height:100%;border-radius:9999px; }
+    .legal-badge { display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:color-mix(in srgb,var(--life-post-care) 12%,transparent);border:1px solid color-mix(in srgb,var(--life-post-care) 30%,transparent);border-radius:9999px;font-size:11px;font-weight:700;color:#3d6b4f; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🌿 Recordare</div>
+    <a href="worker-dashboard.html" class="nav-link">🏠 대시보드</a>
+    <a href="journal-quick.html" class="nav-link">⚡ 빠른 일지</a>
+    <a href="journal-text.html" class="nav-link">⌨️ 텍스트 일지</a>
+    <a href="pbs-new.html" class="nav-link">📋 PBS 기록</a>
+    <a href="pbs-analysis.html" class="nav-link">📊 PBS 분석</a>
+    <div style="flex:1;"></div>
+    <a href="../index.html" class="nav-link">← 목록</a>
+  </aside>
+  <div style="flex:1;">
+    <div style="background:white;border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:13px;color:var(--c-ink-mid);">박지훈 (20세) · 사후 지원 계획 · B.10 · FR-88~90</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary btn-sm">🖨️ PDF 출력</button>
+        <span class="legal-badge">🔒 LG·CG 전용</span>
+        <button style="background:var(--c-secondary);border:1px solid var(--c-border);border-radius:9999px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;" onclick="toggleTheme()">🌿 테마</button>
+        <a href="../index.html" style="font-size:11px;color:var(--c-ink-mid);display:flex;align-items:center;">← 목록</a>
+      </div>
+    </div>
+    <div class="main-content">
+
+      <div class="page-header">
+        <h1>🌿 사후 지원 계획 (SNT)</h1>
+        <div class="subtitle">박지훈 · 특별부양신탁 + 거주 이양 계획 · 2026.05.27 기준 · FR-88~90</div>
+      </div>
+
+      <!-- 보안 안내 -->
+      <div class="alert alert-amber" style="margin-bottom:20px;">
+        🔒 이 정보는 <strong>성년후견인(LG)·사례관리사(CG) 권한</strong> 보유자만 열람·수정할 수 있습니다.
+        (FR-89) 법률 효력은 전문 변호사·금융기관 확인이 필요합니다.
+      </div>
+
+      <!-- SNT 상태 카드 -->
+      <div class="snt-header">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="font-size:20px;font-weight:800;color:var(--c-primary-dk);margin-bottom:4px;">🏦 특별부양신탁 (SNT)</div>
+            <div style="font-size:13px;color:var(--c-ink-mid);">관리 금융기관: ○○ 은행 신탁부</div>
+            <div style="font-size:13px;color:var(--c-ink-mid);">신탁 설정일: 2024.03.15 · 다음 검토일: 2026.09.01</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:28px;font-weight:800;color:var(--c-primary-dk);">₩ 4,800만</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">현재 신탁 잔액 (추정)</div>
+            <span class="badge badge-green" style="margin-top:6px;display:inline-block;">정상 운용 중</span>
+          </div>
+        </div>
+        <div class="grid-3" style="margin-top:16px;">
+          <div style="background:white;border-radius:var(--radius-md);padding:12px;text-align:center;border:1px solid var(--c-border);">
+            <div style="font-size:11px;color:var(--c-ink-mid);">월 지급 한도</div>
+            <div style="font-weight:800;font-size:15px;margin-top:2px;">₩ 80만</div>
+          </div>
+          <div style="background:white;border-radius:var(--radius-md);padding:12px;text-align:center;border:1px solid var(--c-border);">
+            <div style="font-size:11px;color:var(--c-ink-mid);">최근 지급</div>
+            <div style="font-weight:800;font-size:15px;margin-top:2px;">2026.05.01</div>
+          </div>
+          <div style="background:white;border-radius:var(--radius-md);padding:12px;text-align:center;border:1px solid var(--c-border);">
+            <div style="font-size:11px;color:var(--c-ink-mid);">신탁 기간</div>
+            <div style="font-weight:800;font-size:15px;margin-top:2px;">종신</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 전체 완성도 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:14px;">📊 사후 지원 계획 완성도</div>
+        <div class="progress-section">
+          <div class="progress-label"><span style="font-weight:700;">⬛ SNT 신탁 설정</span><span style="font-weight:800;color:var(--life-school);">완료</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:100%;background:var(--life-school);"></div></div>
+        </div>
+        <div class="progress-section">
+          <div class="progress-label"><span style="font-weight:700;">🏠 거주 이양 계획</span><span style="font-weight:800;color:#f59e0b;">진행 중 70%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:70%;background:#f59e0b;"></div></div>
+        </div>
+        <div class="progress-section">
+          <div class="progress-label"><span style="font-weight:700;">👨‍⚖️ 성년후견인 선임</span><span style="font-weight:800;color:var(--life-school);">완료</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:100%;background:var(--life-school);"></div></div>
+        </div>
+        <div class="progress-section">
+          <div class="progress-label"><span style="font-weight:700;">📜 유언·사전의향서</span><span style="font-weight:800;color:#ef4444;">미작성</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:0%;background:#ef4444;"></div></div>
+        </div>
+        <div style="text-align:center;margin-top:10px;">
+          <div style="font-size:24px;font-weight:800;color:var(--c-primary-dk);">68%</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);">전체 완성도</div>
+        </div>
+      </div>
+
+      <!-- 성년후견인 정보 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">👨‍⚖️ 성년후견인 정보</div>
+        <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+          <div style="background:var(--c-secondary);border-radius:var(--radius-md);padding:14px;flex:1;min-width:200px;">
+            <div style="font-size:11px;color:var(--c-ink-mid);margin-bottom:2px;">주 후견인</div>
+            <div style="font-weight:800;font-size:15px;">박철수 (아버지)</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">010-○○○○-○○○○</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">권한: 의료·재정·거주</div>
+            <div style="margin-top:8px;"><span class="badge badge-green">법원 선임 완료 2024.01</span></div>
+          </div>
+          <div style="background:var(--c-secondary);border-radius:var(--radius-md);padding:14px;flex:1;min-width:200px;">
+            <div style="font-size:11px;color:var(--c-ink-mid);margin-bottom:2px;">예비 후견인</div>
+            <div style="font-weight:800;font-size:15px;">박수연 (누나)</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">010-○○○○-○○○○</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">권한: 주 후견인 부재 시</div>
+            <div style="margin-top:8px;"><span class="badge badge-blue">법원 지정 대기</span></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px;background:#eff6ff;border-radius:var(--radius-sm);">
+          <div style="font-size:12px;color:#1d4ed8;">📋 다음 법원 보고 기한: 2026.12.01 (후견 연간 보고)</div>
+        </div>
+      </div>
+
+      <!-- 거주 이양 마일스톤 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">🏠 거주 이양 계획 (푸른그룹홈 → 자립생활)</div>
+        <div>
+          <div class="milestone-row">
+            <div class="milestone-icon" style="background:var(--life-school);color:white;">✓</div>
+            <div>
+              <div style="font-weight:700;font-size:14px;">현재: 푸른그룹홈 거주</div>
+              <div style="font-size:12px;color:var(--c-ink-mid);">2024.06~현재 · 5명 공동 생활</div>
+              <span class="badge badge-green" style="margin-top:4px;display:inline-block;">진행 중</span>
+            </div>
+          </div>
+          <div class="step-connector"></div>
+          <div class="milestone-row">
+            <div class="milestone-icon" style="background:#f59e0b;color:white;">2</div>
+            <div>
+              <div style="font-weight:700;font-size:14px;">자립생활 체험 주택 (6개월)</div>
+              <div style="font-size:12px;color:var(--c-ink-mid);">예정: 2027.01 · ○○ 체험 홈 신청 중</div>
+              <span class="badge badge-amber" style="margin-top:4px;display:inline-block;">준비 중</span>
+            </div>
+          </div>
+          <div class="step-connector"></div>
+          <div class="milestone-row">
+            <div class="milestone-icon" style="background:var(--c-border);color:var(--c-ink-mid);">3</div>
+            <div>
+              <div style="font-weight:700;font-size:14px;">지원 주거 (개인 공간)</div>
+              <div style="font-size:12px;color:var(--c-ink-mid);">예정: 2027.07~ · 주간 활동 지원 연결 필요</div>
+              <span class="badge" style="margin-top:4px;display:inline-block;background:var(--c-secondary);color:var(--c-ink-mid);">계획 수립</span>
+            </div>
+          </div>
+          <div class="step-connector"></div>
+          <div class="milestone-row">
+            <div class="milestone-icon" style="background:color-mix(in srgb,var(--life-post-care) 20%,transparent);color:#3d6b4f;">🌟</div>
+            <div>
+              <div style="font-weight:700;font-size:14px;">완전 자립 생활</div>
+              <div style="font-size:12px;color:var(--c-ink-mid);">목표: 2028+ · 지역사회 통합</div>
+              <span class="badge" style="margin-top:4px;display:inline-block;background:color-mix(in srgb,var(--life-post-care) 15%,transparent);color:#3d6b4f;">장기 목표</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 긴급 연락망 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">🆘 긴급 연락망</div>
+        <div class="contact-row">
+          <div style="font-size:24px;">👨‍👩‍👦</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;">박철수 (아버지 / 주 보호자)</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">010-○○○○-○○○○ · 우선 연락</div>
+          </div>
+          <span class="badge badge-green">1순위</span>
+        </div>
+        <div class="contact-row">
+          <div style="font-size:24px;">👩‍🦱</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;">박수연 (누나)</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">010-○○○○-○○○○ · 아버지 연락 불가 시</div>
+          </div>
+          <span class="badge badge-blue">2순위</span>
+        </div>
+        <div class="contact-row">
+          <div style="font-size:24px;">🏥</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;">주치의: ○○대학병원 신경과 김○○ 교수</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">02-○○○○-○○○○ · 의료 긴급 시</div>
+          </div>
+          <span class="badge badge-amber">의료</span>
+        </div>
+        <div class="contact-row">
+          <div style="font-size:24px;">⚖️</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;">법률 대리인: ○○ 법무법인</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">02-○○○○-○○○○ · 법적 사안 발생 시</div>
+          </div>
+          <span class="badge" style="background:var(--c-secondary);color:var(--c-ink-mid);">법률</span>
+        </div>
+      </div>
+
+      <!-- 주요 문서 체크리스트 -->
+      <div class="card p-5" style="margin-bottom:24px;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">📁 주요 문서 현황</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--c-border);border-radius:var(--radius-sm);cursor:pointer;">
+            <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--life-school);">
+            <div style="flex:1;"><div style="font-size:13px;font-weight:700;">신탁 계약서 사본</div><div style="font-size:11px;color:var(--c-ink-mid);">2024.03.15 작성 · ○○은행 보관</div></div>
+            <span class="badge badge-green">보관 중</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--c-border);border-radius:var(--radius-sm);cursor:pointer;">
+            <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--life-school);">
+            <div style="flex:1;"><div style="font-size:13px;font-weight:700;">후견 심판 결정문</div><div style="font-size:11px;color:var(--c-ink-mid);">2024.01.20 법원 발급</div></div>
+            <span class="badge badge-green">보관 중</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--c-border);border-radius:var(--radius-sm);cursor:pointer;">
+            <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--life-school);">
+            <div style="flex:1;"><div style="font-size:13px;font-weight:700;">장애인 등록증</div><div style="font-size:11px;color:var(--c-ink-mid);">지적장애 1급</div></div>
+            <span class="badge badge-green">유효</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #fde68a;background:#fffbeb;border-radius:var(--radius-sm);cursor:pointer;">
+            <input type="checkbox" style="width:18px;height:18px;accent-color:#f59e0b;">
+            <div style="flex:1;"><div style="font-size:13px;font-weight:700;">유언장 / 사전의향서</div><div style="font-size:11px;color:var(--c-ink-mid);">미작성 — 법률 전문가 상담 권장</div></div>
+            <span class="badge badge-amber">미작성</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--c-border);border-radius:var(--radius-sm);cursor:pointer;">
+            <input type="checkbox" style="width:18px;height:18px;accent-color:var(--life-school);">
+            <div style="flex:1;"><div style="font-size:13px;font-weight:700;">비상 연락 카드 (지갑용)</div><div style="font-size:11px;color:var(--c-ink-mid);">박지훈 소지용 · 최신판 인쇄 필요</div></div>
+            <span class="badge badge-amber">업데이트 필요</span>
+          </label>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;">
+        <a href="worker-dashboard.html" class="btn btn-secondary">← 대시보드</a>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-secondary">임시저장</button>
+          <button class="btn btn-primary">저장 · 성년후견인 동기화</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  let sg = false;
+  function toggleTheme() { sg = !sg; document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : ''); }
+</script>
+</body>
+</html>

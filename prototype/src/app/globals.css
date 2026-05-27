@@ -34,3 +34,40 @@ body { background: #faf7f2; color: #2d2d2d; -webkit-font-smoothing: antialiased;
 
 /* 색약 대응 패턴 (점선 등 보조 시각 신호) */
 .stripe-infant { background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(0,0,0,.06) 6px 7px); }
+
+/* 7-stage lifecycle utility chips (v1.5) */
+.chip-life-early-childhood { @apply badge bg-yellow-100 text-yellow-900; }
+.chip-life-post-care { @apply badge bg-[#8FAF8E]/20 text-green-900; }
+
+/* 숨가든 그린 대안 테마 (UX v1.5 §0.3 — A/B 테스트 대상)
+   사용법: <html data-theme="soomgarden"> 또는 사용자 설정 토글
+   기본 테마(파랑)와 병행 운영 — v1.1+ 정식 활성화 예정 */
+[data-theme="soomgarden"] {
+  --color-primary: #2e5a44;
+  --color-primary-dark: #1e3d2e;
+  --color-primary-light: #f4f7f5;
+  --color-accent: #5a8a6e;
+  --color-background: #fbf9f4;
+  --color-surface: #e5ede8;
+  --color-border: #cbdcd1;
+  --color-text-primary: #0f1f17;
+  --color-text-secondary: #4a6358;
+}
+
+[data-theme="soomgarden"] body {
+  background: #fbf9f4;
+  color: #0f1f17;
+}
+
+[data-theme="soomgarden"] .card {
+  background: #ffffff;
+  border-color: #cbdcd1;
+}
+
+[data-theme="soomgarden"] .btn-primary {
+  background: #2e5a44;
+}
+
+[data-theme="soomgarden"] .btn-primary:hover {
+  background: #1e3d2e;
+}

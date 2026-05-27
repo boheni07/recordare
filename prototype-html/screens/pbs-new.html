@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — PBS 도전행동 기록</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .nav-link { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--c-ink-mid);transition:all 0.15s;text-decoration:none; }
+    .nav-link:hover,.nav-link.active { background:color-mix(in srgb,var(--c-primary) 8%,transparent);color:var(--c-primary); }
+    .step-header { display:flex;align-items:center;gap:12px;margin-bottom:16px; }
+    .step-circle { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0; }
+    .trigger-btn { padding:10px 14px;border:2px solid var(--c-border);border-radius:var(--radius-md);font-size:13px;cursor:pointer;background:white;transition:all 0.15s;display:inline-block; }
+    .trigger-btn:hover { border-color:var(--life-transition); }
+    .trigger-btn.selected { border-color:var(--life-transition);background:color-mix(in srgb,var(--life-transition) 8%,transparent); }
+    .behavior-btn { padding:10px 14px;border:2px solid var(--c-border);border-radius:var(--radius-md);font-size:13px;cursor:pointer;background:white;transition:all 0.15s; }
+    .behavior-btn:hover { border-color:#ef4444; }
+    .behavior-btn.selected { border-color:#ef4444;background:color-mix(in srgb,#ef4444 5%,transparent); }
+    .intensity-btn { width:40px;height:40px;border-radius:50%;border:2px solid var(--c-border);font-size:14px;font-weight:800;cursor:pointer;background:white;transition:all 0.15s;display:inline-flex;align-items:center;justify-content:center; }
+    .intensity-btn.selected { border-color:#ef4444;background:#fef2f2;color:#ef4444; }
+    .response-btn { padding:10px 14px;border:2px solid var(--c-border);border-radius:var(--radius-md);font-size:13px;cursor:pointer;background:white;transition:all 0.15s; }
+    .response-btn:hover { border-color:var(--life-school); }
+    .response-btn.selected { border-color:var(--life-school);background:color-mix(in srgb,var(--life-school) 5%,transparent); }
+    .auto-item { background:white;border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:10px;text-align:center; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🌿 Recordare</div>
+    <a href="worker-dashboard.html" class="nav-link">🏠 대시보드</a>
+    <a href="journal-quick.html" class="nav-link">⚡ 빠른 일지</a>
+    <a href="journal-text.html" class="nav-link">⌨️ 텍스트 일지</a>
+    <a href="pbs-new.html" class="nav-link active">📋 PBS 기록</a>
+    <a href="pbs-analysis.html" class="nav-link">📊 PBS 분석</a>
+    <div style="flex:1;"></div>
+    <a href="../index.html" class="nav-link">← 목록</a>
+  </aside>
+  <div style="flex:1;">
+    <div style="background:white;border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:13px;color:var(--c-ink-mid);">박지훈 (20세) · PBS 기록 · B.8.2 · FR-84</div>
+      <div style="display:flex;gap:8px;">
+        <a href="pbs-analysis.html" class="btn btn-secondary btn-sm">📊 패턴 분석 (3건)</a>
+        <button style="background:var(--c-secondary);border:1px solid var(--c-border);border-radius:9999px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;" onclick="toggleTheme()">🌿 테마</button>
+        <a href="../index.html" style="font-size:11px;color:var(--c-ink-mid);display:flex;align-items:center;">← 목록</a>
+      </div>
+    </div>
+    <div class="main-content">
+
+      <div class="page-header">
+        <h1>📋 도전행동 기록 (PBS)</h1>
+        <div class="subtitle">박지훈 · ABC 분석 3단계 입력 · 오늘 2026-05-27 · 접근: SW·SE·MP·VC·CG</div>
+      </div>
+
+      <!-- 면책 배너 -->
+      <div class="alert alert-amber" style="margin-bottom:20px;">
+        ⚠️ 이 기록은 <strong>보호자 관찰 의견</strong>입니다. 전문가 진단이 아니며 AI 분석도 참고용에 한합니다. (FR-68)
+      </div>
+
+      <!-- AI 자동 수집 컨텍스트 -->
+      <div class="card p-4" style="background:var(--c-secondary);margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span style="font-weight:800;color:var(--c-primary-dk);">🤖 AI 자동 수집 (백그라운드)</span>
+          <span class="badge badge-green">오늘 기준</span>
+        </div>
+        <div class="grid-4">
+          <div class="auto-item"><div style="font-size:11px;color:var(--c-ink-mid);">날씨</div><div style="font-weight:800;font-size:13px;margin-top:2px;">☀️ 맑음</div></div>
+          <div class="auto-item"><div style="font-size:11px;color:var(--c-ink-mid);">전날 수면</div><div style="font-weight:800;font-size:13px;margin-top:2px;">😐 6시간</div></div>
+          <div class="auto-item"><div style="font-size:11px;color:var(--c-ink-mid);">오늘 식사</div><div style="font-weight:800;font-size:13px;margin-top:2px;">✅ 정상</div></div>
+          <div class="auto-item"><div style="font-size:11px;color:var(--c-ink-mid);">복약 여부</div><div style="font-weight:800;font-size:13px;margin-top:2px;">✅ 아침 O</div></div>
+        </div>
+      </div>
+
+      <!-- A: 선행사건 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div class="step-header">
+          <div class="step-circle" style="background:var(--life-transition);">A</div>
+          <div>
+            <div style="font-weight:800;color:var(--c-primary-dk);font-size:16px;">어떤 상황이었나요? (선행사건)</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">도전행동이 시작되기 직전 상황</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">감각 자극</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button class="trigger-btn selected" onclick="this.classList.toggle('selected')">🔊 소음</button>
+              <button class="trigger-btn" onclick="this.classList.toggle('selected')">💡 강한 빛</button>
+              <button class="trigger-btn" onclick="this.classList.toggle('selected')">👐 불쾌한 촉각</button>
+              <button class="trigger-btn" onclick="this.classList.toggle('selected')">👃 강한 냄새</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">환경 변화</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button class="trigger-btn selected" onclick="this.classList.toggle('selected')">🔄 일정 변경</button>
+              <button class="trigger-btn" onclick="this.classList.toggle('selected')">👤 낯선 사람</button>
+              <button class="trigger-btn" onclick="this.classList.toggle('selected')">📍 장소 변경</button>
+              <button class="trigger-btn" onclick="this.classList.toggle('selected')">🍽️ 식사 문제</button>
+            </div>
+          </div>
+          <div>
+            <label class="form-label">자세히 (선택 — 비심판적 언어로 기술하세요)</label>
+            <textarea class="form-input" rows="2" placeholder="예: 점심 후 산책 코스가 갑자기 바뀌었고 처음 보는 분이 함께 계셨어요"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- B: 도전행동 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div class="step-header">
+          <div class="step-circle" style="background:#ef4444;">B</div>
+          <div>
+            <div style="font-weight:800;color:var(--c-primary-dk);font-size:16px;">어떤 행동을 했나요? (도전행동)</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">비심판적 표현 권장 — 예: "자해"→"머리를 부딪혔어요"</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">행동 유형 (복수 선택)</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button class="behavior-btn" onclick="this.classList.toggle('selected')">머리 부딪힘 <span style="font-size:10px;color:var(--c-ink-mid);">(자해)</span></button>
+              <button class="behavior-btn" onclick="this.classList.toggle('selected')">타인 건드림 <span style="font-size:10px;color:var(--c-ink-mid);">(타해)</span></button>
+              <button class="behavior-btn" onclick="this.classList.toggle('selected')">물건 던짐</button>
+              <button class="behavior-btn selected" onclick="this.classList.toggle('selected')">큰 소리 냄 <span style="font-size:10px;color:var(--c-ink-mid);">(소리지르기)</span></button>
+              <button class="behavior-btn selected" onclick="this.classList.toggle('selected')">바닥 누움</button>
+              <button class="behavior-btn" onclick="this.classList.toggle('selected')">옷 벗음</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">강도 (1 낮음 ~ 5 높음)</div>
+              <div style="display:flex;gap:8px;">
+                <button class="intensity-btn" onclick="selectIntensity(this)">1</button>
+                <button class="intensity-btn" onclick="selectIntensity(this)">2</button>
+                <button class="intensity-btn selected" onclick="selectIntensity(this)">3</button>
+                <button class="intensity-btn" onclick="selectIntensity(this)">4</button>
+                <button class="intensity-btn" onclick="selectIntensity(this)">5</button>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">지속 시간</div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <input type="number" value="5" min="1" max="120" class="form-input" style="width:70px;">
+                <span style="font-size:13px;color:var(--c-ink-mid);">분</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C: 결과/대응 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div class="step-header">
+          <div class="step-circle" style="background:var(--life-school);">C</div>
+          <div>
+            <div style="font-weight:800;color:var(--c-primary-dk);font-size:16px;">어떻게 대응했나요? (결과)</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">실제로 사용한 중재 방법</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">사용한 대응 방법</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button class="response-btn selected" onclick="this.classList.toggle('selected')">🚪 안정실 이동</button>
+              <button class="response-btn selected" onclick="this.classList.toggle('selected')">🗣️ AAC 판 제공</button>
+              <button class="response-btn" onclick="this.classList.toggle('selected')">🤝 신체 보조</button>
+              <button class="response-btn" onclick="this.classList.toggle('selected')">🍬 간식 제공</button>
+              <button class="response-btn" onclick="this.classList.toggle('selected')">🎵 음악 틀기</button>
+              <button class="response-btn" onclick="this.classList.toggle('selected')">📸 좋아하는 사진</button>
+            </div>
+          </div>
+          <div>
+            <label class="form-label">진정까지 소요 시간 (분)</label>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input type="number" value="8" min="0" max="120" class="form-input" style="width:70px;">
+              <span style="font-size:13px;color:var(--c-ink-mid);">분 후 진정</span>
+            </div>
+          </div>
+          <div>
+            <label class="form-label">관찰 의견 (선택)</label>
+            <textarea class="form-input" rows="2" placeholder="예: AAC 판을 보여주니 빠르게 진정되었어요. 강아지 사진이 특히 효과적이었습니다."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 분석 누적 안내 -->
+      <div class="alert alert-green" style="margin-bottom:24px;">
+        📊 기록이 3건 누적되었습니다. <strong>10건</strong> 이상이면 AI 패턴 분석이 활성화됩니다. (7건 남음)
+        <a href="pbs-analysis.html" style="color:var(--life-school);font-weight:700;margin-left:8px;">분석 화면 미리 보기 →</a>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;">
+        <a href="worker-dashboard.html" class="btn btn-secondary">← 취소</a>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-secondary">임시저장</button>
+          <button class="btn btn-primary">저장 — PBS 기록 추가</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function selectIntensity(el) {
+    document.querySelectorAll('.intensity-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+  let sg = false;
+  function toggleTheme() { sg = !sg; document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : ''); }
+</script>
+</body>
+</html>

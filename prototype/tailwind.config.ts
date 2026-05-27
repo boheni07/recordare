@@ -13,13 +13,15 @@ export default {
         ink: { DEFAULT: "#2D2D2D", mid: "#555555" },
         cream: "#FAF7F2",
         border: "#DDD5C8",
-        // Lifecycle
+        // Lifecycle — 7단계 (UX v1.5 §0.1 + Plan v1.6 §2.0.1)
         life: {
-          infant: "#FFC857",
-          school: "#5CB85C",
-          transition: "#3B82F6",
-          adult: "#7C3AED",
-          senior: "#6B7280",
+          infant:          "#FFB49A",  // 영아기 0~2세
+          "early-childhood": "#FFC857", // 영유아기 3~6세
+          school:          "#5CB85C",  // 학령기 7~18세
+          transition:      "#3B82F6",  // 전환기 15~24세
+          adult:           "#7C3AED",  // 성인기 25~64세
+          senior:          "#6B7280",  // 고령기 65세+
+          "post-care":     "#8FAF8E",  // 사후지원기
         },
       },
       fontFamily: {

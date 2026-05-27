@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 보호자 대시보드</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .timeline-card { display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--c-border); }
+    .timeline-card:last-child { border-bottom:none; }
+    .timeline-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+    .notif-item { display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--c-border); }
+    .notif-level { font-size:10px; font-weight:800; padding:2px 8px; border-radius:9999px; flex-shrink:0; }
+    .perm-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--c-border); font-size:13px; }
+    .perm-row:last-child { border-bottom:none; }
+    .lifecycle-tab { padding:6px 16px; border-radius:9999px; font-size:12px; font-weight:700; cursor:pointer; border:2px solid transparent; transition:all 0.15s; }
+    .lifecycle-tab.active { border-color:currentColor; }
+    .nav-link { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:var(--radius-md); font-size:13px; font-weight:600; color:var(--c-ink-mid); transition:all 0.15s; text-decoration:none; }
+    .nav-link:hover, .nav-link.active { background:color-mix(in srgb, var(--c-primary) 8%, transparent); color:var(--c-primary); }
+    .top-bar { background:white; border-bottom:1px solid var(--c-border); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; }
+    .theme-toggle-btn { background:var(--c-secondary); border:1px solid var(--c-border); border-radius:9999px; padding:5px 12px; font-size:11px; font-weight:700; cursor:pointer; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">🌿 Recordare</div>
+    <div style="font-size:11px;font-weight:800;color:var(--c-ink-mid);padding:4px 8px;margin-bottom:4px;">보호자 메뉴</div>
+    <a href="parent-dashboard.html" class="nav-link active">🏠 대시보드</a>
+    <a href="#" class="nav-link">📅 타임라인</a>
+    <a href="#" class="nav-link">📝 일지 작성</a>
+    <a href="#" class="nav-link">📄 인계서</a>
+    <a href="#" class="nav-link">🔑 권한 관리</a>
+    <a href="#" class="nav-link">🧠 자가진단</a>
+    <div style="font-size:11px;font-weight:800;color:var(--c-ink-mid);padding:4px 8px;margin:12px 0 4px;">v1.5 신규</div>
+    <a href="pbs-new.html" class="nav-link">📋 PBS 기록</a>
+    <a href="pcp-profile.html" class="nav-link">🌱 PCP 선호</a>
+    <a href="post-care-plan.html" class="nav-link">🤝 사후 계획</a>
+    <div style="flex:1;"></div>
+    <a href="role-select.html" class="nav-link" style="margin-top:auto;">🔄 역할 전환</a>
+  </aside>
+
+  <!-- Main -->
+  <div style="flex:1;display:flex;flex-direction:column;">
+    <div class="top-bar">
+      <div style="font-size:13px;color:var(--c-ink-mid);">안녕하세요, <strong style="color:var(--c-primary-dk);">박순영</strong>님 · 오늘 알림 2건</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge badge-m7" style="cursor:pointer;">일반 모드</span>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">🌿 테마</button>
+        <a href="../index.html" style="font-size:11px;color:var(--c-ink-mid);">← 목록</a>
+      </div>
+    </div>
+    <div class="main-content">
+
+      <!-- Page header -->
+      <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <h1>보호자 대시보드</h1>
+          <div class="subtitle">박지훈 (20세, 발달장애 2급) · 푸른그룹홈 · 전환기</div>
+        </div>
+        <a href="journal-quick.html" class="btn btn-primary">⚡ 빠른 일지 작성</a>
+      </div>
+
+      <!-- 생애주기 탭 -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;">
+        <div class="lifecycle-tab" style="color:var(--life-infant);">영아기</div>
+        <div class="lifecycle-tab" style="color:var(--life-early-childhood);">영유아기</div>
+        <div class="lifecycle-tab" style="color:var(--life-school);">학령기</div>
+        <div class="lifecycle-tab active" style="color:var(--life-transition);">전환기 ●</div>
+        <div class="lifecycle-tab" style="color:var(--life-adult);">성인기</div>
+        <div class="lifecycle-tab" style="color:var(--life-senior);">고령기</div>
+        <div class="lifecycle-tab" style="color:var(--life-post-care);">사후지원기</div>
+      </div>
+
+      <!-- KPI 카드 -->
+      <div class="grid-4" style="margin-bottom:24px;">
+        <div class="stat-card" style="border-top:3px solid var(--life-transition);">
+          <div class="stat-value">D-180</div>
+          <div class="stat-label">18세 이양 D-day</div>
+          <div class="stat-sub">권한 이양 준비 중</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid var(--c-alert);">
+          <div class="stat-value">D-7 ⚠️</div>
+          <div class="stat-label">권한 만료 임박</div>
+          <div class="stat-sub">최주임 사회복지사</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">38건</div>
+          <div class="stat-label">이번 달 일지</div>
+          <div class="stat-sub">활동지원사·교사 작성</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">76%</div>
+          <div class="stat-label">자기결정 점수</div>
+          <div class="stat-sub">AIR-SDS +18점 상승 ↑</div>
+        </div>
+      </div>
+
+      <!-- 최근 타임라인 + 알림 2열 -->
+      <div class="grid-2" style="margin-bottom:24px;">
+
+        <!-- 최근 일지 -->
+        <div class="card p-5">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="font-weight:800;color:var(--c-primary-dk);">📅 최근 일지 (3건)</div>
+            <a href="#" style="font-size:11px;color:var(--c-primary);font-weight:700;">전체 →</a>
+          </div>
+          <div>
+            <div class="timeline-card">
+              <div class="timeline-dot" style="background:var(--life-transition);"></div>
+              <div>
+                <div style="font-size:12px;color:var(--c-ink-mid);">2026-05-25 12:30 · 이수진 (활동지원사)</div>
+                <div class="font-bold" style="font-size:13px;margin-top:2px;"><span class="cat-chip cat-meal">🍚 식사</span></div>
+                <div style="font-size:13px;margin-top:4px;">오늘 점심으로 김치찌개 한 그릇 깨끗하게 비웠어요.</div>
+              </div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-dot" style="background:var(--life-transition);"></div>
+              <div>
+                <div style="font-size:12px;color:var(--c-ink-mid);">2026-05-25 14:15 · 이수진</div>
+                <div class="font-bold" style="font-size:13px;margin-top:2px;"><span class="cat-chip cat-behavior">🏃 행동</span></div>
+                <div style="font-size:13px;margin-top:4px;">산책 중 강아지를 보고 기뻐하셨어요. 손뼉을 치며 따라가셨습니다.</div>
+              </div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-dot" style="background:var(--life-school);"></div>
+              <div>
+                <div style="font-size:12px;color:var(--c-ink-mid);">2026-05-24 16:00 · 한선생</div>
+                <div class="font-bold" style="font-size:13px;margin-top:2px;"><span class="cat-chip cat-emotion">💭 정서</span></div>
+                <div style="font-size:13px;margin-top:4px;">친구와 갈등 후 잠시 위축됐지만 30분 만에 회복하셨어요.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 알림 + 권한 -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card p-5">
+            <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">🔔 최근 알림</div>
+            <div>
+              <div class="notif-item">
+                <span class="notif-level" style="background:rgba(239,68,68,.1);color:#9b2c2c;">긴급</span>
+                <div>
+                  <div style="font-weight:700;font-size:13px;">권한 만료 D-7</div>
+                  <div style="font-size:11px;color:var(--c-ink-mid);">최주임(사회복지사) 권한이 7일 후 종료됩니다.</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <span class="notif-level" style="background:rgba(242,169,59,.1);color:#92400e;">높음</span>
+                <div>
+                  <div style="font-weight:700;font-size:13px;">마이그레이션 완료</div>
+                  <div style="font-size:11px;color:var(--c-ink-mid);">카톡 사진 8,432장이 분류 완료. 검수 요청.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card p-5">
+            <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">🔑 활성 권한</div>
+            <div>
+              <div class="perm-row">
+                <div style="flex:1;">
+                  <div style="font-weight:700;">이수진 <span style="font-size:11px;color:var(--c-ink-mid);">활동지원사</span></div>
+                  <div style="font-size:11px;color:var(--c-ink-mid);">식사·행동·정서·학습 · D-36</div>
+                </div>
+                <span class="badge badge-green">활성</span>
+              </div>
+              <div class="perm-row">
+                <div style="flex:1;">
+                  <div style="font-weight:700;">최주임 <span style="font-size:11px;color:var(--c-ink-mid);">사회복지사</span></div>
+                  <div style="font-size:11px;color:var(--c-ink-mid);">전 영역 · D-7 ⚠️</div>
+                </div>
+                <span class="badge badge-orange">만료 임박</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- v1.5 신규 기능 CTA -->
+      <div class="card p-5" style="background:linear-gradient(135deg,#f0fdf4,#eff6ff);border:none;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">⭐ v1.5 신규 기능 바로가기</div>
+        <div class="grid-3">
+          <a href="pbs-new.html" class="btn btn-secondary" style="justify-content:flex-start;gap:10px;">
+            <span style="font-size:20px;">📋</span>
+            <div style="text-align:left;">
+              <div style="font-size:13px;">PBS 도전행동 기록</div>
+              <div style="font-size:10px;font-weight:400;color:var(--c-ink-mid);">ABC 분석 · FR-84</div>
+            </div>
+          </a>
+          <a href="pcp-profile.html" class="btn btn-secondary" style="justify-content:flex-start;gap:10px;">
+            <span style="font-size:20px;">🌱</span>
+            <div style="text-align:left;">
+              <div style="font-size:13px;">PCP 선호 프로필</div>
+              <div style="font-size:10px;font-weight:400;color:var(--c-ink-mid);">당사자 직접 작성 · FR-87</div>
+            </div>
+          </a>
+          <a href="post-care-plan.html" class="btn btn-secondary" style="justify-content:flex-start;gap:10px;">
+            <span style="font-size:20px;">🤝</span>
+            <div style="text-align:left;">
+              <div style="font-size:13px;">사후 지원 계획</div>
+              <div style="font-size:10px;font-weight:400;color:var(--c-ink-mid);">SNT·후견·거주지 · FR-88</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+  let sg = false;
+  function toggleTheme() {
+    sg = !sg;
+    document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : '');
+  }
+</script>
+</body>
+</html>

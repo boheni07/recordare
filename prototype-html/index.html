@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — HTML 프로토타입 내비게이션</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    body { background: var(--c-cream); }
+    .hub-header {
+      background: var(--c-primary);
+      color: white;
+      padding: 32px 40px;
+      text-align: center;
+    }
+    .hub-header h1 { font-size: 32px; font-weight: 800; }
+    .hub-header p  { font-size: 14px; opacity: .8; margin-top: 8px; }
+    .hub-main { max-width: 1000px; margin: 40px auto; padding: 0 24px 60px; }
+    .hub-section { margin-bottom: 40px; }
+    .hub-section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--c-ink-mid);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hub-section-title::after { content: ''; flex: 1; height: 1px; background: var(--c-border); }
+    .screen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .screen-card {
+      display: block;
+      background: white;
+      border: 1px solid var(--c-border);
+      border-left: 4px solid var(--c-primary);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      transition: all 0.15s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .screen-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .screen-card .icon { font-size: 24px; margin-bottom: 8px; }
+    .screen-card .title { font-size: 14px; font-weight: 800; color: var(--c-primary-dk); }
+    .screen-card .desc  { font-size: 11px; color: var(--c-ink-mid); margin-top: 4px; }
+    .screen-card .route { font-size: 10px; color: var(--c-primary); margin-top: 8px; font-weight: 700; }
+    .new-badge {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+      border-radius: 9999px;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 7px;
+      margin-left: 6px;
+    }
+    .m7-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      border-radius: 9999px;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 7px;
+      margin-left: 6px;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: white;
+      border: 2px solid var(--c-border);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 100;
+    }
+    .info-bar {
+      background: #eff6ff;
+      border: 1px solid #93c5fd;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #1e40af;
+      margin-bottom: 32px;
+    }
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌿 숨가든 테마</button>
+
+<header class="hub-header">
+  <div>🌿</div>
+  <h1>Recordare HTML 프로토타입</h1>
+  <p>UX v1.5 · PRD v2.6 · Plan v1.6 · Workflows v1.6 기반 — 브라우저에서 바로 확인하는 정적 프로토타입</p>
+</header>
+
+<main class="hub-main">
+
+  <div class="info-bar">
+    💡 <strong>사용법:</strong> 아래 화면 카드를 클릭하면 각 HTML 화면으로 이동합니다. 사이드바에서 화면 간 이동이 가능합니다.
+    &nbsp;&nbsp;|&nbsp;&nbsp; 우상단 <strong>숨가든 테마</strong> 버튼으로 대안 그린 테마를 미리 볼 수 있습니다.
+  </div>
+
+  <!-- 랜딩 페이지 -->
+  <div class="hub-section">
+    <div class="hub-section-title">🌿 퍼블릭 랜딩 페이지</div>
+    <div class="screen-grid">
+      <a href="screens/landing.html" class="screen-card" style="border-left-color: var(--c-primary);">
+        <div class="icon">🌿</div>
+        <div class="title">랜딩 페이지 <span class="new-badge">신규</span></div>
+        <div class="desc">§1 Hero · §2 Problem · §3 Solution · §4 Persona · §5 Impact · §6 Trust · §7 CTA · §8 Footer</div>
+        <div class="route">/</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 공통 플로우 -->
+  <div class="hub-section">
+    <div class="hub-section-title">🔐 인증 · 역할 선택</div>
+    <div class="screen-grid">
+      <a href="screens/login.html" class="screen-card" style="border-left-color: var(--c-primary);">
+        <div class="icon">🔑</div>
+        <div class="title">로그인</div>
+        <div class="desc">이메일 · 소셜 로그인 화면</div>
+        <div class="route">/login</div>
+      </a>
+      <a href="screens/role-select.html" class="screen-card" style="border-left-color: var(--c-primary);">
+        <div class="icon">👥</div>
+        <div class="title">역할 선택 <span class="new-badge">M7+</span></div>
+        <div class="desc">9개 역할 · MP/VC/LG 추가</div>
+        <div class="route">/role-select</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 대시보드 -->
+  <div class="hub-section">
+    <div class="hub-section-title">📊 역할별 대시보드</div>
+    <div class="screen-grid">
+      <a href="screens/parent-dashboard.html" class="screen-card" style="border-left-color: var(--life-early-childhood);">
+        <div class="icon">👨‍👩‍👧</div>
+        <div class="title">보호자 대시보드</div>
+        <div class="desc">타임라인 · 권한 · 발달체크 · 자녀 등록</div>
+        <div class="route">/parent</div>
+      </a>
+      <a href="screens/worker-dashboard.html" class="screen-card" style="border-left-color: var(--life-school);">
+        <div class="icon">💼</div>
+        <div class="title">활동지원사 대시보드</div>
+        <div class="desc">빠른 선택 일지 · 일정 · 인계서</div>
+        <div class="route">/worker</div>
+      </a>
+      <a href="screens/self-dashboard.html" class="screen-card" style="border-left-color: var(--life-adult);">
+        <div class="icon">✋</div>
+        <div class="title">당사자 (AAC) 대시보드</div>
+        <div class="desc">AAC 픽토그램 · 동의 · 일기</div>
+        <div class="route">/self</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 일지 입력 -->
+  <div class="hub-section">
+    <div class="hub-section-title">📝 일지 입력 (4종 모드)</div>
+    <div class="screen-grid">
+      <a href="screens/journal-quick.html" class="screen-card" style="border-left-color: var(--life-school);">
+        <div class="icon">⚡</div>
+        <div class="title">빠른 선택 일지</div>
+        <div class="desc">1~3탭 · 15초 · FR-69a</div>
+        <div class="route">/parent/journal/quick</div>
+      </a>
+      <a href="screens/journal-text.html" class="screen-card" style="border-left-color: var(--life-transition);">
+        <div class="icon">⌨️</div>
+        <div class="title">텍스트 · OS 음성 일지 <span class="new-badge">v2.4</span></div>
+        <div class="desc">STT 제거 → OS 키보드 음성 · FR-69d</div>
+        <div class="route">/worker/journal/voice</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 자조 모임 (B.7) -->
+  <div class="hub-section">
+    <div class="hub-section-title">👥 자조 모임 (B.7 · FR-74~80)</div>
+    <div class="screen-grid">
+      <a href="screens/community-groups.html" class="screen-card" style="border-left-color: var(--life-school);">
+        <div class="icon">👥</div>
+        <div class="title">자조 모임 목록 <span class="new-badge">신규</span></div>
+        <div class="desc">생애주기 매칭 + 자유 그룹 · 내 모임 · 모임 일정 · FR-74~75</div>
+        <div class="route">/parent/community</div>
+      </a>
+      <a href="screens/community-group-detail.html" class="screen-card" style="border-left-color: var(--life-school);">
+        <div class="icon">📝</div>
+        <div class="title">그룹 상세 (게시판+모임) <span class="new-badge">신규</span></div>
+        <div class="desc">게시판 · 댓글 · 모임 일정 · RSVP · FR-76~78</div>
+        <div class="route">/parent/community/[groupId]</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- v1.5 신규 화면 (B.8~B.10) -->
+  <div class="hub-section">
+    <div class="hub-section-title">⭐ v1.5 신규 화면 (B.8~B.10)</div>
+    <div class="screen-grid">
+      <a href="screens/pbs-new.html" class="screen-card" style="border-left-color: #ef4444;">
+        <div class="icon">📋</div>
+        <div class="title">PBS 도전행동 기록 <span class="new-badge">신규</span></div>
+        <div class="desc">ABC 분석 3단계 · FR-84 · B.8.2</div>
+        <div class="route">/records/[id]/pbs/new</div>
+      </a>
+      <a href="screens/pbs-analysis.html" class="screen-card" style="border-left-color: #ef4444;">
+        <div class="icon">📊</div>
+        <div class="title">PBS 패턴 분석 <span class="new-badge">신규</span></div>
+        <div class="desc">AI 추론 · 주간 그래프 · FR-85 · B.8.3</div>
+        <div class="route">/records/[id]/pbs/analysis</div>
+      </a>
+      <a href="screens/pcp-profile.html" class="screen-card" style="border-left-color: var(--life-adult);">
+        <div class="icon">🌱</div>
+        <div class="title">PCP 당사자 선호 프로필 <span class="new-badge">신규</span></div>
+        <div class="desc">쉬운말 · AAC 픽토그램 · FR-87 · B.9</div>
+        <div class="route">/person/[id]/pcp</div>
+      </a>
+      <a href="screens/post-care-plan.html" class="screen-card" style="border-left-color: var(--life-post-care);">
+        <div class="icon">🤝</div>
+        <div class="title">사후 지원 계획 <span class="new-badge">신규</span></div>
+        <div class="desc">SNT · 후견 · 거주지 전환 · FR-88~90 · B.10</div>
+        <div class="route">/guardian/post-care-plan</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 문서 버전 -->
+  <div style="background:white;border:1px solid var(--c-border);border-radius:var(--radius-md);padding:16px 20px;">
+    <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:8px;">📚 기반 문서 버전</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:12px;">
+      <div><span style="font-weight:700;color:var(--c-primary);">PRD</span> v2.6 (92 FR)</div>
+      <div><span style="font-weight:700;color:var(--c-primary);">UX</span> v1.5 (B.8~B.10)</div>
+      <div><span style="font-weight:700;color:var(--c-primary);">Plan</span> v1.6 (35 FR)</div>
+      <div><span style="font-weight:700;color:var(--c-primary);">Workflows</span> v1.6 (24 task)</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  let soomgarden = false;
+  function toggleTheme() {
+    soomgarden = !soomgarden;
+    document.documentElement.setAttribute('data-theme', soomgarden ? 'soomgarden' : '');
+    document.querySelector('.theme-toggle').textContent = soomgarden ? '🔵 기본 테마' : '🌿 숨가든 테마';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — PBS 패턴 분석</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .nav-link { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--c-ink-mid);transition:all 0.15s;text-decoration:none; }
+    .nav-link:hover,.nav-link.active { background:color-mix(in srgb,var(--c-primary) 8%,transparent);color:var(--c-primary); }
+    .bar-chart { display:flex;align-items:flex-end;gap:6px;height:80px; }
+    .bar { flex:1;border-radius:4px 4px 0 0;transition:all 0.3s;cursor:pointer;position:relative; }
+    .bar:hover { opacity:.8; }
+    .bar-label { text-align:center;font-size:10px;color:var(--c-ink-mid);margin-top:4px; }
+    .bar-val { position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;white-space:nowrap; }
+    .pattern-card { border:1px solid var(--c-border);border-radius:var(--radius-md);padding:16px;margin-bottom:12px;background:white; }
+    .pattern-card.high { border-left:4px solid #ef4444; }
+    .pattern-card.medium { border-left:4px solid #f59e0b; }
+    .horiz-bar-wrap { margin-bottom:10px; }
+    .horiz-bar-label { display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px; }
+    .horiz-bar { height:10px;border-radius:9999px;background:var(--c-border);overflow:hidden; }
+    .horiz-bar-fill { height:100%;border-radius:9999px;transition:width .4s; }
+    .locked-overlay { position:relative; }
+    .locked-overlay::after { content:'🔒 10건 이상 기록 후 활성화';position:absolute;inset:0;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--c-ink-mid);border-radius:var(--radius-md); }
+    .week-grid { display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px; }
+    .week-cell { aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🌿 Recordare</div>
+    <a href="worker-dashboard.html" class="nav-link">🏠 대시보드</a>
+    <a href="journal-quick.html" class="nav-link">⚡ 빠른 일지</a>
+    <a href="journal-text.html" class="nav-link">⌨️ 텍스트 일지</a>
+    <a href="pbs-new.html" class="nav-link">📋 PBS 기록</a>
+    <a href="pbs-analysis.html" class="nav-link active">📊 PBS 분석</a>
+    <div style="flex:1;"></div>
+    <a href="../index.html" class="nav-link">← 목록</a>
+  </aside>
+  <div style="flex:1;">
+    <div style="background:white;border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:13px;color:var(--c-ink-mid);">박지훈 (20세) · PBS 패턴 분석 · B.8.3 · FR-85</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary btn-sm">📄 PDF 내보내기</button>
+        <button class="btn btn-secondary btn-sm">🔗 공유 링크</button>
+        <button style="background:var(--c-secondary);border:1px solid var(--c-border);border-radius:9999px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;" onclick="toggleTheme()">🌿 테마</button>
+        <a href="../index.html" style="font-size:11px;color:var(--c-ink-mid);display:flex;align-items:center;">← 목록</a>
+      </div>
+    </div>
+    <div class="main-content">
+
+      <div class="page-header">
+        <h1>📊 PBS 도전행동 패턴 분석</h1>
+        <div class="subtitle">박지훈 · AI 분석 (참고용) · 2026.04.01 ~ 2026.05.27 · 총 3건 기록</div>
+      </div>
+
+      <!-- 면책 배너 -->
+      <div class="alert alert-amber" style="margin-bottom:20px;">
+        ⚠️ AI 분석은 <strong>참고용</strong>에 한합니다. 전문가 진단을 대체하지 않습니다. (FR-68)
+        기록이 <strong>10건 미만</strong>이면 일부 분석이 제한됩니다.
+      </div>
+
+      <!-- KPI 요약 -->
+      <div class="grid-4" style="margin-bottom:24px;">
+        <div class="stat-card" style="border-top:3px solid #ef4444;">
+          <div class="stat-value">3건</div>
+          <div class="stat-label">총 기록 (4주)</div>
+          <div class="stat-sub">목표: 10건 이상</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid #f59e0b;">
+          <div class="stat-value">3.0</div>
+          <div class="stat-label">평균 강도</div>
+          <div class="stat-sub">1(낮음) ~ 5(높음)</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid var(--life-school);">
+          <div class="stat-value">8분</div>
+          <div class="stat-label">평균 진정 시간</div>
+          <div class="stat-sub">최단 5분 / 최장 12분</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">AAC</div>
+          <div class="stat-label">가장 효과적 대응</div>
+          <div class="stat-sub">평균 진정 4분</div>
+        </div>
+      </div>
+
+      <!-- 주간 빈도 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div style="font-weight:800;color:var(--c-primary-dk);">📈 주간 빈도 (최근 4주)</div>
+          <select class="form-input" style="width:auto;padding:4px 10px;font-size:12px;">
+            <option>최근 4주</option>
+            <option>최근 8주</option>
+            <option>전체 기간</option>
+          </select>
+        </div>
+        <div id="weekChart" style="padding:20px 0 0;">
+          <div class="bar-chart" id="barChart">
+            <!-- rendered by JS -->
+          </div>
+          <div style="display:flex;gap:6px;" id="barLabels"></div>
+        </div>
+        <div style="font-size:11px;color:var(--c-ink-mid);margin-top:8px;text-align:center;">
+          ※ 5건 이상: 빨강 / 3~4건: 주황 / 1~2건: 녹색 / 0건: 회색
+        </div>
+      </div>
+
+      <!-- AI 패턴 카드 (3건 이하라 일부 잠금) -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:4px;">🧠 AI 패턴 분석 (참고용)</div>
+        <div style="font-size:12px;color:var(--c-ink-mid);margin-bottom:14px;">3건 기록 기준 · 10건 이상이면 신뢰도 향상</div>
+
+        <div class="pattern-card high">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-weight:800;font-size:14px;">🔴 수면 부족 + 소음 환경</div>
+            <span class="badge" style="background:#fef2f2;color:#ef4444;">연관도 82%</span>
+          </div>
+          <div style="font-size:13px;color:var(--c-ink-mid);margin-bottom:10px;">전날 수면 6시간 미만 + 소음 자극이 동시에 있을 때 도전행동 빈도 증가 패턴 관찰.</div>
+          <div style="background:#fef2f2;border-radius:var(--radius-sm);padding:10px;">
+            <div style="font-size:12px;font-weight:800;color:#ef4444;margin-bottom:4px;">💡 제안 (참고용)</div>
+            <div style="font-size:12px;color:#7f1d1d;">수면 6시간 미만 다음날은 소음 환경 사전 점검·이어폰·이동 경로 조정을 검토해 보세요.</div>
+          </div>
+        </div>
+
+        <div class="pattern-card medium">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-weight:800;font-size:14px;">🟡 일정 변경 + 낯선 사람</div>
+            <span class="badge" style="background:#fffbeb;color:#d97706;">연관도 71%</span>
+          </div>
+          <div style="font-size:13px;color:var(--c-ink-mid);margin-bottom:10px;">갑작스러운 일정 변경과 처음 보는 사람이 동시에 발생할 때 반응 강도가 높아지는 경향.</div>
+          <div style="background:#fffbeb;border-radius:var(--radius-sm);padding:10px;">
+            <div style="font-size:12px;font-weight:800;color:#d97706;margin-bottom:4px;">💡 제안 (참고용)</div>
+            <div style="font-size:12px;color:#78350f;">일정 변경 시 시각 스케줄 보드로 미리 안내하고, 새로운 분과의 만남은 익숙한 공간에서 진행해 보세요.</div>
+          </div>
+        </div>
+
+        <div class="locked-overlay" style="border-radius:var(--radius-md);overflow:hidden;">
+          <div class="pattern-card" style="opacity:.4;">
+            <div style="font-weight:800;font-size:14px;">🔵 식사 거부 패턴 분석</div>
+            <div style="font-size:13px;color:var(--c-ink-mid);margin-top:6px;">기록 10건 이상이면 분석됩니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:16px;">
+        <!-- 선행사건 빈도 -->
+        <div class="card p-5">
+          <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:14px;">⚡ 선행사건 빈도</div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>🔊 소음</span><span style="font-weight:800;">3건 (100%)</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:100%;background:#ef4444;"></div></div>
+          </div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>🔄 일정 변경</span><span style="font-weight:800;">2건 (67%)</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:67%;background:#f59e0b;"></div></div>
+          </div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>👤 낯선 사람</span><span style="font-weight:800;">1건 (33%)</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:33%;background:#3b82f6;"></div></div>
+          </div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>💡 강한 빛</span><span style="font-weight:800;">0건 (0%)</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:0%;background:#6b7280;"></div></div>
+          </div>
+        </div>
+
+        <!-- 대응 효과 비교 -->
+        <div class="card p-5">
+          <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:14px;">✅ 대응 방법 효과 비교</div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>🗣️ AAC 판 제공</span><span style="font-weight:800;color:var(--life-school);">4분 ★</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:100%;background:var(--life-school);"></div></div>
+          </div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>📸 좋아하는 사진</span><span style="font-weight:800;">6분</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:67%;background:#3b82f6;"></div></div>
+          </div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>🚪 안정실 이동</span><span style="font-weight:800;">8분</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:50%;background:#f59e0b;"></div></div>
+          </div>
+          <div class="horiz-bar-wrap">
+            <div class="horiz-bar-label"><span>🎵 음악 틀기</span><span style="font-weight:800;">10분</span></div>
+            <div class="horiz-bar"><div class="horiz-bar-fill" style="width:40%;background:#8b5cf6;"></div></div>
+          </div>
+          <div style="font-size:11px;color:var(--c-ink-mid);margin-top:8px;">★ 가장 빠른 진정 효과 (평균 진정시간 기준, 짧을수록 효과적)</div>
+        </div>
+      </div>
+
+      <!-- 시간대별 분포 (잠금) -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="font-weight:800;color:var(--c-primary-dk);">🕐 시간대별 분포</div>
+          <span class="badge badge-blue">10건 이상 시 활성화</span>
+        </div>
+        <div class="locked-overlay" style="border-radius:var(--radius-sm);">
+          <div style="opacity:.3;">
+            <div class="week-grid">
+              <div style="font-size:10px;color:var(--c-ink-mid);text-align:center;">오전</div>
+              <div style="font-size:10px;color:var(--c-ink-mid);text-align:center;">오전</div>
+              <div style="font-size:10px;color:var(--c-ink-mid);text-align:center;">점심</div>
+              <div style="font-size:10px;color:var(--c-ink-mid);text-align:center;">오후</div>
+              <div style="font-size:10px;color:var(--c-ink-mid);text-align:center;">오후</div>
+              <div style="font-size:10px;color:var(--c-ink-mid);text-align:center;">저녁</div>
+              <div style="font-size:10px;color:var(--c-ink-mid);text-align:center;">밤</div>
+              <div class="week-cell" style="background:#fef2f2;">1</div>
+              <div class="week-cell" style="background:#fef2f2;">0</div>
+              <div class="week-cell" style="background:#fef2f2;">2</div>
+              <div class="week-cell" style="background:#fef2f2;">3</div>
+              <div class="week-cell" style="background:#fef2f2;">1</div>
+              <div class="week-cell" style="background:#fef2f2;">0</div>
+              <div class="week-cell" style="background:#fef2f2;">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 기록 목록 -->
+      <div class="card p-5" style="margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="font-weight:800;color:var(--c-primary-dk);">📋 기록 목록 (최근 3건)</div>
+          <a href="pbs-new.html" class="btn btn-primary btn-sm">+ 새 기록</a>
+        </div>
+        <div>
+          <div style="display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--c-border);align-items:center;">
+            <div style="width:60px;font-size:12px;color:var(--c-ink-mid);">05/27</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;">큰 소리 냄 · 바닥 누움</div>
+              <div style="font-size:11px;color:var(--c-ink-mid);">선행: 소음+일정변경 · 강도 3 · 진정 8분</div>
+            </div>
+            <span class="badge" style="background:#fef2f2;color:#ef4444;">강도 3</span>
+          </div>
+          <div style="display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--c-border);align-items:center;">
+            <div style="width:60px;font-size:12px;color:var(--c-ink-mid);">05/20</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;">큰 소리 냄</div>
+              <div style="font-size:11px;color:var(--c-ink-mid);">선행: 소음 · 강도 2 · 진정 5분</div>
+            </div>
+            <span class="badge" style="background:#fffbeb;color:#d97706;">강도 2</span>
+          </div>
+          <div style="display:flex;gap:10px;padding:12px 0;align-items:center;">
+            <div style="width:60px;font-size:12px;color:var(--c-ink-mid);">05/13</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;">머리 부딪힘 · 큰 소리 냄</div>
+              <div style="font-size:11px;color:var(--c-ink-mid);">선행: 소음+낯선사람 · 강도 4 · 진정 12분</div>
+            </div>
+            <span class="badge" style="background:#fef2f2;color:#ef4444;">강도 4</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;">
+        <a href="worker-dashboard.html" class="btn btn-secondary">← 대시보드</a>
+        <a href="pbs-new.html" class="btn btn-primary">+ PBS 기록 추가</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Bar chart render
+  const data = [2, 1, 3, 0, 2, 3, 5];
+  const labels = ['4/28', '5/5', '5/12', '5/19', '5/26', '5/27', '오늘'];
+  const max = Math.max(...data);
+  const colors = data.map(v => v >= 5 ? '#ef4444' : v >= 3 ? '#f59e0b' : v >= 1 ? '#5cb85c' : '#d1d5db');
+
+  const chartEl = document.getElementById('barChart');
+  const labelEl = document.getElementById('barLabels');
+
+  data.forEach((v, i) => {
+    const bar = document.createElement('div');
+    const h = max > 0 ? Math.max((v / max) * 80, v > 0 ? 8 : 2) : 2;
+    bar.className = 'bar';
+    bar.style.cssText = `height:${h}px;background:${colors[i]};flex:1;border-radius:4px 4px 0 0;position:relative;`;
+    if (v > 0) {
+      const val = document.createElement('div');
+      val.className = 'bar-val';
+      val.textContent = v + '건';
+      bar.appendChild(val);
+    }
+    chartEl.appendChild(bar);
+
+    const lbl = document.createElement('div');
+    lbl.className = 'bar-label';
+    lbl.style.flex = '1';
+    lbl.textContent = labels[i];
+    labelEl.appendChild(lbl);
+  });
+
+  let sg = false;
+  function toggleTheme() { sg = !sg; document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : ''); }
+</script>
+</body>
+</html>

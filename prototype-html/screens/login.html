@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 로그인</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    body { background: linear-gradient(135deg, #f0f7f4 0%, var(--c-cream) 60%); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-wrap { width: 100%; max-width: 400px; padding: 24px; }
+    .login-card { background: white; border-radius: var(--radius-xl); border: 1px solid var(--c-border); padding: 40px 36px; box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .logo { text-align: center; margin-bottom: 32px; }
+    .logo-icon { font-size: 40px; }
+    .logo-name { font-size: 24px; font-weight: 800; color: var(--c-primary); margin-top: 8px; }
+    .logo-sub { font-size: 12px; color: var(--c-ink-mid); margin-top: 4px; }
+    .social-btn {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 700;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.15s;
+      margin-bottom: 10px;
+    }
+    .social-btn:hover { background: var(--c-secondary); }
+    .divider { text-align: center; color: var(--c-ink-mid); font-size: 12px; margin: 16px 0; position: relative; }
+    .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 42%; height: 1px; background: var(--c-border); }
+    .divider::before { left: 0; }
+    .divider::after  { right: 0; }
+    .notice { font-size: 11px; color: var(--c-ink-mid); text-align: center; margin-top: 20px; line-height: 1.6; }
+    .notice a { color: var(--c-primary); }
+    .back-link { text-align: center; margin-top: 20px; font-size: 12px; color: var(--c-ink-mid); }
+    .back-link a { color: var(--c-primary); font-weight: 700; }
+  </style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="logo">
+      <div class="logo-icon">🌿</div>
+      <div class="logo-name">Recordare</div>
+      <div class="logo-sub">지적장애인 평생 기록 · 자기결정권 플랫폼</div>
+    </div>
+
+    <!-- 이메일 -->
+    <div>
+      <label class="form-label">이메일</label>
+      <input type="email" class="form-input" placeholder="이메일 주소 입력" style="margin-bottom:10px;">
+      <label class="form-label">비밀번호</label>
+      <input type="password" class="form-input" placeholder="비밀번호 입력">
+    </div>
+
+    <a href="role-select.html">
+      <button class="btn btn-primary w-full" style="margin-top:16px;">로그인</button>
+    </a>
+
+    <div class="divider">또는</div>
+
+    <button class="social-btn">
+      <span style="font-size:18px;">🟡</span> 카카오로 시작하기
+    </button>
+    <button class="social-btn">
+      <span style="font-size:18px;">🔵</span> 네이버로 시작하기
+    </button>
+
+    <div class="notice">
+      계정이 없으신가요? <a href="#">회원가입</a><br>
+      로그인 시 <a href="#">이용약관</a> 및 <a href="#">개인정보 처리방침</a>에 동의하게 됩니다.
+    </div>
+  </div>
+  <div class="back-link"><a href="../index.html">← 화면 목록으로</a></div>
+</div>
+</body>
+</html>

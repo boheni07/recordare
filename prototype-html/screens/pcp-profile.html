@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — PCP 당사자 프로필</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .nav-link { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--c-ink-mid);transition:all 0.15s;text-decoration:none; }
+    .nav-link:hover,.nav-link.active { background:color-mix(in srgb,var(--c-primary) 8%,transparent);color:var(--c-primary); }
+    /* AAC big-button layout (same as self-dashboard) */
+    .pcp-card { background:white;border:2px solid var(--c-border);border-radius:var(--radius-xl);padding:20px;margin-bottom:16px; }
+    .pcp-section-title { font-size:18px;font-weight:800;color:var(--c-primary-dk);margin-bottom:14px;display:flex;align-items:center;gap:8px; }
+    .tag-cloud { display:flex;flex-wrap:wrap;gap:8px; }
+    .tag-like { padding:8px 14px;background:color-mix(in srgb,var(--life-school) 10%,transparent);border:2px solid var(--life-school);border-radius:9999px;font-size:13px;font-weight:700;color:var(--life-school);cursor:pointer; }
+    .tag-hard { padding:8px 14px;background:color-mix(in srgb,#ef4444 8%,transparent);border:2px solid #ef4444;border-radius:9999px;font-size:13px;font-weight:700;color:#ef4444;cursor:pointer; }
+    .tag-add { padding:8px 14px;background:white;border:2px dashed var(--c-border);border-radius:9999px;font-size:13px;font-weight:700;color:var(--c-ink-mid);cursor:pointer; }
+    .tag-add:hover { border-color:var(--c-primary); }
+    .comm-btn { display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px;border:2px solid var(--c-border);border-radius:var(--radius-lg);cursor:pointer;background:white;transition:all 0.15s; }
+    .comm-btn.selected { border-color:var(--life-adult);background:color-mix(in srgb,var(--life-adult) 8%,transparent); }
+    .comm-btn .big-icon { font-size:32px; }
+    .comm-btn .label { font-size:12px;font-weight:700;text-align:center; }
+    .last-updated { font-size:11px;color:var(--c-ink-mid);margin-top:8px; }
+    .consent-bar { background:var(--c-secondary);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🌿 Recordare</div>
+    <a href="worker-dashboard.html" class="nav-link">🏠 대시보드</a>
+    <a href="journal-quick.html" class="nav-link">⚡ 빠른 일지</a>
+    <a href="journal-text.html" class="nav-link">⌨️ 텍스트 일지</a>
+    <a href="pbs-new.html" class="nav-link">📋 PBS 기록</a>
+    <a href="pbs-analysis.html" class="nav-link">📊 PBS 분석</a>
+    <div style="flex:1;"></div>
+    <a href="../index.html" class="nav-link">← 목록</a>
+  </aside>
+  <div style="flex:1;">
+    <div style="background:white;border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:13px;color:var(--c-ink-mid);">박지훈 (20세) · PCP 당사자 프로필 · B.9 · FR-87</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary btn-sm">🖨️ 인쇄</button>
+        <button class="btn btn-secondary btn-sm">🔗 공유</button>
+        <button style="background:var(--c-secondary);border:1px solid var(--c-border);border-radius:9999px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;" onclick="toggleTheme()">🌿 테마</button>
+        <a href="../index.html" style="font-size:11px;color:var(--c-ink-mid);display:flex;align-items:center;">← 목록</a>
+      </div>
+    </div>
+    <div class="main-content">
+
+      <div class="page-header">
+        <h1>🌱 나의 이야기 (PCP 프로필)</h1>
+        <div class="subtitle">박지훈 · 개인중심계획 · 2026.05.27 최종 업데이트 · 당사자 + 보호자 공동 작성</div>
+      </div>
+
+      <!-- 안내 배너 -->
+      <div class="alert alert-green" style="margin-bottom:20px;">
+        🌱 이 페이지는 <strong>박지훈 씨가 직접 이야기한 내용</strong>을 정리한 것입니다.
+        지원자는 이 내용을 바탕으로 더 잘 도와드릴 수 있어요. (FR-87)
+      </div>
+
+      <!-- 프로필 헤더 -->
+      <div class="pcp-card" style="background:linear-gradient(135deg,color-mix(in srgb,var(--life-adult) 8%,transparent),white);border-color:color-mix(in srgb,var(--life-adult) 25%,transparent);">
+        <div style="display:flex;align-items:center;gap:20px;">
+          <div style="width:72px;height:72px;border-radius:50%;background:color-mix(in srgb,var(--life-adult) 15%,transparent);display:flex;align-items:center;justify-content:center;font-size:36px;border:3px solid color-mix(in srgb,var(--life-adult) 30%,transparent);">🙋</div>
+          <div>
+            <div style="font-size:24px;font-weight:800;color:var(--c-primary-dk);">박지훈</div>
+            <div style="font-size:14px;color:var(--c-ink-mid);">20세 · 성인기 · 푸른그룹홈 거주</div>
+            <div style="margin-top:6px;display:flex;gap:6px;">
+              <span class="badge" style="background:color-mix(in srgb,var(--life-adult) 12%,transparent);color:#5b21b6;">성인기</span>
+              <span class="badge badge-green">PCP 작성 완료</span>
+              <span class="badge badge-blue">AAC 사용</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 좋아하는 것 -->
+      <div class="pcp-card">
+        <div class="pcp-section-title">❤️ 내가 좋아하는 것</div>
+        <div class="tag-cloud" id="likeCloud">
+          <span class="tag-like">🐕 강아지</span>
+          <span class="tag-like">🎵 BTS 음악</span>
+          <span class="tag-like">🍜 라면</span>
+          <span class="tag-like">🌳 산책</span>
+          <span class="tag-like">📺 예능 프로그램</span>
+          <span class="tag-like">🖍️ 색칠하기</span>
+          <button class="tag-add" onclick="addTag('like')">+ 추가</button>
+        </div>
+        <div class="last-updated">마지막 업데이트: 2026.05.20 · 박지훈 + 보호자 확인</div>
+      </div>
+
+      <!-- 힘든 상황 -->
+      <div class="pcp-card">
+        <div class="pcp-section-title">😰 내가 힘든 상황</div>
+        <div class="tag-cloud">
+          <span class="tag-hard">🔊 갑자기 큰 소리</span>
+          <span class="tag-hard">🔄 갑자기 바뀌는 일정</span>
+          <span class="tag-hard">👤 처음 보는 사람 많을 때</span>
+          <span class="tag-hard">😴 잠을 못 잤을 때</span>
+          <button class="tag-add" onclick="addTag('hard')">+ 추가</button>
+        </div>
+        <div style="background:#fef2f2;border-radius:var(--radius-sm);padding:10px;margin-top:10px;">
+          <div style="font-size:12px;font-weight:800;color:#ef4444;margin-bottom:4px;">지원자에게 알려주세요</div>
+          <div style="font-size:12px;color:#7f1d1d;">소음이 심하거나 일정이 갑자기 바뀔 때 미리 알려주고, 시각 스케줄 보드를 사용해 주세요.</div>
+        </div>
+        <div class="last-updated">마지막 업데이트: 2026.05.20</div>
+      </div>
+
+      <!-- 꿈·목표 -->
+      <div class="pcp-card">
+        <div class="pcp-section-title">🌟 내가 꿈꾸는 것·하고 싶은 것</div>
+        <div style="background:var(--c-secondary);border-radius:var(--radius-md);padding:14px;font-size:15px;line-height:1.7;color:var(--c-ink);" contenteditable="true" id="dreamText">
+          강아지 돌봄 봉사활동을 해보고 싶어요. 동물원에 가보고 싶고, 가족이랑 제주도 여행도 가고 싶어요.
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:6px;">
+          <button class="btn btn-secondary btn-sm" onclick="document.getElementById('dreamText').focus()">✏️ 편집</button>
+        </div>
+        <div class="last-updated">마지막 업데이트: 2026.04.15 · 박지훈 구술, 보호자 기록</div>
+      </div>
+
+      <!-- 이야기 방법 -->
+      <div class="pcp-card">
+        <div class="pcp-section-title">💬 나와 이야기하는 방법</div>
+        <div class="grid-4">
+          <div class="comm-btn selected">
+            <span class="big-icon">📱</span>
+            <span class="label">AAC 앱</span>
+          </div>
+          <div class="comm-btn selected">
+            <span class="big-icon">🖼️</span>
+            <span class="label">그림 카드</span>
+          </div>
+          <div class="comm-btn">
+            <span class="big-icon">✍️</span>
+            <span class="label">글씨 쓰기</span>
+          </div>
+          <div class="comm-btn selected">
+            <span class="big-icon">👆</span>
+            <span class="label">직접 가리키기</span>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px;background:color-mix(in srgb,var(--life-adult) 6%,transparent);border-radius:var(--radius-sm);">
+          <div style="font-size:12px;font-weight:800;color:#5b21b6;margin-bottom:4px;">✨ 잘 통하는 방법</div>
+          <div style="font-size:12px;color:#6d28d9;">간단한 단어와 그림을 함께 사용해 주세요. 한 번에 한 가지씩, 천천히 말씀해 주세요.</div>
+        </div>
+        <div class="last-updated">마지막 업데이트: 2026.03.01</div>
+      </div>
+
+      <!-- 배우고 싶은 것 -->
+      <div class="pcp-card">
+        <div class="pcp-section-title">📚 배우고 싶은 것·도전하고 싶은 것</div>
+        <div class="tag-cloud">
+          <span class="tag-like">🐾 동물 돌봄</span>
+          <span class="tag-like">🍳 간단한 요리</span>
+          <span class="tag-like">🚌 대중교통 이용</span>
+          <button class="tag-add" onclick="addTag('learn')">+ 추가</button>
+        </div>
+        <div class="last-updated">마지막 업데이트: 2026.04.15</div>
+      </div>
+
+      <!-- 동의 현황 -->
+      <div class="card p-5" style="margin-bottom:16px;">
+        <div style="font-weight:800;color:var(--c-primary-dk);margin-bottom:12px;">✅ 이 내용 공유 동의 현황</div>
+        <div class="consent-bar">
+          <div>
+            <div style="font-size:13px;font-weight:700;">이수진 활동지원사 — 전체 보기</div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">2026.06.30까지</div>
+          </div>
+          <span class="badge badge-green">동의 완료 👍</span>
+        </div>
+        <div class="consent-bar">
+          <div>
+            <div style="font-size:13px;font-weight:700;">김민준 사회복지사 — 전체 보기</div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">2026.12.31까지</div>
+          </div>
+          <span class="badge badge-green">동의 완료 👍</span>
+        </div>
+        <div class="consent-bar">
+          <div>
+            <div style="font-size:13px;font-weight:700;">○○ 치료사 — 행동·정서만</div>
+            <div style="font-size:11px;color:var(--c-ink-mid);">대기 중</div>
+          </div>
+          <span class="badge badge-amber">동의 대기 중</span>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;">
+        <a href="self-dashboard.html" class="btn btn-secondary">← 당사자 홈</a>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-secondary">임시저장</button>
+          <button class="btn btn-primary">저장 · 보호자 동기화</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.comm-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.classList.toggle('selected'));
+  });
+
+  function addTag(type) {
+    const text = prompt('추가할 내용을 입력하세요:');
+    if (!text) return;
+    const cloud = document.getElementById('likeCloud');
+    const btn = document.createElement('span');
+    btn.className = type === 'hard' ? 'tag-hard' : 'tag-like';
+    btn.textContent = text;
+    cloud.insertBefore(btn, cloud.lastElementChild);
+  }
+
+  let sg = false;
+  function toggleTheme() { sg = !sg; document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : ''); }
+</script>
+</body>
+</html>

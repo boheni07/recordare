@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 학령기 보호자 모임</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .nav-link { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--c-ink-mid);transition:all 0.15s;text-decoration:none; }
+    .nav-link:hover,.nav-link.active { background:color-mix(in srgb,var(--c-primary) 8%,transparent);color:var(--c-primary); }
+    .post-card { background:white;border:1px solid var(--c-border);border-radius:var(--radius-md);padding:16px;margin-bottom:10px;transition:all 0.15s; }
+    .post-card:hover { border-color:var(--c-primary);box-shadow:0 2px 8px rgba(0,0,0,.06); }
+    .post-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:8px; }
+    .author-chip { display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700; }
+    .author-avatar { width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white; }
+    .post-actions { display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--c-border);font-size:12px;color:var(--c-ink-mid); }
+    .post-action-btn { display:flex;align-items:center;gap:4px;cursor:pointer;transition:color 0.15s; }
+    .post-action-btn:hover { color:var(--c-primary); }
+    .comment-input-row { display:flex;gap:8px;align-items:flex-end;margin-top:10px;padding-top:10px;border-top:1px dashed var(--c-border); }
+    .meeting-card { border:1px solid var(--c-border);border-radius:var(--radius-md);padding:14px;background:white;margin-bottom:8px;display:flex;gap:14px;align-items:flex-start; }
+    .meeting-date { width:50px;height:50px;border-radius:var(--radius-md);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;font-weight:800; }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .inner-tab { padding:8px 16px;border-bottom:2px solid transparent;font-size:14px;font-weight:700;cursor:pointer;color:var(--c-ink-mid);transition:all 0.15s;background:none;border-left:none;border-right:none;border-top:none; }
+    .inner-tab.active { color:var(--c-primary);border-bottom-color:var(--c-primary); }
+    .tag-pill { padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:700;background:var(--c-secondary);color:var(--c-ink-mid);margin-right:4px; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🌿 Recordare</div>
+    <a href="parent-dashboard.html" class="nav-link">🏠 대시보드</a>
+    <a href="community-groups.html" class="nav-link active">👥 자조 모임</a>
+    <a href="pbs-new.html" class="nav-link">📋 PBS 기록</a>
+    <a href="pbs-analysis.html" class="nav-link">📊 PBS 분석</a>
+    <a href="pcp-profile.html" class="nav-link">🌱 PCP 프로필</a>
+    <div style="flex:1;"></div>
+    <a href="../index.html" class="nav-link">← 목록</a>
+  </aside>
+  <div style="flex:1;">
+    <div style="background:white;border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--c-ink-mid);">
+        <a href="community-groups.html" style="color:var(--c-ink-mid);text-decoration:none;">자조 모임</a>
+        <span>›</span>
+        <strong style="color:var(--c-ink);">학령기 보호자 모임</strong>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="btn btn-secondary btn-sm" onclick="alert('신고 화면 (프로토타입 미구현)')">🚨 신고</button>
+        <button style="background:var(--c-secondary);border:1px solid var(--c-border);border-radius:9999px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;" onclick="toggleTheme()">🌿 테마</button>
+      </div>
+    </div>
+    <div class="main-content">
+
+      <!-- 그룹 헤더 -->
+      <div style="background:linear-gradient(135deg,color-mix(in srgb,#5CB85C 10%,white),white);border:1px solid color-mix(in srgb,#5CB85C 20%,transparent);border-radius:var(--radius-xl);padding:24px;margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:8px;height:48px;background:#5CB85C;border-radius:4px;flex-shrink:0;"></div>
+              <div>
+                <div style="font-size:24px;font-weight:800;color:var(--c-primary-dk);">학령기 보호자 모임</div>
+                <div style="font-size:13px;color:var(--c-ink-mid);">7~18세 자녀 보호자 · 생애주기 자동 매칭 그룹 · FR-74</div>
+              </div>
+            </div>
+            <div style="font-size:14px;color:var(--c-ink);margin-left:18px;">IEP 작성, 방과후 프로그램, 특수교사와의 소통 노하우를 함께 나눠요. Recordare 인증 보호자 전용 안전한 공간입니다.</div>
+            <div style="margin-top:10px;margin-left:18px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="tag-pill">IEP</span>
+              <span class="tag-pill">방과후</span>
+              <span class="tag-pill">특수교사</span>
+              <span class="tag-pill">행동지원</span>
+              <span class="tag-pill">보조공학</span>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+              <div style="display:flex;gap:8px;">
+                <div style="background:white;border:1px solid var(--c-border);border-radius:var(--radius-md);padding:10px 14px;text-align:center;">
+                  <div style="font-weight:800;font-size:18px;color:#5CB85C;">247명</div>
+                  <div style="font-size:11px;color:var(--c-ink-mid);">멤버</div>
+                </div>
+                <div style="background:white;border:1px solid var(--c-border);border-radius:var(--radius-md);padding:10px 14px;text-align:center;">
+                  <div style="font-weight:800;font-size:18px;color:#5CB85C;">12건</div>
+                  <div style="font-size:11px;color:var(--c-ink-mid);">오늘 글</div>
+                </div>
+                <div style="background:white;border:1px solid var(--c-border);border-radius:var(--radius-md);padding:10px 14px;text-align:center;">
+                  <div style="font-weight:800;font-size:18px;color:#5CB85C;">1건</div>
+                  <div style="font-size:11px;color:var(--c-ink-mid);">예정 모임</div>
+                </div>
+              </div>
+              <span class="badge badge-green">✓ 참여 중</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 안내 -->
+      <div class="alert alert-green" style="margin-bottom:16px;">
+        🔒 이 모임은 <strong>Recordare 인증 보호자만</strong> 참여할 수 있습니다. 닉네임으로만 표시되며 자녀 이름·학교·주소 등 개인정보는 직접 입력하지 마세요. (FR-83, NFR-C05)
+      </div>
+
+      <!-- 내부 탭 -->
+      <div style="border-bottom:1px solid var(--c-border);display:flex;gap:0;margin-bottom:16px;">
+        <button class="inner-tab active" onclick="switchInnerTab(this,'posts')">📝 게시판</button>
+        <button class="inner-tab" onclick="switchInnerTab(this,'meetings')">📅 모임 일정</button>
+        <button class="inner-tab" onclick="switchInnerTab(this,'members')">👥 멤버</button>
+      </div>
+
+      <!-- 게시판 탭 -->
+      <div id="tab-posts" class="tab-content active">
+        <!-- 글 작성 -->
+        <div class="card p-4" style="margin-bottom:16px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <div class="author-avatar" style="background:#5CB85C;width:36px;height:36px;">박</div>
+            <div style="flex:1;">
+              <textarea class="form-input" rows="2" placeholder="오늘 어떤 경험을 나누고 싶으신가요? (자녀 이름·학교 등 개인정보는 적지 마세요)" style="resize:none;"></textarea>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+                <div style="display:flex;gap:8px;">
+                  <button class="btn btn-secondary btn-sm">📷 사진</button>
+                  <button class="btn btn-secondary btn-sm">🏷️ 태그</button>
+                </div>
+                <button class="btn btn-primary btn-sm">게시하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 필터 -->
+        <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+          <button class="filter-chip active" style="padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--c-primary);background:var(--c-primary);color:white;">전체</button>
+          <button class="filter-chip" style="padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--c-border);background:white;">IEP 관련</button>
+          <button class="filter-chip" style="padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--c-border);background:white;">행동지원</button>
+          <button class="filter-chip" style="padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--c-border);background:white;">방과후</button>
+          <button class="filter-chip" style="padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--c-border);background:white;">진학·전환</button>
+        </div>
+
+        <!-- 게시물 -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="author-chip">
+              <div class="author-avatar" style="background:#5CB85C;">이</div>
+              <div>
+                <div style="font-weight:700;">이름없는강아지</div>
+                <div style="font-size:10px;color:var(--c-ink-mid);">학령기 보호자 · 2시간 전</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:4px;">
+              <span class="tag-pill">IEP</span>
+              <span class="tag-pill">추천글 ⭐</span>
+            </div>
+          </div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:6px;">IEP 작성 이렇게 했어요 — 3년차 후기</div>
+          <div style="font-size:14px;color:var(--c-ink);line-height:1.7;">처음에 IEP 회의 때 뭘 말해야 할지 몰랐는데, 레코다레로 1년치 기록을 인쇄해서 가져갔더니 선생님들이 깜짝 놀라셨어요. 특히 행동·정서 카테고리 데이터가 학기별 변화를 보여줘서 목표 설정할 때 정말 도움됐어요.<br><br>구체적으로 어떤 데이터를 어떻게 활용했는지 정리해봤습니다 👇</div>
+          <div style="margin-top:10px;background:var(--c-secondary);border-radius:var(--radius-sm);padding:12px;font-size:13px;">
+            1. 연간 식사·투약 기록 → 신체 변화 근거 자료로 활용<br>
+            2. 행동 패턴 분석 → 도전행동 빈도 시각화 후 목표 설정<br>
+            3. PBS 기록 3개월치 → 대응 효과 데이터로 회의 자료 준비
+          </div>
+          <div class="post-actions">
+            <span class="post-action-btn" onclick="this.style.color='#ef4444'">❤️ 좋아요 34</span>
+            <span class="post-action-btn">💬 댓글 12</span>
+            <span class="post-action-btn">🔗 공유</span>
+            <span class="post-action-btn" style="margin-left:auto;">🚨 신고</span>
+          </div>
+          <div class="comment-input-row">
+            <div class="author-avatar" style="background:#5CB85C;width:28px;height:28px;font-size:11px;">박</div>
+            <input type="text" class="form-input" placeholder="댓글 달기..." style="flex:1;">
+            <button class="btn btn-primary btn-sm">등록</button>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-header">
+            <div class="author-chip">
+              <div class="author-avatar" style="background:#3B82F6;">하</div>
+              <div>
+                <div style="font-weight:700;">하늘빛엄마</div>
+                <div style="font-size:10px;color:var(--c-ink-mid);">학령기 보호자 · 5시간 전</div>
+              </div>
+            </div>
+            <div><span class="tag-pill">방과후</span></div>
+          </div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:6px;">방과후 활동 프로그램 찾고 있어요 (서울 노원구)</div>
+          <div style="font-size:14px;color:var(--c-ink);line-height:1.7;">아이가 올해 중학교 2학년이 됐는데, 방과후에 다닐 만한 특수학교 연계 프로그램을 찾고 있어요. 노원구 쪽에 어디 좋은 데 아시는 분 계신가요?</div>
+          <div class="post-actions">
+            <span class="post-action-btn" onclick="this.style.color='#ef4444'">❤️ 좋아요 7</span>
+            <span class="post-action-btn">💬 댓글 4</span>
+            <span class="post-action-btn">🔗 공유</span>
+            <span class="post-action-btn" style="margin-left:auto;">🚨 신고</span>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-header">
+            <div class="author-chip">
+              <div class="author-avatar" style="background:#f59e0b;">연</div>
+              <div>
+                <div style="font-weight:700;">연꽃보호자</div>
+                <div style="font-size:10px;color:var(--c-ink-mid);">학령기 보호자 · 어제</div>
+              </div>
+            </div>
+            <div><span class="tag-pill">행동지원</span></div>
+          </div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:6px;">PBS 기록 쓰기 시작했어요 — 한 달 후기</div>
+          <div style="font-size:14px;color:var(--c-ink);line-height:1.7;">처음엔 ABC 분석이 복잡해 보였는데, 한 달 써보니까 선행사건 패턴이 보이기 시작했어요. 소음+일정변경이 겹치면 무조건 힘들어한다는 걸 데이터로 확인하고, 미리 대비하니까 도전행동이 많이 줄었어요.</div>
+          <div class="post-actions">
+            <span class="post-action-btn" onclick="this.style.color='#ef4444'">❤️ 좋아요 21</span>
+            <span class="post-action-btn">💬 댓글 8</span>
+            <span class="post-action-btn">🔗 공유</span>
+            <span class="post-action-btn" style="margin-left:auto;">🚨 신고</span>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:16px;">
+          <button class="btn btn-secondary">더 보기 (218건)</button>
+        </div>
+      </div>
+
+      <!-- 모임 일정 탭 -->
+      <div id="tab-meetings" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div style="font-weight:800;color:var(--c-primary-dk);">예정된 모임</div>
+          <button class="btn btn-primary btn-sm">+ 모임 등록</button>
+        </div>
+
+        <div class="meeting-card">
+          <div class="meeting-date" style="background:color-mix(in srgb,#5CB85C 12%,transparent);color:#166534;">
+            <div style="font-size:11px;">06월</div>
+            <div style="font-size:20px;">07</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:800;font-size:15px;margin-bottom:4px;">IEP 작성 워크숍</div>
+            <div style="font-size:13px;color:var(--c-ink-mid);">토요일 오후 2:00~4:00 · 서울 ○○복지관 3층 회의실</div>
+            <div style="font-size:12px;margin-top:6px;">📋 이번 학기 IEP 목표 설정, 회의 준비 자료 만들기 실습</div>
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+              <span class="badge" style="background:color-mix(in srgb,#5CB85C 12%,transparent);color:#166634;">🏢 오프라인</span>
+              <span class="badge badge-amber">정원 20명 / 참여 14명</span>
+              <span class="badge badge-green">D-11</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" style="flex-shrink:0;align-self:flex-start;">참여 신청</button>
+        </div>
+
+        <div class="meeting-card">
+          <div class="meeting-date" style="background:color-mix(in srgb,#3B82F6 12%,transparent);color:#1e40af;">
+            <div style="font-size:11px;">06월</div>
+            <div style="font-size:20px;">21</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:800;font-size:15px;margin-bottom:4px;">6월 정기 온라인 모임</div>
+            <div style="font-size:13px;color:var(--c-ink-mid);">토요일 오전 10:00~11:30 · Zoom (링크 신청 후 전달)</div>
+            <div style="font-size:12px;margin-top:6px;">💬 자유 이야기, 신입 보호자 소개, Q&A 시간</div>
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+              <span class="badge badge-blue">💻 온라인</span>
+              <span class="badge" style="background:var(--c-secondary);color:var(--c-ink-mid);">정원 50명 / 참여 23명</span>
+              <span class="badge" style="background:var(--c-secondary);color:var(--c-ink-mid);">D-25</span>
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="flex-shrink:0;align-self:flex-start;">참여 신청</button>
+        </div>
+
+        <div style="margin-top:16px;padding:14px;background:var(--c-secondary);border-radius:var(--radius-md);">
+          <div style="font-size:12px;font-weight:800;color:var(--c-ink-mid);margin-bottom:4px;">📅 지난 모임 기록 (2건)</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);">2026.05.10 · 5월 정기 모임 (온라인, 34명 참여) — 회의록 보기 →</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);margin-top:4px;">2026.04.12 · 4월 IEP 스터디 (오프라인, 18명) — 회의록 보기 →</div>
+        </div>
+      </div>
+
+      <!-- 멤버 탭 -->
+      <div id="tab-members" class="tab-content">
+        <div style="font-size:13px;color:var(--c-ink-mid);margin-bottom:16px;">총 247명 · 닉네임으로만 표시 (개인정보 보호 NFR-C05)</div>
+        <div class="grid-3">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--c-border);border-radius:var(--radius-md);">
+            <div class="author-avatar" style="background:#5CB85C;width:36px;height:36px;">이</div>
+            <div><div style="font-weight:700;font-size:13px;">이름없는강아지</div><div style="font-size:11px;color:var(--c-ink-mid);">관리자 · 2년차</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--c-border);border-radius:var(--radius-md);">
+            <div class="author-avatar" style="background:#3B82F6;width:36px;height:36px;">하</div>
+            <div><div style="font-weight:700;font-size:13px;">하늘빛엄마</div><div style="font-size:11px;color:var(--c-ink-mid);">멤버 · 1년차</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--c-border);border-radius:var(--radius-md);">
+            <div class="author-avatar" style="background:#5CB85C;width:36px;height:36px;">박</div>
+            <div><div style="font-weight:700;font-size:13px;">박순영 (나)</div><div style="font-size:11px;color:var(--c-ink-mid);">멤버 · 3개월차</div></div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--c-ink-mid);">+ 244명 더 보기</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+  function switchInnerTab(el, tab) {
+    document.querySelectorAll('.inner-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+  let sg = false;
+  function toggleTheme() { sg = !sg; document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : ''); }
+</script>
+</body>
+</html>

@@ -114,6 +114,61 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* §5 Impact */}
+        <section className="py-20 container-page">
+          <h2 className="section-title text-center">사회적 임팩트</h2>
+          <p className="text-center text-ink-mid mt-2 mb-12">레코다레가 만들어가는 변화 (시범 운영 100명 기준 목표)</p>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { num: "30분", arrow: "→ 2분", label: "활동지원사 일지 작성 시간", sub: "FR-69 다중 입력 모드 도입 후" },
+              { num: "2주", arrow: "→ 3분", label: "기관 전환 적응 기간", sub: "마스터 인계서 시스템 기준" },
+              { num: "70%+", arrow: "", label: "보호자 1주 잔존율 목표", sub: "자조 모임 연결 효과 포함 (M6 KPI)" },
+              { num: "42%", arrow: "→ 67%", label: "당사자 자기결정 점수 변화", sub: "전환기 1년 AIR-SDS 목표 수치" },
+            ].map((it) => (
+              <div key={it.label} className="card p-6 text-center">
+                <div className="text-3xl font-extrabold text-primary">{it.num}<span className="text-xl text-accent">{it.arrow}</span></div>
+                <div className="mt-2 text-sm font-semibold text-primary-dark">{it.label}</div>
+                <div className="mt-1 text-xs text-ink-mid">{it.sub}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* §5.5 Community CTA */}
+        <section className="bg-secondary py-16">
+          <div className="container-page">
+            <div className="card p-8 flex flex-col md:flex-row justify-between items-center gap-6" style={{ borderColor: "#5CB85C", borderWidth: 2 }}>
+              <div>
+                <h3 className="text-xl font-extrabold text-primary-dark mb-2">👥 혼자가 아닙니다 — 보호자 자조 모임</h3>
+                <p className="text-sm text-ink-mid mb-4">Recordare 인증 보호자 전용 폐쇄형 커뮤니티 · 생애주기 자동 매칭 · 자녀 기록과 완전 분리</p>
+                <div className="flex flex-wrap gap-2">
+                  {["영유아기 모임 312명", "학령기 모임 247명", "전환기 자립 89명", "성인기 그룹홈 64명"].map(g => (
+                    <span key={g} className="rounded-full bg-white border border-border px-3 py-1 text-xs font-semibold">{g}</span>
+                  ))}
+                </div>
+              </div>
+              <Link href="/parent/community" className="btn-accent whitespace-nowrap">자조 모임 둘러보기 →</Link>
+            </div>
+          </div>
+        </section>
+
+        {/* §6 Trust */}
+        <section className="py-16 container-page">
+          <h2 className="section-title text-center">신뢰할 수 있는 파트너들</h2>
+          <div className="mt-10 flex flex-wrap gap-4 justify-center">
+            {[
+              "🏛️ 한국지적발달장애인복지협회 추천(예정)",
+              "🔐 ISMS-P 인증 준비 중",
+              "🌿 숨가든 리빙랩 협력",
+              "🏥 발달재활서비스 연계(협의 중)",
+              "⚖️ 성년후견 지원 법인 MOU(예정)",
+            ].map(t => (
+              <span key={t} className="rounded-xl bg-secondary border border-border px-5 py-3 text-sm font-semibold">{t}</span>
+            ))}
+          </div>
+          <p className="text-center text-xs text-ink-mid mt-6">※ (예정) 표시는 협의 또는 준비 중인 사항입니다</p>
+        </section>
+
         {/* §7 CTA */}
         <section className="bg-primary-dark text-white py-16">
           <div className="container-page text-center">

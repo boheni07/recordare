@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 역할 선택</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    body { background: var(--c-cream); }
+    .page { max-width: 800px; margin: 0 auto; padding: 48px 24px 60px; }
+    .role-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: white;
+      border: 1px solid var(--c-border);
+      border-left: 5px solid;
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .role-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+    .role-icon { font-size: 36px; flex-shrink: 0; }
+    .role-info { flex: 1; }
+    .role-name { font-size: 18px; font-weight: 800; color: var(--c-primary-dk); }
+    .role-desc { font-size: 12px; color: var(--c-ink-mid); margin-top: 4px; }
+    .role-path { font-size: 11px; font-weight: 700; margin-top: 10px; }
+    .roles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .m7-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    .m7-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      border: 1px solid var(--c-border);
+      border-left: 4px solid;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      color: inherit;
+      opacity: .85;
+    }
+    .m7-card:hover { opacity: 1; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .m7-icon { font-size: 28px; flex-shrink: 0; }
+    .m7-name { font-size: 14px; font-weight: 800; color: var(--c-primary-dk); }
+    .m7-desc { font-size: 11px; color: var(--c-ink-mid); margin-top: 3px; }
+    @media (max-width: 600px) {
+      .roles-grid, .m7-grid { grid-template-columns: 1fr; }
+    }
+    .theme-toggle-btn { position: fixed; top: 16px; right: 16px; background: white; border: 2px solid var(--c-border); border-radius: 9999px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; z-index: 100; }
+  </style>
+</head>
+<body>
+<button class="theme-toggle-btn" onclick="toggleTheme()">🌿 숨가든 테마</button>
+
+<div class="page">
+  <div style="text-align:center;margin-bottom:40px;">
+    <div style="font-size:32px;margin-bottom:8px;">🌿</div>
+    <h1 style="font-size:28px;font-weight:800;color:var(--c-primary-dk);">어떤 역할로 들어가시겠어요?</h1>
+    <p style="font-size:13px;color:var(--c-ink-mid);margin-top:6px;">다중 역할 보유 시 언제든 우상단 메뉴에서 전환할 수 있습니다.</p>
+  </div>
+
+  <!-- Core 6 역할 -->
+  <div class="roles-grid">
+    <a href="parent-dashboard.html" class="role-card" style="border-left-color: var(--life-early-childhood);">
+      <div class="role-icon">👨‍👩‍👧</div>
+      <div class="role-info">
+        <div class="role-name">보호자</div>
+        <div class="role-desc">자녀의 평생 기록을 관리하고 권한을 위임합니다</div>
+        <div class="role-path" style="color:var(--life-early-childhood);">/parent →</div>
+      </div>
+    </a>
+    <a href="worker-dashboard.html" class="role-card" style="border-left-color: var(--life-school);">
+      <div class="role-icon">💼</div>
+      <div class="role-info">
+        <div class="role-name">활동지원사</div>
+        <div class="role-desc">빠른 선택 일지·인계서 수령으로 케어에 집중합니다</div>
+        <div class="role-path" style="color:var(--life-school);">/worker →</div>
+      </div>
+    </a>
+    <a href="self-dashboard.html" class="role-card" style="border-left-color: var(--life-adult);">
+      <div class="role-icon">✋</div>
+      <div class="role-info">
+        <div class="role-name">당사자 (AAC)</div>
+        <div class="role-desc">AAC 픽토그램으로 직접 동의하고 일기를 봅니다</div>
+        <div class="role-path" style="color:var(--life-adult);">/self →</div>
+      </div>
+    </a>
+    <a href="#" class="role-card" style="border-left-color: var(--life-transition);">
+      <div class="role-icon">📋</div>
+      <div class="role-info">
+        <div class="role-name">사회복지사 · 교사</div>
+        <div class="role-desc">케이스 4영역을 자동 요약해 회의 자료를 만듭니다</div>
+        <div class="role-path" style="color:var(--life-transition);">/case →</div>
+      </div>
+    </a>
+    <a href="#" class="role-card" style="border-left-color: var(--life-senior);">
+      <div class="role-icon">🏢</div>
+      <div class="role-info">
+        <div class="role-name">시설장</div>
+        <div class="role-desc">이용자·직원·만료 3-KPI로 시설을 운영합니다</div>
+        <div class="role-path" style="color:var(--life-senior);">/facility →</div>
+      </div>
+    </a>
+    <a href="#" class="role-card" style="border-left-color: var(--life-school);">
+      <div class="role-icon">🏫</div>
+      <div class="role-info">
+        <div class="role-name">일반교사 (통합학급)</div>
+        <div class="role-desc">통합학급 학생 짧은 메모를 특수교사와 공유합니다</div>
+        <div class="role-path" style="color:var(--life-school);">/general-teacher →</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- M7+ 역할 -->
+  <div class="section-divider" style="margin-top:32px;">
+    <span style="background:var(--c-secondary);border:1px solid var(--c-border);border-radius:9999px;padding:4px 14px;font-size:11px;font-weight:800;color:var(--c-ink-mid);">
+      M7+ 추가 이해관계자 (로드맵)
+    </span>
+  </div>
+
+  <div class="m7-grid">
+    <a href="#" class="m7-card" style="border-left-color:var(--life-adult);">
+      <div class="m7-icon">🩺</div>
+      <div>
+        <div class="m7-name">의료진 · 치료사 <span class="badge badge-m7" style="font-size:9px;">M7+</span></div>
+        <div class="m7-desc">의료·치료 기록과 PBS 패턴 분석에 접근합니다 (B22·FR-84)</div>
+      </div>
+    </a>
+    <a href="#" class="m7-card" style="border-left-color:var(--life-transition);">
+      <div class="m7-icon">🔧</div>
+      <div>
+        <div class="m7-name">직업재활사 <span class="badge badge-m7" style="font-size:9px;">M7+</span></div>
+        <div class="m7-desc">직업재활 훈련 기록과 자립 목표를 관리합니다 (B23·FR-87)</div>
+      </div>
+    </a>
+    <a href="post-care-plan.html" class="m7-card" style="border-left-color:var(--life-post-care);">
+      <div class="m7-icon">⚖️</div>
+      <div>
+        <div class="m7-name">성년후견인 <span class="badge badge-m7" style="font-size:9px;">M7+</span></div>
+        <div class="m7-desc">SNT 신탁·후견 보고·거주지 전환 계획 총괄 (B24·FR-88~90)</div>
+      </div>
+    </a>
+  </div>
+  <p style="text-align:center;font-size:11px;color:var(--c-ink-mid);margin-top:10px;">
+    M7+ 역할은 MVP 이후 단계적 출시 예정 — 현재 화면은 프로토타입 탐색용
+  </p>
+
+  <div style="text-align:center;margin-top:32px;">
+    <a href="../index.html" style="font-size:12px;color:var(--c-ink-mid);">← 화면 목록으로</a>
+  </div>
+</div>
+
+<script>
+  let sg = false;
+  function toggleTheme() {
+    sg = !sg;
+    document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : '');
+    document.querySelector('.theme-toggle-btn').textContent = sg ? '🔵 기본 테마' : '🌿 숨가든 테마';
+  }
+</script>
+</body>
+</html>

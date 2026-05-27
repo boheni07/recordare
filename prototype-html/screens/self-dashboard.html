@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 당사자 (AAC) 대시보드</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    body { background: var(--c-cream); font-size: 20px; }
+    .aac-main { max-width: 640px; margin: 0 auto; padding: 24px; }
+    .aac-header { background: var(--c-primary); color: white; padding: 24px; border-radius: var(--radius-xl); margin-bottom: 24px; text-align: center; }
+    .aac-section { background: white; border: 2px solid var(--c-border); border-radius: var(--radius-xl); padding: 20px; margin-bottom: 16px; }
+    .aac-section-title { font-size: 20px; font-weight: 800; color: var(--c-primary-dk); margin-bottom: 16px; }
+    .aac-btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .aac-action { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 12px; background: white; border: 3px solid var(--c-border); border-radius: var(--radius-xl); cursor: pointer; font-size: 14px; font-weight: 800; text-decoration: none; color: var(--c-ink); transition: all 0.15s; text-align: center; }
+    .aac-action:hover { border-color: var(--c-primary); background: color-mix(in srgb, var(--c-primary) 5%, transparent); transform: scale(1.03); }
+    .aac-action .big-icon { font-size: 44px; }
+    .yes-no { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+    .yes-btn, .no-btn { padding: 24px; border: 3px solid; border-radius: var(--radius-xl); font-size: 20px; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: all 0.15s; }
+    .yes-btn { border-color: var(--life-school); color: var(--life-school); background: color-mix(in srgb, var(--life-school) 5%, transparent); }
+    .yes-btn:hover { background: var(--life-school); color: white; }
+    .no-btn { border-color: var(--c-accent); color: var(--c-accent); background: color-mix(in srgb, var(--c-accent) 5%, transparent); }
+    .no-btn:hover { background: var(--c-accent); color: white; }
+    .consent-item { border: 2px solid var(--c-border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px; }
+    .consent-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .nav-top { background: white; border-bottom: 2px solid var(--c-border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body>
+<div class="nav-top">
+  <div style="font-size:16px;font-weight:800;color:var(--c-primary);">🌿 Recordare</div>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <span class="badge" style="background:color-mix(in srgb,var(--life-adult) 15%,transparent);color:#5b21b6;font-size:12px;">당사자 모드 (큰 글씨)</span>
+    <a href="../index.html" style="font-size:12px;color:var(--c-ink-mid);">← 목록</a>
+  </div>
+</div>
+
+<div class="aac-main">
+  <div class="aac-header">
+    <div style="font-size:48px;margin-bottom:8px;">👋</div>
+    <div style="font-size:28px;font-weight:800;">박지훈</div>
+    <div style="font-size:16px;opacity:.85;margin-top:4px;">오늘도 잘 오셨어요!</div>
+  </div>
+
+  <!-- 메인 메뉴 AAC -->
+  <div class="aac-section">
+    <div class="aac-section-title">오늘 무엇을 할까요?</div>
+    <div class="aac-btn-grid">
+      <a href="pcp-profile.html" class="aac-action">
+        <span class="big-icon">📖</span>나의 이야기
+      </a>
+      <a href="#" class="aac-action">
+        <span class="big-icon">📓</span>오늘 일기
+      </a>
+      <a href="#" class="aac-action">
+        <span class="big-icon">✅</span>동의하기
+      </a>
+      <a href="#" class="aac-action">
+        <span class="big-icon">🎯</span>내 활동
+      </a>
+      <a href="#" class="aac-action">
+        <span class="big-icon">📰</span>기록 보기
+      </a>
+      <a href="#" class="aac-action">
+        <span class="big-icon">🆘</span>도움 요청
+      </a>
+    </div>
+  </div>
+
+  <!-- AAC 동의 UI (FR-23) -->
+  <div class="aac-section">
+    <div class="aac-section-title">✅ 오늘 동의할 것이 있어요</div>
+    <div class="consent-item">
+      <div class="consent-title">이수진 선생님이 내 기록을 볼 수 있어요</div>
+      <div style="font-size:14px;color:var(--c-ink-mid);margin-bottom:12px;">식사 · 행동 · 정서 · 학습 — 2026.06.30까지</div>
+      <div class="yes-no">
+        <button class="yes-btn">
+          <span style="font-size:40px;">👍</span>
+          네, 괜찮아요
+        </button>
+        <button class="no-btn">
+          <span style="font-size:40px;">👎</span>
+          싫어요
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PCP 연결 -->
+  <div style="background:color-mix(in srgb,var(--life-adult) 8%,transparent);border:2px solid color-mix(in srgb,var(--life-adult) 20%,transparent);border-radius:var(--radius-xl);padding:20px;margin-bottom:16px;">
+    <div style="font-size:18px;font-weight:800;color:#5b21b6;margin-bottom:6px;">🌱 내 이야기 (PCP) 업데이트</div>
+    <div style="font-size:14px;color:#6d28d9;">내가 좋아하는 것, 하고 싶은 것을 새로 쓸 수 있어요!</div>
+    <a href="pcp-profile.html" class="aac-action" style="width:fit-content;margin-top:12px;border-color:var(--life-adult);color:var(--life-adult);padding:12px 20px;">
+      <span style="font-size:24px;">✏️</span> 나의 이야기 쓰기
+    </a>
+  </div>
+
+  <div style="text-align:center;margin-top:16px;">
+    <a href="role-select.html" style="font-size:13px;color:var(--c-ink-mid);">← 역할 선택</a>
+  </div>
+</div>
+</body>
+</html>

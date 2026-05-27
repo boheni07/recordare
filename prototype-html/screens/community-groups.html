@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordare — 보호자 자조 모임</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .nav-link { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--c-ink-mid);transition:all 0.15s;text-decoration:none; }
+    .nav-link:hover,.nav-link.active { background:color-mix(in srgb,var(--c-primary) 8%,transparent);color:var(--c-primary); }
+    .group-card { background:white;border:1px solid var(--c-border);border-radius:var(--radius-xl);padding:20px;cursor:pointer;transition:all 0.15s;text-decoration:none;display:block;color:var(--c-ink); }
+    .group-card:hover { border-color:var(--c-primary);box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-2px); }
+    .group-card .life-bar { height:4px;border-radius:9999px;margin-bottom:14px; }
+    .group-meta { display:flex;gap:12px;font-size:11px;color:var(--c-ink-mid);margin-top:8px;flex-wrap:wrap; }
+    .tab-btn { padding:8px 18px;border-radius:9999px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid var(--c-border);background:white;transition:all 0.15s; }
+    .tab-btn.active { background:var(--c-primary);color:white;border-color:var(--c-primary); }
+    .filter-chip { padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--c-border);background:white;transition:all 0.15s; }
+    .filter-chip.active { background:var(--c-primary);color:white;border-color:var(--c-primary); }
+    .recent-post { display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--c-border);align-items:flex-start; }
+    .recent-post:last-child { border-bottom:none; }
+    .post-dot { width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px; }
+    .meeting-row { display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--c-border);border-radius:var(--radius-md);background:white;margin-bottom:8px; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🌿 Recordare</div>
+    <a href="parent-dashboard.html" class="nav-link">🏠 대시보드</a>
+    <a href="community-groups.html" class="nav-link active">👥 자조 모임</a>
+    <a href="pbs-new.html" class="nav-link">📋 PBS 기록</a>
+    <a href="pbs-analysis.html" class="nav-link">📊 PBS 분석</a>
+    <a href="pcp-profile.html" class="nav-link">🌱 PCP 프로필</a>
+    <div style="flex:1;"></div>
+    <a href="landing.html" class="nav-link">🌿 서비스 소개</a>
+    <a href="../index.html" class="nav-link">← 목록</a>
+  </aside>
+  <div style="flex:1;">
+    <div style="background:white;border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:13px;color:var(--c-ink-mid);">박순영 (보호자) · 자조 모임 · FR-74~80</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge badge-blue">🔒 인증 보호자 전용</span>
+        <button style="background:var(--c-secondary);border:1px solid var(--c-border);border-radius:9999px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;" onclick="toggleTheme()">🌿 테마</button>
+      </div>
+    </div>
+    <div class="main-content">
+
+      <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <h1>👥 보호자 자조 모임</h1>
+          <div class="subtitle">박순영 · 인증 보호자 전용 폐쇄형 커뮤니티 · 생애주기 자동 매칭 · FR-74~80</div>
+        </div>
+        <button class="btn btn-primary" onclick="showNewGroupModal()">+ 모임 개설</button>
+      </div>
+
+      <!-- 자조 모임 안내 배너 -->
+      <div class="alert alert-green" style="margin-bottom:20px;">
+        🌿 자조 모임은 <strong>Recordare 인증 보호자만</strong> 참여할 수 있는 안전한 공간입니다. 자녀 기록 데이터와 완전히 분리되며 닉네임으로만 표시됩니다. (FR-83)
+      </div>
+
+      <!-- 내 모임 -->
+      <div class="card p-5" style="background:color-mix(in srgb,var(--c-primary) 4%,transparent);border-color:color-mix(in srgb,var(--c-primary) 15%,transparent);margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div style="font-weight:800;color:var(--c-primary-dk);">⭐ 내가 참여 중인 모임 (2개)</div>
+          <a href="#" style="font-size:12px;color:var(--c-primary);font-weight:700;">전체 보기</a>
+        </div>
+        <div class="grid-2">
+          <a href="community-group-detail.html" class="group-card">
+            <div class="life-bar" style="background:#5CB85C;"></div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div style="font-size:16px;font-weight:800;color:var(--c-primary-dk);">학령기 보호자 모임</div>
+              <span class="badge" style="background:color-mix(in srgb,#5CB85C 12%,transparent);color:#166534;">자동 매칭</span>
+            </div>
+            <div style="font-size:13px;color:var(--c-ink-mid);margin-top:4px;">7~18세 자녀 보호자 · 247명</div>
+            <div style="margin-top:10px;padding:8px;background:var(--c-secondary);border-radius:var(--radius-sm);">
+              <div style="font-size:12px;font-weight:700;">📝 최근 글</div>
+              <div style="font-size:12px;color:var(--c-ink-mid);margin-top:2px;">"IEP 작성 이렇게 했어요" — 2시간 전</div>
+            </div>
+            <div class="group-meta">
+              <span>👥 247명</span>
+              <span>📝 오늘 12건</span>
+              <span>📅 다음 모임 D-3</span>
+            </div>
+          </a>
+          <a href="community-group-detail.html" class="group-card">
+            <div class="life-bar" style="background:#3B82F6;"></div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div style="font-size:16px;font-weight:800;color:var(--c-primary-dk);">전환기 자립 준비 모임</div>
+              <span class="badge badge-blue">자유 그룹</span>
+            </div>
+            <div style="font-size:13px;color:var(--c-ink-mid);margin-top:4px;">자립생활·직업훈련 주제 · 89명</div>
+            <div style="margin-top:10px;padding:8px;background:var(--c-secondary);border-radius:var(--radius-sm);">
+              <div style="font-size:12px;font-weight:700;">📅 다음 모임</div>
+              <div style="font-size:12px;color:var(--c-ink-mid);margin-top:2px;">토요일 오전 10시 · 온라인</div>
+            </div>
+            <div class="group-meta">
+              <span>👥 89명</span>
+              <span>📝 오늘 5건</span>
+              <span>📅 D-3</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 탭 + 필터 -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;gap:6px;">
+          <button class="tab-btn active" onclick="switchTab(this,'all')">전체 모임</button>
+          <button class="tab-btn" onclick="switchTab(this,'matched')">생애주기 매칭</button>
+          <button class="tab-btn" onclick="switchTab(this,'free')">자유 개설</button>
+          <button class="tab-btn" onclick="switchTab(this,'meeting')">모임 일정</button>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="filter-chip active" onclick="this.classList.toggle('active')">전체</button>
+          <button class="filter-chip" onclick="this.classList.toggle('active')">영유아기</button>
+          <button class="filter-chip" onclick="this.classList.toggle('active')">학령기</button>
+          <button class="filter-chip" onclick="this.classList.toggle('active')">전환기</button>
+          <button class="filter-chip" onclick="this.classList.toggle('active')">성인기</button>
+        </div>
+      </div>
+
+      <!-- 그룹 목록 -->
+      <div class="grid-3" id="groupGrid" style="margin-bottom:24px;">
+
+        <a href="community-group-detail.html" class="group-card">
+          <div class="life-bar" style="background:#FFB49A;"></div>
+          <div style="font-size:16px;font-weight:800;">영아기 보호자 모임</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);margin-top:4px;">0~2세 · 자동 매칭 그룹</div>
+          <div style="font-size:13px;margin-top:8px;line-height:1.5;">처음 장애 진단을 받고 막막한 분들이 함께 이야기 나눠요</div>
+          <div class="group-meta">
+            <span>👥 312명</span>
+            <span>📝 오늘 24건</span>
+          </div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <span class="badge" style="background:color-mix(in srgb,#FFB49A 15%,transparent);color:#9a3412;">영아기</span>
+            <button class="btn btn-secondary btn-sm">참여하기</button>
+          </div>
+        </a>
+
+        <a href="community-group-detail.html" class="group-card">
+          <div class="life-bar" style="background:#FFC857;"></div>
+          <div style="font-size:16px;font-weight:800;">영유아기 보호자 모임</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);margin-top:4px;">3~6세 · 자동 매칭 그룹</div>
+          <div style="font-size:13px;margin-top:8px;line-height:1.5;">어린이집·유치원·발달재활 경험을 나눠요</div>
+          <div class="group-meta">
+            <span>👥 298명</span>
+            <span>📝 오늘 18건</span>
+          </div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <span class="badge" style="background:color-mix(in srgb,#FFC857 15%,transparent);color:#92400e;">영유아기</span>
+            <button class="btn btn-secondary btn-sm">참여하기</button>
+          </div>
+        </a>
+
+        <a href="community-group-detail.html" class="group-card" style="border-color:color-mix(in srgb,#5CB85C 25%,transparent);background:color-mix(in srgb,#5CB85C 3%,white);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px;">
+            <div></div>
+            <span class="badge badge-green">참여 중</span>
+          </div>
+          <div class="life-bar" style="background:#5CB85C;"></div>
+          <div style="font-size:16px;font-weight:800;">학령기 보호자 모임</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);margin-top:4px;">7~18세 · 자동 매칭 그룹</div>
+          <div style="font-size:13px;margin-top:8px;line-height:1.5;">IEP, 방과후, 특수교사와의 소통 노하우</div>
+          <div class="group-meta">
+            <span>👥 247명</span>
+            <span>📝 오늘 12건</span>
+          </div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <span class="badge" style="background:color-mix(in srgb,#5CB85C 15%,transparent);color:#166534;">학령기</span>
+            <button class="btn btn-primary btn-sm">바로가기 →</button>
+          </div>
+        </a>
+
+        <a href="community-group-detail.html" class="group-card" style="border-color:color-mix(in srgb,#3B82F6 25%,transparent);background:color-mix(in srgb,#3B82F6 3%,white);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px;">
+            <div></div>
+            <span class="badge badge-blue">참여 중</span>
+          </div>
+          <div class="life-bar" style="background:#3B82F6;"></div>
+          <div style="font-size:16px;font-weight:800;">전환기 자립 준비 모임</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);margin-top:4px;">자유 개설 · 89명</div>
+          <div style="font-size:13px;margin-top:8px;line-height:1.5;">직업재활, 그룹홈, 활동지원 준비 경험 공유</div>
+          <div class="group-meta">
+            <span>👥 89명</span>
+            <span>📝 오늘 5건</span>
+            <span>📅 토요일 모임</span>
+          </div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <span class="badge" style="background:color-mix(in srgb,#3B82F6 15%,transparent);color:#1e40af;">전환기</span>
+            <button class="btn btn-primary btn-sm">바로가기 →</button>
+          </div>
+        </a>
+
+        <a href="community-group-detail.html" class="group-card">
+          <div class="life-bar" style="background:#7C3AED;"></div>
+          <div style="font-size:16px;font-weight:800;">성인기 그룹홈 보호자</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);margin-top:4px;">자동 매칭 · 64명</div>
+          <div style="font-size:13px;margin-top:8px;line-height:1.5;">그룹홈 생활, 활동지원사, 주거 전환 경험</div>
+          <div class="group-meta">
+            <span>👥 64명</span>
+            <span>📝 오늘 8건</span>
+          </div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <span class="badge" style="background:color-mix(in srgb,#7C3AED 15%,transparent);color:#5b21b6;">성인기</span>
+            <button class="btn btn-secondary btn-sm">참여하기</button>
+          </div>
+        </a>
+
+        <a href="community-group-detail.html" class="group-card">
+          <div class="life-bar" style="background:#f59e0b;"></div>
+          <div style="font-size:16px;font-weight:800;">자폐 스펙트럼 보호자 모임</div>
+          <div style="font-size:12px;color:var(--c-ink-mid);margin-top:4px;">자유 개설 · 주제별</div>
+          <div style="font-size:13px;margin-top:8px;line-height:1.5;">ASD 특성, 감각통합, 행동지원 전략 공유</div>
+          <div class="group-meta">
+            <span>👥 121명</span>
+            <span>📝 오늘 9건</span>
+          </div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <span class="badge" style="background:color-mix(in srgb,#f59e0b 15%,transparent);color:#92400e;">주제별</span>
+            <button class="btn btn-secondary btn-sm">참여하기</button>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- 최근 모임 일정 -->
+      <div class="card p-5" style="margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="font-weight:800;color:var(--c-primary-dk);">📅 다가오는 모임 일정</div>
+          <button class="btn btn-secondary btn-sm">+ 모임 등록</button>
+        </div>
+        <div class="meeting-row">
+          <div style="width:44px;height:44px;border-radius:var(--radius-md);background:color-mix(in srgb,#3B82F6 12%,transparent);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+            <div style="font-size:11px;font-weight:700;color:#1e40af;">05</div>
+            <div style="font-size:16px;font-weight:800;color:#1e40af;">31</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;">전환기 자립 준비 — 5월 정기 모임</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">토요일 오전 10:00 · 온라인 Zoom · 정원 30명</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="badge badge-green">D-4</span>
+            <button class="btn btn-primary btn-sm">참여 신청</button>
+          </div>
+        </div>
+        <div class="meeting-row">
+          <div style="width:44px;height:44px;border-radius:var(--radius-md);background:color-mix(in srgb,#5CB85C 12%,transparent);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+            <div style="font-size:11px;font-weight:700;color:#166534;">06</div>
+            <div style="font-size:16px;font-weight:800;color:#166534;">07</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;">학령기 보호자 모임 — IEP 작성 워크숍</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">토요일 오후 2:00 · 서울 ○○복지관 · 정원 20명</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="badge badge-amber">D-11</span>
+            <button class="btn btn-secondary btn-sm">참여 신청</button>
+          </div>
+        </div>
+        <div class="meeting-row">
+          <div style="width:44px;height:44px;border-radius:var(--radius-md);background:color-mix(in srgb,#FFB49A 12%,transparent);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+            <div style="font-size:11px;font-weight:700;color:#9a3412;">06</div>
+            <div style="font-size:16px;font-weight:800;color:#9a3412;">14</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;">영아기 보호자 모임 — 진단 초기 이야기 나눔</div>
+            <div style="font-size:12px;color:var(--c-ink-mid);">일요일 오전 11:00 · 온라인 · 정원 15명</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="badge" style="background:var(--c-secondary);color:var(--c-ink-mid);">D-18</span>
+            <button class="btn btn-secondary btn-sm">참여 신청</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 신고 안내 -->
+      <div class="alert alert-amber">
+        📋 자조 모임 운영 원칙: 닉네임으로만 표시 · 자녀 개인정보(이름·학교·주소) 직접 기입 금지 · 부적절한 게시물은 신고 기능을 이용해 주세요. (FR-81)
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+  function switchTab(el, tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function showNewGroupModal() {
+    alert('모임 개설 화면\n(프로토타입에서는 미구현)');
+  }
+  let sg = false;
+  function toggleTheme() { sg = !sg; document.documentElement.setAttribute('data-theme', sg ? 'soomgarden' : ''); }
+</script>
+</body>
+</html>
